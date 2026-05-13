@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>Scheda D&D 2014</title>
+<title>Scheda D&D 5e</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -102,7 +102,7 @@ button.sm{font-size:11px;padding:2px 8px}
 <div id="nav"><div id="nav-inner"></div></div>
 <div id="modal-root"></div>
 <div id="rpop" class="rpop"></div>
-
+ 
 <script>
 // ══ DATA ══
 const PAGES=[
@@ -111,7 +111,7 @@ const PAGES=[
   {id:'combo',ic:'⚡',tx:'Combo'},{id:'inventory',ic:'🎒',tx:'Inventario'},{id:'personality',ic:'🎭',tx:'Personalità'},
   {id:'diario',ic:'📓',tx:'Diario'},{id:'world',ic:'🗺',tx:'Mondo'},{id:'homebrew',ic:'⚗',tx:'Homebrew'},
 ];
-
+ 
 const SD={
 "fire bolt":{it:"Dardo di Fuoco",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"Tiro colpire distanza. 1d10 fuoco. Scala per livello."},
 "dardo di fuoco":{it:"Dardo di Fuoco",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"1d10 fuoco per colpo."},
@@ -214,7 +214,7 @@ function lkS(n){
   for(const v of Object.values(SD)){if(v.it&&v.it.toLowerCase()===key)return v;}
   return null;
 }
-
+ 
 const DEF={
   name:"",cls:"",sub:"",lv:1,race:"",bg:"",align:"",xp:0,
   str:10,dex:10,con:10,int:10,wis:10,cha:10,prof:2,
@@ -248,16 +248,16 @@ const DEF={
   conditions:[],
   conditionEdition:'2014',
 };
-
+ 
 let C={};
 let PG='main';
-
+ 
 function reset(){C=JSON.parse(JSON.stringify(DEF));}
 function load(){try{const s=localStorage.getItem('dnd5');if(s){const d=JSON.parse(s);C={...JSON.parse(JSON.stringify(DEF)),...d};if(!C.sk||!C.sk.acrobazia){C.sk=JSON.parse(JSON.stringify(DEF.sk));}}else reset();}catch(e){reset();}}
 let _saveT;
 function save(){clearTimeout(_saveT);_saveT=setTimeout(()=>{try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}},300);}
 function saveNow(){try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}}
-
+ 
 // ── HELPERS ──
 function sm(s){return Math.floor(((s||10)-10)/2);}
 function profByLevel(lv){return lv>=17?6:lv>=13?5:lv>=9?4:lv>=5?3:2;}
@@ -269,7 +269,7 @@ function roll(f){
   const r=Array.from({length:n},()=>Math.floor(Math.random()*s)+1);
   return{t:r.reduce((a,b)=>a+b,0)+b,r,f};
 }
-
+ 
 // DOM builder — NEVER causes re-render
 function mk(tag,attr,children){
   const el=document.createElement(tag);
@@ -291,10 +291,10 @@ function mk(tag,attr,children){
   }
   return el;
 }
-
+ 
 // ── CRITICAL: inputs NEVER trigger render ──
 // They only update state and save. render() is only called from buttons/nav.
-
+ 
 function TI(val,cb,ph,st){
   // Text input - updates C via cb, NO render
   const el=mk('input',{type:'text',value:val||'',placeholder:ph||'',style:st||{}});
@@ -377,7 +377,7 @@ function CARD(children,st){
 function STATSEL(val,cb){
   return SEL(val,[['str','FOR'],['dex','DES'],['con','COS'],['int','INT'],['wis','SAG'],['cha','CAR']],cb,{width:'100%'});
 }
-
+ 
 // ── ROLL POPUP ──
 let rpt=null;
 function showRoll(formula,label){
@@ -390,7 +390,7 @@ function showRoll(formula,label){
   p.style.display='block';
   clearTimeout(rpt);rpt=setTimeout(()=>p.style.display='none',3000);
 }
-
+ 
 // ── MODAL ──
 function showModal(content){
   const root=document.getElementById('modal-root');
@@ -401,7 +401,7 @@ function showModal(content){
   root.appendChild(ov);
 }
 function closeModal(){document.getElementById('modal-root').innerHTML='';}
-
+ 
 function showDiceModal(){
   let f='1d20';
   const quick=['1d4','1d6','1d8','1d10','1d12','1d20','1d100','2d6'];
@@ -432,8 +432,8 @@ function showDiceModal(){
   ]);
   showModal(box);
 }
-
-
+ 
+ 
 function showConditionModal(name){
   const ed=C.conditionEdition||'2014';
   const data=CONDITIONS[name];
@@ -449,14 +449,14 @@ function showConditionModal(name){
   ]);
   showModal(box);
 }
-
+ 
 function showSpellModal(name){
   const db=lkS(name);
   const cu=(C.csp||{})[name?.toLowerCase()]||null;
   const data=cu||db;
   let editing=!data;
   let dr={...(cu||db||{it:name||'',lv:0,sc:'',ca:'A',ra:'',du:'',co:'',de:''})};
-
+ 
   function renderSpellModal(){
     const show=editing?dr:(cu||db||{});
     const title=(show.it||name||'')+(show.lv===0?' (Trucchetto)':show.lv?' (Lv '+show.lv+')':'');
@@ -524,7 +524,7 @@ function showSpellModal(name){
   }
   renderSpellModal();
 }
-
+ 
 function showMagicModal(idx){
   const item=C.mi[idx];
   if(!item)return;
@@ -532,7 +532,7 @@ function showMagicModal(idx){
   let editing=!item.name;
   let dr={...item};
   const rarC={comune:'var(--text)',non_comune:'var(--greenl)',raro:'var(--bluel)','molto raro':'var(--purl)',leggendario:'var(--gl)'};
-
+ 
   function renderMagicModal(){
     const show=editing?dr:item;
     let content;
@@ -549,7 +549,7 @@ function showMagicModal(idx){
         attBox.className='chkb'+(dr.requiresAttunement?' on':'');
         attBox.textContent=dr.requiresAttunement?'✦':'';
       });
-
+ 
       content=DIV([
         DIV([LBL('Nome'),nameI]),
         DIV([LBL('Rarità'),rarS]),
@@ -581,7 +581,7 @@ function showMagicModal(idx){
       } else {
         attRow=mk('div',{style:{color:'var(--td)',fontSize:'12px'}},['Nessuna sintonizzazione richiesta']);
       }
-
+ 
       content=DIV([
         rarity&&DIV([LBL('Rarità'),mk('span',{style:{color:rarC[rarity]||'var(--text)',fontSize:'13px',textTransform:'capitalize'}},[rarity.replace('_',' ')])]),
         show.type&&DIV([LBL('Tipo'),mk('span',{style:{color:'var(--text)',fontSize:'13px'}},[show.type])]),
@@ -603,9 +603,9 @@ function showMagicModal(idx){
   }
   renderMagicModal();
 }
-
+ 
 // ══ PAGES ══
-
+ 
 function pgMain(){
   const pb=C.prof||2;
   const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
@@ -613,9 +613,9 @@ function pgMain(){
   const SN={str:'For',dex:'Des',con:'Cos',int:'Int',wis:'Sag',cha:'Car'};
   function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
   const acT=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
-
+ 
   const p=mk('div',{cls:'page'});
-
+ 
   // Intestazione personaggio
   const hCard=CARD([
     TI(C.name||'',v=>{C.name=v;save();document.getElementById('hn').textContent=v||'Nuovo Personaggio';},'Nome Personaggio',{fontSize:'16px',fontFamily:'var(--ft)',color:'var(--gl)',background:'transparent',border:'none',borderBottom:'1px solid var(--border)',borderRadius:'0',marginBottom:'8px',width:'100%'}),
@@ -635,7 +635,7 @@ function pgMain(){
     ],{marginTop:'6px',alignItems:'flex-end'})
   ]);
   p.appendChild(hCard);
-
+ 
   // Caratteristiche
   const statsGrid=GRID(SK.map(k=>{
     const modDiv=mk('div',{style:{fontSize:'24px',color:'var(--gl)',fontFamily:'var(--ft)',cursor:'pointer',lineHeight:'1',textAlign:'center'}},[fm(S[k])]);
@@ -645,7 +645,7 @@ function pgMain(){
     return card;
   }),'repeat(3,1fr)',6);
   p.appendChild(statsGrid);
-
+ 
   // PF
   const hpGrid=GRID([
     CARD([LBL('PF Max'),NI(C.maxHp,v=>{C.maxHp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px'})],{textAlign:'center',padding:'8px'}),
@@ -653,7 +653,7 @@ function pgMain(){
     CARD([LBL('PF Temp.'),NI(C.thp,v=>{C.thp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px',color:'var(--bluel)'})],{textAlign:'center',padding:'8px'}),
   ],'1fr 1fr 1fr',6);
   p.appendChild(hpGrid);
-
+ 
   // CA
   const caCard=CARD([ROW([
     DIV([LBL('CA'),mk('div',{id:'ac-total',style:{fontSize:'26px',color:'var(--gl)',fontFamily:'var(--ft)',textAlign:'center'}},[String(acT)]),LBL('Base',{marginTop:'2px'}),NI(C.bac,v=>{C.bac=v;save();const t=(v||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);const el=document.getElementById('ac-total');if(el)el.textContent=String(t);},undefined,undefined,{width:'100%'})],{style:{textAlign:'center',minWidth:'65px'}}),
@@ -668,7 +668,7 @@ function pgMain(){
     ],{style:{flex:'1',marginLeft:'10px'}})
   ],{alignItems:'flex-start'})]);
   p.appendChild(caCard);
-
+ 
   // Init / Passiva / Darkvision
   const initGrid=GRID([
     CARD([LBL('Iniziativa'),DIV([fm(S.dex)],{style:{fontSize:'20px',color:'var(--gold)',fontFamily:'var(--ft)',cursor:'pointer',textAlign:'center'}})],{textAlign:'center',padding:'8px'}),
@@ -677,7 +677,7 @@ function pgMain(){
   ],'1fr 1fr 1fr',6);
   initGrid.children[0].querySelector('div div').addEventListener('click',()=>showRoll('1d20'+fm(S.dex),'Iniziativa'));
   p.appendChild(initGrid);
-
+ 
   // Ispirazione
   const insRow=ROW([LBL('Ispirazione',{marginBottom:'0'}),
     DIV(Array.from({length:C.maxIns||1}).map((_,i)=>{
@@ -690,7 +690,7 @@ function pgMain(){
     NI(C.maxIns||1,v=>{C.maxIns=v;save();},undefined,undefined,{width:'36px'})
   ]);
   p.appendChild(CARD([insRow]));
-
+ 
   // Tiri morte
   const dmCard=CARD([LBL('Tiri Salvezza Morte'),
     ROW([
@@ -699,7 +699,7 @@ function pgMain(){
     ],{gap:'12px',marginTop:'4px'})
   ]);
   p.appendChild(dmCard);
-
+ 
   // Dado vita
   const hdCard=CARD([ROW([
     DIV([LBL('Dadi Vita'),TI(C.hd||'',v=>{C.hd=v;save();},'1d8',{width:'60px'})]),
@@ -711,7 +711,7 @@ function pgMain(){
     },'gold sm')
   ])]);
   p.appendChild(hdCard);
-
+ 
   // Risorse
   const resCard=CARD([
     ROW([LBL('Risorse'),BTN('+ Risorsa',()=>{C.res.push({n:'',max:1,cur:1});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'}),
@@ -726,7 +726,7 @@ function pgMain(){
     ],{marginTop:'6px'}))
   ]);
   p.appendChild(resCard);
-
+ 
   // Effetti temporanei
   const teCard=CARD([
     ROW([LBL('Effetti Temporanei'),BTN('+ Effetto',()=>{C.te.push({n:'',d:'',dur:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'}),
@@ -736,17 +736,17 @@ function pgMain(){
     ]))
   ]);
   p.appendChild(teCard);
-
+ 
   return p;
 }
-
+ 
 function pgSkills(){
   const pb=C.prof||2;
   const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
   const SL={str:'FOR',dex:'DES',con:'COS',int:'INT',wis:'SAG',cha:'CAR'};
   function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
   const p=mk('div',{cls:'page'});
-
+ 
   // Tiri salvezza
   const svCard=CARD([LBL('Tiri Salvezza'),
     GRID(['str','dex','con','int','wis','cha'].map(s=>ROW([
@@ -756,7 +756,7 @@ function pgSkills(){
     ])),'1fr 1fr',4,{marginTop:'6px'})
   ]);
   p.appendChild(svCard);
-
+ 
   // Abilità
   const skList=mk('div',{style:{marginTop:'6px'}});
   Object.entries(C.sk||{}).forEach(([name,s])=>{
@@ -770,27 +770,27 @@ function pgSkills(){
     skList.appendChild(row);
   });
   p.appendChild(CARD([LBL('Abilità (1°✦=competenza, 2°✦=maestria)'),skList]));
-
+ 
   // Competenze
   p.appendChild(CARD([LBL('Lingue & Competenze'),
     DIV([DIV([LBL('Lingue'),TA(C.lang||'',v=>{C.lang=v;save();})]),DIV([LBL('Armi'),TA(C.wprof||'',v=>{C.wprof=v;save();})]),DIV([LBL('Armature'),TA(C.aprof||'',v=>{C.aprof=v;save();})]),DIV([LBL('Strumenti'),TA(C.tprof||'',v=>{C.tprof=v;save();})])],{display:'flex',flexDirection:'column',gap:'6px',marginTop:'6px'})
   ]));
   return p;
 }
-
+ 
 function pgCombat(){
   const pb=C.prof||2;
   const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
   const p=mk('div',{cls:'page'});
   const rp=document.getElementById('rpop');
-
+ 
   // ── Pannello difensivo (completamente modificabile, collegato alla pagina principale) ──
   function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
-
+ 
   function makeCombatPanel(){
     const acT=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
     const hpCol=C.hp<=0?'var(--rl)':C.hp<(C.maxHp||0)*.5?'#e8a030':'var(--greenl)';
-
+ 
     // PF row
     const hpRow=GRID([
       mk('div',{style:{textAlign:'center',padding:'6px'}},[
@@ -806,7 +806,7 @@ function pgCombat(){
         NI(C.thp||0,v=>{C.thp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px',color:'var(--bluel)'})
       ]),
     ],'1fr 1fr 1fr',6);
-
+ 
     // CA + init + speed row
     const acModsDiv=mk('div',{style:{flex:'1',marginLeft:'10px'}});
     function refreshAcMods(){
@@ -821,18 +821,18 @@ function pgCombat(){
         ],{marginTop:'4px'}));
       });
     }
-
+ 
     const acTotalEl=mk('div',{id:'cbt-ac',style:{fontSize:'28px',color:'var(--gl)',fontFamily:'var(--ft)',textAlign:'center'}},[String(acT)]);
     function refreshAcPanel(){
       const t=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
       acTotalEl.textContent=String(t);
     }
-
+ 
     const caCol=mk('div',{style:{textAlign:'center',minWidth:'70px'}},[ LBL('CA Totale'), acTotalEl, LBL('Base',{marginTop:'2px'}), NI(C.bac||10,v=>{C.bac=v;save();refreshAcPanel();},undefined,undefined,{width:'100%'}) ]);
-
+ 
     refreshAcMods();
     const caRow=CARD([ROW([caCol, acModsDiv],{alignItems:'flex-start'})]);
-
+ 
     // Iniziativa + velocità + passiva
     const infoRow=GRID([
       (()=>{
@@ -851,10 +851,10 @@ function pgCombat(){
     ],'1fr 1fr 1fr',6);
     return [hpRow, caRow, CARD([infoRow])];
   }
-
+ 
   makeCombatPanel().forEach(el=>p.appendChild(el));
   p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'4px 0 8px'}}));
-
+ 
   function atkSection(list,key,title,isM){
     const sec=mk('div');
     const hdr=ROW([LBL(title,{color:isM?'var(--purl)':'var(--gold)'}),BTN('+ Aggiungi',()=>{C[key].push({n:'',stat:isM?'int':'str',pr:true,dmg:'1d6',dt:'',ex:0,cd:'',nt:''});save();render();},isM?'sm gold':'sm')],{justifyContent:'space-between',marginBottom:'4px'});
@@ -919,24 +919,24 @@ function pgCombat(){
     }
     p.appendChild(maSec);
   })();
-
+ 
   // ── Condizioni ──
   p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'8px 0'}}));
-
+ 
   function showConditionModal(name){
     const ed=C.conditionEdition||'2014';
     const data=CONDITIONS[name];
     if(!data)return;
     const text=data[ed]||'Nessuna informazione disponibile.';
     const lines=text.split('\n');
-
+ 
     const edBadge=mk('span',{style:{
       background:ed==='2024'?'rgba(74,32,128,0.3)':'rgba(42,107,58,0.3)',
       border:'1px solid '+(ed==='2024'?'var(--purl)':'var(--green)'),
       color:ed==='2024'?'var(--purl)':'var(--greenl)',
       borderRadius:'3px',padding:'0 6px',fontSize:'10px',fontFamily:'monospace'
     }},[ed]);
-
+ 
     const listEl=mk('ul',{style:{listStyle:'none',padding:'0',margin:'10px 0 0',display:'flex',flexDirection:'column',gap:'5px'}});
     lines.forEach(line=>{
       const clean=line.replace(/^[•\-]\s*/,'').trim();
@@ -949,7 +949,7 @@ function pgCombat(){
       li.appendChild(mk('span',null,[clean]));
       listEl.appendChild(li);
     });
-
+ 
     const box=CARD([
       ROW([
         ROW([
@@ -962,11 +962,11 @@ function pgCombat(){
     ]);
     showModal(box);
   }
-
+ 
   function buildConditionsCard(){
     const condCard=CARD([]);
     condCard.innerHTML='';
-
+ 
     // Header row: titolo + toggle edizione
     const ed=C.conditionEdition||'2014';
     const hdrRow=ROW([
@@ -983,11 +983,11 @@ function pgCombat(){
       ],{gap:'6px'})
     ],{justifyContent:'space-between',alignItems:'center',marginBottom:'8px'});
     condCard.appendChild(hdrRow);
-
+ 
     // Grid di tutte le condizioni
     const allConds=Object.keys(CONDITIONS);
     const active=C.conditions||[];
-
+ 
     const grid=mk('div',{style:{display:'flex',flexWrap:'wrap',gap:'5px',marginBottom:'8px'}});
     allConds.forEach(name=>{
       const isActive=active.includes(name);
@@ -1013,7 +1013,7 @@ function pgCombat(){
       grid.appendChild(chip);
     });
     condCard.appendChild(grid);
-
+ 
     // Lista condizioni attive con click per dettagli
     if(active.length>0){
       const activeHdr=mk('div',{style:{color:'var(--td)',fontSize:'10px',fontFamily:'var(--ft)',letterSpacing:'1.5px',textTransform:'uppercase',marginBottom:'5px'}},['Attive — clicca per effetti']);
@@ -1035,21 +1035,21 @@ function pgCombat(){
     } else {
       condCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',fontFamily:'var(--fb)',textAlign:'center',padding:'4px 0'}},['Nessuna condizione attiva']));
     }
-
+ 
     return condCard;
   }
-
+ 
   p.appendChild(buildConditionsCard());
-
+ 
   return p;
 }
-
+ 
 function pgSpells(){
   const spMod=sm(C[C.sca]||10);
   const p=mk('div',{cls:'page'});
   const caMap={A:'A',AB:'AB',R:'R'};
   const caCls={A:'cbA',AB:'cbAB',R:'cbR'};
-
+ 
   // Incantatore - DC e bonus attacco con modificatori addizionali
   if(!C.dcMods)C.dcMods=[];
   if(!C.attMods)C.attMods=[];
@@ -1058,7 +1058,7 @@ function pgSpells(){
   const attBase=(C.prof||2)+spMod;
   const attTotal=attBase+(C.attMods||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
   const scaOpts=[['str','FOR'],['dex','DES'],['con','COS'],['int','INT'],['wis','SAG'],['cha','CAR']];
-
+ 
   function modSection(label,mods,key,total,baseVal){
     const modsDiv=mk('div',{style:{flex:'1'}});
     function refresh(){
@@ -1081,7 +1081,7 @@ function pgSpells(){
     refresh();
     return modsDiv;
   }
-
+ 
   const scaCard=CARD([
     ROW([LBL('Caratteristica Incantatore'),SEL(C.sca,scaOpts,v=>{C.sca=v;save();render();},{})],{gap:'8px',marginBottom:'8px',alignItems:'center'}),
     GRID([
@@ -1090,10 +1090,10 @@ function pgSpells(){
     ],'1fr 1fr',10)
   ]);
   p.appendChild(scaCard);
-
+ 
   // Slot incantesimi
   const slotDiv=mk('div',{style:{marginTop:'6px'}});
-
+ 
   function buildSlotRow(lv,container){
     container.innerHTML='';
     const s=C.ss[lv]||{m:0,u:0};
@@ -1130,22 +1130,22 @@ function pgSpells(){
     container.appendChild(mk('span',{style:{color:'var(--tk)',fontSize:'10px',flexShrink:0}},['max']));
     container.appendChild(maxI);
   }
-
+ 
   for(let l=1;l<=9;l++){
     const rowEl=mk('div',{cls:'row',style:{marginBottom:'5px'}});
     buildSlotRow(l,rowEl);
     slotDiv.appendChild(rowEl);
   }
-
+ 
   const resetBtn=mk('button',{cls:'sm',style:{width:'100%',marginTop:'8px',color:'var(--greenl)',borderColor:'var(--green)',background:'rgba(42,107,58,0.15)'}},['↺ Riposo lungo — Recupera tutti gli slot']);
   resetBtn.addEventListener('click',()=>{
     for(let l=1;l<=9;l++){if(C.ss[l])C.ss[l].u=0;}
     save();
     Array.from(slotDiv.children).forEach((rowEl,idx)=>buildSlotRow(idx+1,rowEl));
   });
-
+ 
   p.appendChild(CARD([LBL('Slot Incantesimi'),slotDiv,resetBtn]));
-
+ 
   // Aggiungi
   let newLv=0,newN='';
   const nInp=TI('',v=>{newN=v;},'Nome (IT o EN)',{flex:'1'});
@@ -1157,7 +1157,7 @@ function pgSpells(){
     LBL('Aggiungi Incantesimo'),
     ROW([lvSel,nInp,BTN('+',()=>{const n=nInp.value.trim();if(!n)return;if(newLv===0)C.cn.push({n});else C.sl[newLv].push({n,pr:false});nInp.value='';save();render();},'gold')],{marginTop:'4px'})
   ]));
-
+ 
   // Trucchetti
   if((C.cn||[]).length>0){
     const tCard=CARD([LBL('Trucchetti')]);
@@ -1176,7 +1176,7 @@ function pgSpells(){
     });
     p.appendChild(tCard);
   }
-
+ 
   // Livelli
   for(let l=1;l<=9;l++){
     const list=C.sl[l]||[];
@@ -1201,12 +1201,12 @@ function pgSpells(){
   }
   return p;
 }
-
+ 
 function pgInventory(){
   const attCnt=(C.mi||[]).filter(i=>i.attuned===true).length;
   const slots=C.ats||3;
   const p=mk('div',{cls:'page'});
-
+ 
   // Monete
   const coinsCard=CARD([LBL('Monete'),
     GRID([['pp','#a8a8d8'],['gp','var(--gold)'],['ep','#90a8b0'],['sp','#b8b8b8'],['cp','#c87040']].map(([k,col])=>
@@ -1214,14 +1214,14 @@ function pgInventory(){
     ),'repeat(5,1fr)',4,{marginTop:'6px'})
   ]);
   p.appendChild(coinsCard);
-
+ 
   // Sintonizzazione
   const dotsDiv=mk('div',{style:{display:'flex',gap:'3px'}});
   for(let i=0;i<slots;i++){
     dotsDiv.appendChild(mk('div',{style:{width:'12px',height:'12px',borderRadius:'50%',border:'2px solid var(--gold)',background:i<attCnt?'rgba(201,168,76,.7)':'transparent'}}));
   }
   p.appendChild(CARD([ROW([LBL('Sintonizzazione',{marginBottom:'0'}),NI(slots,v=>{C.ats=v;save();},undefined,undefined,{width:'36px'}),dotsDiv,mk('span',{style:{color:attCnt>slots?'var(--rl)':'var(--greenl)',fontFamily:'var(--ft)',fontSize:'13px'}},[attCnt+'/'+slots])],{flexWrap:'wrap',gap:'8px'})]));
-
+ 
   // Oggetti magici
   const mgCard=mk('div',{cls:'card',style:{border:'1px solid var(--purl)'}});
   mgCard.appendChild(mk('div',{style:{position:'absolute',top:'0',left:'0',right:'0',height:'2px',background:'linear-gradient(90deg,transparent,var(--purl),transparent)',borderRadius:'8px 8px 0 0'}}));
@@ -1246,7 +1246,7 @@ function pgInventory(){
   });
   if(!(C.mi||[]).length)mgCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',textAlign:'center',padding:'8px'}},['Nessun oggetto — clicca + per aggiungere']));
   p.appendChild(mgCard);
-
+ 
   // Sezioni generali
   function genSec(title,key,fields,def){
     const card=CARD([ROW([LBL(title),BTN('+ Aggiungi',()=>{C[key].push({...def});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
@@ -1266,7 +1266,7 @@ function pgInventory(){
         const exp=mk('div',{style:{marginTop:'5px',display:'flex',flexDirection:'column',gap:'4px'}});
         if(fields.includes('weight'))exp.appendChild(DIV([LBL('Peso (kg)'),TI(item.weight||'',v=>{C[key][i].weight=v;save();},'kg',{})]));
         exp.appendChild(DIV([LBL('Note'),TA(item.desc||'',v=>{C[key][i].desc=v;save();})]));
-
+ 
         irow.appendChild(exp);
       }
       card.appendChild(irow);
@@ -1280,10 +1280,10 @@ function pgInventory(){
   p.appendChild(genSec('🎒 Inventario','gen',['qty','weight'],{name:'',qty:1,weight:'',desc:''}));
   return p;
 }
-
+ 
 function pgPersonality(){
   const p=mk('div',{cls:'page'});
-
+ 
   // Character image
   const imgCard=CARD([]);
   const imgContainer=mk('div',{style:{textAlign:'center',marginBottom:'8px'}});
@@ -1306,18 +1306,18 @@ function pgPersonality(){
   imgCard.appendChild(imgContainer);
   imgCard.appendChild(fileInp);
   p.appendChild(imgCard);
-
+ 
   const fields=[['Aspetto Fisico','app','Descrizione fisica...'],['Tratti della Personalità','pt',''],['Ideali','id',''],['Legami','bo',''],['Difetti','fl',''],['Storia & Background','bs','La storia del tuo personaggio...'],['Note Libere','nt','']];
   fields.forEach(([label,key,ph])=>{
     p.appendChild(CARD([LBL(label),TA(C[key]||'',v=>{C[key]=v;save();},ph,{width:'100%',minHeight:key==='bs'?'120px':'60px'})]));
   });
   return p;
 }
-
+ 
 function pgCombo(){
   const p=mk('div',{cls:'page'});
   if(!C.combos)C.combos=[];
-
+ 
   // Collect all spells from spell page
   function getAllSpells(){
     const all=[];
@@ -1333,11 +1333,11 @@ function pgCombo(){
     }
     return all;
   }
-
+ 
   function hasConcentration(steps){
     return steps.some(st=>st.type==='spell'&&st.conc);
   }
-
+ 
   function renderCombo(combo,ci){
     const card=CARD([]);
     // Header: nome combo + pulsanti
@@ -1348,12 +1348,12 @@ function pgCombo(){
     function toggleCombo(){C.combos[ci]._open=!isOpen;save();render();}
     toggleBtn.addEventListener('click',toggleCombo);
     card.appendChild(ROW([toggleBtn,nameI,BTN('✕',()=>{C.combos.splice(ci,1);save();render();},'ghost sm')],{marginBottom:'10px',gap:'6px'}));
-
+ 
     // Steps
     const stepsDiv=mk('div');
     (combo.steps||[]).forEach((st,si)=>{
       const stepEl=mk('div',{style:{background:'rgba(0,0,0,0.3)',border:'1px solid var(--border)',borderRadius:'6px',padding:'8px',marginBottom:'6px'}});
-
+ 
       // Step header: numero + tipo + costo azione + riordina + elimina
       const actCost=st.type==='spell'?(st.ca||'A'):st.actCost||'A';
       const actColor={'A':'var(--greenl)','AB':'var(--bluel)','R':'var(--rl)','—':'var(--td)'}[actCost]||'var(--td)';
@@ -1367,13 +1367,13 @@ function pgCombo(){
         BTN('✕',()=>{C.combos[ci].steps.splice(si,1);save();render();},'ghost sm'),
       ].filter(Boolean));
       stepEl.appendChild(moveRow);
-
+ 
       if(st.type==='spell'){
         // Spell selector
         const allSpells=getAllSpells();
         const concAlready=combo.steps.slice(0,si).some(s=>s.type==='spell'&&s.conc);
         const available=concAlready?allSpells.filter(s=>!s.conc):allSpells;
-
+ 
         if(available.length===0){
           stepEl.appendChild(mk('div',{style:{color:'var(--rl)',fontSize:'12px',marginTop:'6px'}},['⚠ Concentrazione già attiva — nessun altro incantesimo di concentrazione disponibile']));
         } else {
@@ -1404,16 +1404,16 @@ function pgCombo(){
         const descI=TI(st.desc||'',v=>{C.combos[ci].steps[si].desc=v;save();},'Descrivi l\'azione...',{width:'100%',marginTop:'4px'});
         stepEl.appendChild(descI);
       }
-
+ 
       // Note per lo step
       const noteI=TI(st.note||'',v=>{C.combos[ci].steps[si].note=v;save();},'Note (opzionale)...',{width:'100%',marginTop:'4px',fontSize:'11px',color:'var(--td)'});
       stepEl.appendChild(noteI);
-
+ 
       stepsDiv.appendChild(stepEl);
     });
     if(isOpen){
       card.appendChild(stepsDiv);
-
+ 
       // Action summary warning
       const steps=combo.steps||[];
       const aCount=steps.filter(s=>(s.type==='spell'?(s.ca||'A'):s.actCost||'A')==='A').length;
@@ -1433,7 +1433,7 @@ function pgCombo(){
         warns.forEach(w=>sumDiv.appendChild(mk('div',{style:{color:'var(--rl)',fontSize:'11px',marginTop:'2px'}},[w])));
         card.appendChild(sumDiv);
       }
-
+ 
       // Add step buttons
       card.appendChild(ROW([
         BTN('+ Incantesimo',()=>{if(!C.combos[ci].steps)C.combos[ci].steps=[];C.combos[ci].steps.push({type:'spell',spell:'',label:'',conc:false,note:''});save();render();},'sm gold'),
@@ -1445,16 +1445,16 @@ function pgCombo(){
       const cnt=(combo.steps||[]).length;
       if(cnt>0)card.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'11px',marginTop:'-4px'}},[cnt+' step'+(cnt!==1?'s':'')]));
     }
-
+ 
     return card;
   }
-
+ 
   // Header pagina
   p.appendChild(ROW([
     mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'14px'}},['⚡ Combo']),
     BTN('+ Nuova Combo',()=>{C.combos.push({name:'',steps:[]});save();render();},'gold sm')
   ],{justifyContent:'space-between',alignItems:'center',marginBottom:'4px'}));
-
+ 
   if(!C.combos||C.combos.length===0){
     p.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'13px',textAlign:'center',padding:'24px',fontFamily:'var(--fb)'}},[
       'Nessuna combo — clicca + per crearne una.',mk('br'),'Una combo è una sequenza di azioni/incantesimi da eseguire in ordine.'
@@ -1462,28 +1462,28 @@ function pgCombo(){
   } else {
     C.combos.forEach((combo,ci)=>p.appendChild(renderCombo(combo,ci)));
   }
-
+ 
   return p;
 }
-
+ 
 function pgDiario(){
   const p=mk('div',{cls:'page'});
   if(!C.notes)C.notes=[];
-
+ 
   p.appendChild(ROW([
     mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'14px'}},['📓 Diario']),
     BTN('+ Aggiungi Nota',()=>{C.notes.unshift({title:'Nuova nota',body:'',open:true,date:new Date().toLocaleDateString('it-IT')});save();render();},'gold sm')
   ],{justifyContent:'space-between',alignItems:'center'}));
-
+ 
   if(!C.notes.length){
     p.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'13px',textAlign:'center',padding:'24px',fontFamily:'var(--fb)'}},[
       'Nessuna nota ancora.',mk('br'),'Clicca + Aggiungi Nota per iniziare.'
     ]));
   }
-
+ 
   C.notes.forEach((note,i)=>{
     const card=CARD([]);
-
+ 
     // Header: title (clickable to collapse) + date + delete
     const titleI=TI(note.title||'',v=>{C.notes[i].title=v;save();},'Titolo nota...',{
       flex:'1',fontFamily:'var(--ft)',fontSize:'13px',color:'var(--gl)',
@@ -1492,10 +1492,10 @@ function pgDiario(){
     const arrow=mk('span',{style:{color:'var(--td)',fontSize:'13px',cursor:'pointer',flexShrink:0}},[ note.open!==false?'▲':'▼' ]);
     arrow.addEventListener('click',()=>{C.notes[i].open=note.open===false;save();render();});
     titleI.addEventListener('click',()=>{C.notes[i].open=note.open===false;save();render();});
-
+ 
     const dateEl=mk('span',{style:{color:'var(--tk)',fontSize:'10px',flexShrink:0}},[note.date||'']);
     card.appendChild(ROW([arrow,titleI,dateEl,BTN('✕',()=>{if(confirm('Eliminare questa nota?')){C.notes.splice(i,1);save();render();}},'ghost sm')],{gap:'6px',marginBottom:note.open!==false?'8px':'0'}));
-
+ 
     if(note.open!==false){
       card.appendChild(TA(note.body||'',v=>{C.notes[i].body=v;save();},'Scrivi qui i tuoi appunti...',{width:'100%',minHeight:'100px'}));
     }
@@ -1503,10 +1503,10 @@ function pgDiario(){
   });
   return p;
 }
-
+ 
 function pgWorld(){
   const p=mk('div',{cls:'page'});
-
+ 
   // NPC
   const npcCard=CARD([ROW([LBL('👤 PNG Incontrati'),BTN('+ NPC',()=>{C.npcs.push({n:'',race:'',app:'',city:'',info:'',rel:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
   (C.npcs||[]).forEach((npc,i)=>{
@@ -1524,7 +1524,7 @@ function pgWorld(){
   });
   if(!(C.npcs||[]).length)npcCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',textAlign:'center',padding:'8px'}},['Nessun PNG ancora']));
   p.appendChild(npcCard);
-
+ 
   // Luoghi
   const locCard=CARD([ROW([LBL('🗺 Luoghi'),BTN('+ Luogo',()=>{C.locs.push({n:'',type:'',info:'',not:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
   (C.locs||[]).forEach((loc,i)=>{
@@ -1543,7 +1543,7 @@ function pgWorld(){
   p.appendChild(locCard);
   return p;
 }
-
+ 
 function pgHomebrew(){
   const p=mk('div',{cls:'page'});
   const hdr=ROW([mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px'}},['⚗ Sezioni Personalizzate']),BTN('+ Sezione',()=>{C.cs.push({t:'Nuova Sezione',c:''});save();render();},'gold sm')],{justifyContent:'space-between',alignItems:'center'});
@@ -1554,7 +1554,7 @@ function pgHomebrew(){
       TA(s.c||'',v=>{C.cs[i].c=v;save();},'Contenuto libero...',{width:'100%',minHeight:'70px'})
     ]));
   });
-
+ 
   const trkCard=CARD([ROW([LBL('⏱ Tracker Attività'),BTN('+ Attività',()=>{C.ta.push({n:'',cur:0,goal:10});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
   (C.ta||[]).forEach((a,i)=>{
     const pct=Math.min(100,Math.round(((a.cur||0)/(a.goal||1))*100));
@@ -1577,7 +1577,7 @@ function pgHomebrew(){
   p.appendChild(trkCard);
   return p;
 }
-
+ 
 // ══ RENDER ══
 function updateHdr(){
   document.getElementById('hn').textContent=C.name||'Nuovo Personaggio';
@@ -1617,7 +1617,7 @@ function render(){
   updateHdr();
   renderNav();
 }
-
+ 
 // ── EXPORT / IMPORT ──
 function doExport(){
   saveNow();
@@ -1631,8 +1631,8 @@ function doImport(ev){
   r.onload=e=>{try{const d=JSON.parse(e.target.result);C={...JSON.parse(JSON.stringify(DEF)),...d};save();render();}catch{alert('File non valido');}};
   r.readAsText(f);ev.target.value='';
 }
-
-
+ 
+ 
 const CONDITIONS={
   "Accecato":{
     "2014":"• Non può vedere, fallisce automaticamente le prove che richiedono la vista.\n• I tiri per colpire contro di lui hanno vantaggio.\n• I suoi tiri per colpire hanno svantaggio.",
@@ -1695,7 +1695,7 @@ const CONDITIONS={
     "2024":"Livello 1: -2 a d20 test (prove, attacchi, TS).\nLivello 2: Velocità dimezzata.\nLivello 3: -4 a d20 test.\nLivello 4: Massimo PF dimezzato.\nLivello 5: -6 a d20 test.\nLivello 6: Velocità ridotta a 0.\nLivello 7: -8 a d20 test.\nLivello 8: Massimo PF ridotto a 0 → morte.\n\nRiposo lungo: -1 livello. Con riposo breve: nessun recupero automatico."
   },
 };
-
+ 
 // ── THEME ──
 function applyTheme(){
   const light=localStorage.getItem('dnd-theme')==='light';
@@ -1708,7 +1708,7 @@ function toggleTheme(){
   localStorage.setItem('dnd-theme',light?'dark':'light');
   applyTheme();
 }
-
+ 
 // ── INIT ──
 load();applyTheme();render();
 </script>
