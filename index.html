@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>Scheda DnD 5e</title>
+<title>Scheda D&D 2014</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,7 +27,7 @@ body.light{
 body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden}
 *{box-sizing:border-box}
 input,textarea,select{background:rgba(0,0,0,0.07);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--fb);font-size:14px;padding:4px 8px;outline:none;width:100%}body.light input,body.light textarea,body.light select{background:rgba(255,255,255,0.7)}
-input[type=number]{width:58px;text-align:center;padding:4px 6px}
+input[type=number]{width:58px;text-align:center;padding:4px 6px}@media(min-width:500px){input[type=number]{width:72px;padding:4px 8px}}
 input[type=number]::-webkit-inner-spin-button{opacity:1}
 textarea{resize:vertical;min-height:60px;font-family:var(--fb)}
 select option{background:var(--card)}
@@ -109,7 +109,7 @@ const PAGES=[
   {id:'main',ic:'📜',tx:'Principale'},{id:'skills',ic:'🎯',tx:'Abilità'},
   {id:'combat',ic:'⚔',tx:'Combattimento'},{id:'spells',ic:'✨',tx:'Incantesimi'},
   {id:'combo',ic:'⚡',tx:'Combo'},{id:'inventory',ic:'🎒',tx:'Inventario'},{id:'personality',ic:'🎭',tx:'Personalità'},
-  {id:'world',ic:'🗺',tx:'Mondo'},{id:'homebrew',ic:'⚗',tx:'Homebrew'},
+  {id:'diario',ic:'📓',tx:'Diario'},{id:'world',ic:'🗺',tx:'Mondo'},{id:'homebrew',ic:'⚗',tx:'Homebrew'},
 ];
 
 const SD={
@@ -169,8 +169,51 @@ const SD={
 "cono di freddo":{it:"Cono di Freddo",lv:5,sc:"Evocazione",ca:"A",ra:"Cono 18m",du:"Istantanea",co:"V,S,M",de:"TS COS o 8d8 freddo."},
 "chain lightning":{it:"Fulmine a Catena",lv:6,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"10d8 fulmine + salta su 3 bersagli (4d8)."},
 "fulmine a catena":{it:"Fulmine a Catena",lv:6,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"10d8 + 3 bersagli (4d8)."},
+"shatter":{it:"Frantumazione",lv:2,sc:"Evocazione",ca:"A",ra:"18m",du:"Istantanea",co:"V,S,M",de:"TS COS o 3d8 tuono in sfera 3m. +1d8/slot. Svantaggio per creature di pietra/metallo."},
+"frantumazione":{it:"Frantumazione",lv:2,sc:"Evocazione",ca:"A",ra:"18m",du:"Istantanea",co:"V,S,M",de:"TS COS o 3d8 tuono in sfera 3m. +1d8/slot."},
+"hex":{it:"Maledizione",lv:1,sc:"Incantamento",ca:"AB",ra:"27m",du:"Conc. 1ora",co:"V,S,M",de:"Maledici un bersaglio. +1d6 necrotici ai suoi attacchi. Svantaggio alle prove di una caratteristica scelta. Se muore, puoi trasferirlo."},
+"maledizione":{it:"Maledizione",lv:1,sc:"Incantamento",ca:"AB",ra:"27m",du:"Conc. 1ora",co:"V,S,M",de:"AB. Maledici un bersaglio: +1d6 necrotici, svantaggio alle prove di una caratteristica. Se muore sposta la maledizione."},
+"hunger of hadar":{it:"Fame di Hadar",lv:3,sc:"Invocazione",ca:"A",ra:"45m",du:"Conc. 1min",co:"V,S,M",de:"Crea un vuoto buio da 6m. Oscurità magica, TS DES o 2d6 freddo all'entrata, TS CON o 2d6 acido alla fine del turno."},
+"fame di hadar":{it:"Fame di Hadar",lv:3,sc:"Invocazione",ca:"A",ra:"45m",du:"Conc. 1min",co:"V,S,M",de:"Sfera buia 6m: oscurità magica, 2d6 freddo (entrata), 2d6 acido (fine turno)."},
+"armor of agathys":{it:"Armatura di Agathis",lv:1,sc:"Abiurazione",ca:"A",ra:"Sé stesso",du:"1 ora",co:"V,S,M",de:"Ottieni 5 PF temporanei. Chi ti colpisce subisce 5 danni da freddo. +5 PF e danni per slot superiore."},
+"armatura di agathis":{it:"Armatura di Agathis",lv:1,sc:"Abiurazione",ca:"A",ra:"Sé stesso",du:"1 ora",co:"V,S,M",de:"5 PF temporanei, chi ti colpisce subisce 5 freddo. +5 per slot."},
+"spiritual weapon":{it:"Arma Spirituale",lv:2,sc:"Evocazione",ca:"AB",ra:"18m",du:"1 min",co:"V,S",de:"AB. Crea un'arma spettrale. Come azione bonus: attacca (tiro incantatore), 1d8+mod danni forza. +1d8/slot pari."},
+"arma spirituale":{it:"Arma Spirituale",lv:2,sc:"Evocazione",ca:"AB",ra:"18m",du:"1 min",co:"V,S",de:"AB. Arma spettrale: attacco come AB, 1d8+mod forza. +1d8/slot pari."},
+"guiding bolt":{it:"Raggio Guida",lv:1,sc:"Evocazione",ca:"A",ra:"36m",du:"1 round",co:"V,S",de:"Tiro colpire distanza: 4d6 radianti. Il prossimo attacco contro il bersaglio ha vantaggio. +1d6/slot."},
+"raggio guida":{it:"Raggio Guida",lv:1,sc:"Evocazione",ca:"A",ra:"36m",du:"1 round",co:"V,S",de:"4d6 radianti, prossimo attacco con vantaggio. +1d6/slot."},
+"spirit guardians":{it:"Spiriti Guardiani",lv:3,sc:"Invocazione",ca:"A",ra:"Sé stesso (4.5m)",du:"Conc. 10min",co:"V,S,M",de:"Aura 4.5m: velocità dimezzata per nemici. TS SAG o 3d8 radianti/necrotici. +1d8/slot."},
+"spiriti guardiani":{it:"Spiriti Guardiani",lv:3,sc:"Invocazione",ca:"A",ra:"Sé stesso (4.5m)",du:"Conc. 10min",co:"V,S,M",de:"Aura 4.5m: velocità dimezzata, TS SAG o 3d8 danni. +1d8/slot."},
+"mage armor":{it:"Armatura del Mago",lv:1,sc:"Abiurazione",ca:"A",ra:"Tocco",du:"8 ore",co:"V,S,M",de:"Creatura non corazzata ottiene CA 13+DES."},
+"armatura del mago":{it:"Armatura del Mago",lv:1,sc:"Abiurazione",ca:"A",ra:"Tocco",du:"8 ore",co:"V,S,M",de:"CA = 13+mod DES per creatura non corazzata."},
+"detect magic":{it:"Individuazione del Magico",lv:1,sc:"Divinazione",ca:"A",ra:"Sé stesso",du:"Conc. 10min",co:"V,S",de:"Percepisci la presenza di magia entro 9m. Puoi vedere le aure magiche (rituali possibile)."},
+"individuazione del magico":{it:"Individuazione del Magico",lv:1,sc:"Divinazione",ca:"A",ra:"Sé stesso",du:"Conc. 10min",co:"V,S",de:"Percepisci magia entro 9m. Vedi aure (rituale OK)."},
+"dispel magic":{it:"Dissolvi Magie",lv:3,sc:"Abiurazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"Termina incantesimi attivi su un bersaglio. Auto vs ≤3°. DC 10+livello per superiori. +1 livello/slot."},
+"dissolvi magie":{it:"Dissolvi Magie",lv:3,sc:"Abiurazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"Termina incantesimi su bersaglio. Auto vs ≤3°, DC 10+lv per superiori."},
+"wall of fire":{it:"Muro di Fuoco",lv:4,sc:"Evocazione",ca:"A",ra:"36m",du:"Conc. 1min",co:"V,S,M",de:"Muro di fuoco 18m lungo. TS DES o 5d8 fuoco per chi lo attraversa o inizia turno adiacente. +1d8/slot."},
+"muro di fuoco":{it:"Muro di Fuoco",lv:4,sc:"Evocazione",ca:"A",ra:"36m",du:"Conc. 1min",co:"V,S,M",de:"Muro 18m: TS DES o 5d8 fuoco. +1d8/slot."},
+"polymorph":{it:"Polimorfismo",lv:4,sc:"Trasmutazione",ca:"A",ra:"18m",du:"Conc. 1ora",co:"V,S,M",de:"TS SAG o trasformato in bestia (CR ≤ livello). PF separati. Se arrivano a 0 torna alla forma originale."},
+"polimorfismo":{it:"Polimorfismo",lv:4,sc:"Trasmutazione",ca:"A",ra:"18m",du:"Conc. 1ora",co:"V,S,M",de:"TS SAG o trasformato in bestia (CR ≤ lv). PF separati."},
+"greater invisibility":{it:"Invisibilità Superiore",lv:4,sc:"Illusione",ca:"A",ra:"Tocco",du:"Conc. 1min",co:"V,S",de:"Bersaglio invisibile anche quando attacca o lancia incantesimi. Vantaggio agli attacchi, svantaggio contro di lui."},
+"invisibilità superiore":{it:"Invisibilità Superiore",lv:4,sc:"Illusione",ca:"A",ra:"Tocco",du:"Conc. 1min",co:"V,S",de:"Invisibile anche attaccando. Vantaggio agli attacchi, svantaggio contro."},
+"animate dead":{it:"Animare i Morti",lv:3,sc:"Necromanzia",ca:"A",ra:"3m",du:"Istantanea",co:"V,S,M",de:"Crea uno scheletro o uno zombi da un cadavere. Sotto il tuo controllo per 24h. +2 non morti/slot superiore."},
+"animare i morti":{it:"Animare i Morti",lv:3,sc:"Necromanzia",ca:"A",ra:"3m",du:"Istantanea",co:"V,S,M",de:"Crea scheletro/zombi da cadavere, controllo 24h. +2/slot."},
+"inflict wounds":{it:"Infliggi Ferite",lv:1,sc:"Necromanzia",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S",de:"Tiro colpire tocco: 3d10 necrotici. +1d10/slot."},
+"infliggi ferite":{it:"Infliggi Ferite",lv:1,sc:"Necromanzia",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S",de:"3d10 necrotici al tocco. +1d10/slot."},
+"toll the dead":{it:"Suono Funebre",lv:0,sc:"Necromanzia",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS SAG o 1d8 necrotici (1d12 se già ferito). Scala per livello."},
+"suono funebre":{it:"Suono Funebre",lv:0,sc:"Necromanzia",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS SAG o 1d8 necrotici (1d12 se ferito)."},
+"word of radiance":{it:"Parola Radiosa",lv:0,sc:"Evocazione",ca:"A",ra:"1.5m",du:"Istantanea",co:"V,M",de:"TS COS o 1d6 radianti per ogni creatura visibile entro 1.5m. Scala per livello."},
+"parola radiosa":{it:"Parola Radiosa",lv:0,sc:"Evocazione",ca:"A",ra:"1.5m",du:"Istantanea",co:"V,M",de:"TS COS o 1d6 radianti entro 1.5m."},
+"revivify":{it:"Rianimazione",lv:3,sc:"Necromanzia",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S,M",de:"Riporta in vita una creatura morta da meno di 1 minuto con 1 PF. M: diamante da 300 mo (consumato)."},
+"rianimazione":{it:"Rianimazione",lv:3,sc:"Necromanzia",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S,M",de:"Riporta in vita da meno di 1 minuto con 1 PF. Richiede diamante 300 mo."},
 };
-function lkS(n){return n?SD[n.toLowerCase().trim()]||null:null;}
+function lkS(n){
+  if(!n)return null;
+  const key=n.toLowerCase().trim();
+  if(SD[key])return SD[key];
+  // Also search by Italian name
+  for(const v of Object.values(SD)){if(v.it&&v.it.toLowerCase()===key)return v;}
+  return null;
+}
 
 const DEF={
   name:"",cls:"",sub:"",lv:1,race:"",bg:"",align:"",xp:0,
@@ -194,13 +237,14 @@ const DEF={
   ss:{1:{m:0,u:0},2:{m:0,u:0},3:{m:0,u:0},4:{m:0,u:0},5:{m:0,u:0},6:{m:0,u:0},7:{m:0,u:0},8:{m:0,u:0},9:{m:0,u:0}},
   cn:[],sl:{1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[]},
   res:[],ins:0,maxIns:1,ds:0,df:0,te:[],
-  pt:"",id:"",bo:"",fl:"",app:"",bs:"",nt:"",
+  pt:"",id:"",bo:"",fl:"",app:"",bs:"",nt:"",img:"",
   coins:{pp:0,gp:0,ep:0,sp:0,cp:0},
   wea:[],arm:[],mi:[],con_:[],val:[],gen:[],
   ats:3,cs:[],ta:[],npcs:[],locs:[],
   csp:{},
   combos:[],
   profManual:false,
+  notes:[],
   conditions:[],
   conditionEdition:'2014',
 };
@@ -546,7 +590,7 @@ function showMagicModal(idx){
         ROW([
           BTN('✏ Modifica',()=>{dr={...show};editing=true;renderMagicModal();},'sm'),
           CHK(!!show.bagOfHolding,v=>{C.mi[idx].bagOfHolding=v;save();closeModal();render();}),
-          mk('span',{style:{color:'var(--td)',fontSize:'12px'}},['Bag of Holding'])
+          mk('span',{style:{color:'var(--td)',fontSize:'12px'}},['Borsa Conservante'])
         ],{gap:'8px',marginTop:'10px',flexWrap:'wrap'})
       ].filter(Boolean),{display:'flex',flexDirection:'column',gap:'8px'});
     }
@@ -817,37 +861,64 @@ function pgCombat(){
     sec.appendChild(hdr);
     (list||[]).forEach((a,i)=>{
       const bon=(S[a.stat]||0)+(a.pr?pb:0)+(Number(a.ex)||0);
-      const card=CARD([
-        ROW([
-          TI(a.n||'',v=>{C[key][i].n=v;save();},'Nome attacco',{flex:'1',fontFamily:'var(--ft)',fontSize:'12px'}),
-          BTN('⚄',()=>{
+      const isOpen=a._open!==false;
+      const toggleArr=mk('span',{style:{color:'var(--td)',fontSize:'12px',cursor:'pointer',flexShrink:0,userSelect:'none'}},[isOpen?'▲':'▼']);
+      toggleArr.addEventListener('click',()=>{C[key][i]._open=!isOpen;save();render();});
+      const card=mk('div',{cls:'card',style:{marginTop:'6px',padding:'8px'}});
+      // Name row always visible
+      const nameRow=ROW([
+        toggleArr,
+        TI(a.n||'',v=>{C[key][i].n=v;save();},'Nome attacco',{flex:'1',fontFamily:'var(--ft)',fontSize:'12px'}),
+        BTN('⚄',()=>{
             const hit=roll('1d20'+fm(bon));const dmg=roll(a.dmg||'1d6');const cr=roll(a.cd||a.dmg||'1d6');
             const isCrit=hit.r[0]===20;rp.innerHTML='';
             rp.appendChild(mk('div',{style:{color:isCrit?'var(--gl)':'var(--td)',fontFamily:'var(--ft)',fontSize:'11px'}},[a.n+(isCrit?' ⭐ CRITICO!':'')]));
             const rr=mk('div',{style:{display:'flex',gap:'10px',marginTop:'4px'}});
-            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},['Colpire']),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(hit.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+hit.r.join(',')+']'])],{style:{}}));
-            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},[isCrit?'Crit':'Danni']),mk('div',{style:{color:'var(--rl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(isCrit?cr.t:dmg.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+dmg.r.join(',')+']'])],{style:{}}));
+            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},['Colpire']),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(hit.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+hit.r.join(',')+']'])],{}));
+            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},[isCrit?'Crit':'Danni']),mk('div',{style:{color:'var(--rl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(isCrit?cr.t:dmg.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+dmg.r.join(',')+']'])],{}));
             rp.appendChild(rr);rp.style.display='block';clearTimeout(rpt);rpt=setTimeout(()=>rp.style.display='none',5000);
           },'gold sm'),
-          BTN('✕',()=>{C[key].splice(i,1);save();render();},'ghost sm')
-        ],{marginBottom:'4px'}),
-        GRID([
-          DIV([LBL('Scala'),STATSEL(a.stat||'str',v=>{C[key][i].stat=v;save();render();})]),
-          DIV([LBL('Extra'),(()=>{let t;const n=NI(a.ex||0,v=>{C[key][i].ex=v;save();clearTimeout(t);t=setTimeout(render,700);},undefined,undefined,{width:'100%'});return n;})()]),
+        BTN('✕',()=>{C[key].splice(i,1);save();render();},'ghost sm')
+      ],{marginBottom:isOpen?'4px':'0'});
+      card.appendChild(nameRow);
+      if(isOpen){
+        card.appendChild(GRID([
+          DIV([LBL('Scala Att.'),STATSEL(a.stat||'str',v=>{C[key][i].stat=v;save();render();})]),
           DIV([LBL('Colpire'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'17px',paddingTop:'3px'}},[fm(bon)])]),
-          DIV([LBL('Danni'),TI(a.dmg||'',v=>{C[key][i].dmg=v;save();},'1d8',{})]),
+          DIV([LBL('Portata'),TI(a.range||'',v=>{C[key][i].range=v;save();},'1.5m',{})]),
+        ],'1fr 1fr 1fr',4));
+        card.appendChild(DIV([LBL('Danno = dado + stat + extra')],{marginTop:'4px'}));
+        card.appendChild(GRID([
+          DIV([LBL('Dado'),TI(a.dmg||'',v=>{C[key][i].dmg=v;save();},'1d8',{})]),
+          DIV([LBL('+ Car.'),STATSEL(a.dmgStat||a.stat||'str',v=>{C[key][i].dmgStat=v;save();})]),
+          DIV([LBL('+ Extra'),(()=>{let t;const n=NI(a.ex||0,v=>{C[key][i].ex=v;save();clearTimeout(t);t=setTimeout(render,700);},undefined,undefined,{width:'100%'});return n;})()]),
           DIV([LBL('Tipo'),TI(a.dt||'',v=>{C[key][i].dt=v;save();},'Perforanti',{})]),
-          DIV([LBL('Critico'),TI(a.cd||'',v=>{C[key][i].cd=v;save();},'2d8',{})])
-        ],'1fr 1fr 1fr',4),
-        ROW([CHK(!!a.pr,v=>{C[key][i].pr=v;save();render();},'Competenza'),TI(a.nt||'',v=>{C[key][i].nt=v;save();},'Note',{flex:'1',fontSize:'11px'})],{marginTop:'4px'})
-      ],{marginTop:'6px',padding:'8px'});
+          DIV([LBL('Critico'),TI(a.cd||'',v=>{C[key][i].cd=v;save();},'2d8',{})]),
+        ],'1fr 1fr 1fr',4));
+        card.appendChild(ROW([CHK(!!a.pr,v=>{C[key][i].pr=v;save();render();},'Competenza'),TI(a.nt||'',v=>{C[key][i].nt=v;save();},'Note',{flex:'1',fontSize:'11px'})],{marginTop:'4px'}));
+      }
       sec.appendChild(card);
     });
     return sec;
   }
   p.appendChild(atkSection(C.wa,'wa','⚔ Attacchi con Armi',false));
   p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'4px 0'}}));
-  p.appendChild(atkSection(C.ma,'ma','⚡ Attacchi Magici',true));
+  // Magic attacks with spell import
+  (()=>{
+    const maSec=atkSection(C.ma,'ma','⚡ Attacchi Magici',true);
+    const allSpells=[...(C.cn||[]),...[1,2,3,4,5,6,7,8,9].flatMap(l=>(C.sl[l]||[]))];
+    if(allSpells.length>0){
+      const spOpts=[['','— Importa da Incantesimi —'],...allSpells.map(s=>{const d=lkS(s.n);return[s.n,(d?.it||s.n)+(d?.lv===0?' (Trucchetto)':d?.lv?' (Lv '+d.lv+')':'')];})];
+      const spSel=SEL('',spOpts,v=>{
+        if(!v)return;
+        const d=lkS(v);const cu=(C.csp||{})[v.toLowerCase()]||null;const info=cu||d;
+        C.ma.push({n:(info?.it||v),stat:C.sca||'int',dmgStat:C.sca||'int',pr:true,dmg:'',dt:'',ex:0,cd:'',nt:'',range:info?.ra||'',fromSpell:v});
+        save();render();
+      },{width:'100%',marginTop:'6px'});
+      maSec.appendChild(spSel);
+    }
+    p.appendChild(maSec);
+  })();
 
   // ── Condizioni ──
   p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'8px 0'}}));
@@ -979,39 +1050,101 @@ function pgSpells(){
   const caMap={A:'A',AB:'AB',R:'R'};
   const caCls={A:'cbA',AB:'cbAB',R:'cbR'};
 
-  // Incantatore
+  // Incantatore - DC e bonus attacco con modificatori addizionali
+  if(!C.dcMods)C.dcMods=[];
+  if(!C.attMods)C.attMods=[];
+  const dcBase=8+(C.prof||2)+spMod;
+  const dcTotal=dcBase+(C.dcMods||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
+  const attBase=(C.prof||2)+spMod;
+  const attTotal=attBase+(C.attMods||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
   const scaOpts=[['str','FOR'],['dex','DES'],['con','COS'],['int','INT'],['wis','SAG'],['cha','CAR']];
-  p.appendChild(CARD([
-    LBL('Incantatore'),
-    GRID([
-      SEL(C.sca,scaOpts,v=>{C.sca=v;save();render();},{width:'100%'}),
-      DIV([LBL('DC'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'19px',textAlign:'center'}},[String(8+(C.prof||2)+spMod)])]),
-      DIV([LBL('Att.'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'19px',textAlign:'center'}},[fm((C.prof||2)+spMod)])])
-    ],'1fr 1fr 1fr',6,{marginTop:'6px'})
-  ]));
 
-  // Slot
-  const slotDiv=mk('div',{style:{marginTop:'6px'}});
-  for(let l=1;l<=9;l++){
-    const sl=C.ss[l]||{m:0,u:0};
-    const dotsDiv=mk('div',{style:{display:'flex',gap:'3px'}});
-    // Build dots without render()
-    function buildDots(lv,el){
-      el.innerHTML='';
-      const s=C.ss[lv]||{m:0,u:0};
-      for(let i=0;i<s.m;i++){
-        const d=mk('div',{cls:'slotc'+(i<s.u?' used':'')});
-        const ii=i;
-        d.addEventListener('click',()=>{C.ss[lv].u=ii<C.ss[lv].u?ii:ii+1;save();buildDots(lv,el);});
-        el.appendChild(d);
-      }
+  function modSection(label,mods,key,total,baseVal){
+    const modsDiv=mk('div',{style:{flex:'1'}});
+    function refresh(){
+      modsDiv.innerHTML='';
+      const t=baseVal+(C[key]||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
+      modsDiv.appendChild(ROW([
+        LBL(label),
+        mk('div',{id:'spell-'+key+'-total',style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'20px',lineHeight:'1'}},[String(t)]),
+        BTN('+',()=>{C[key].push({n:'',v:0,on:false});save();refresh();},'sm ghost',{marginLeft:'auto'})
+      ],{alignItems:'center',gap:'6px',marginBottom:'4px'}));
+      (C[key]||[]).forEach((m,i)=>{
+        modsDiv.appendChild(ROW([
+          CHK(!!m.on,v=>{C[key][i].on=v;save();refresh();}),
+          TI(m.n||'',v=>{C[key][i].n=v;save();},'',{flex:'1',fontSize:'11px'}),
+          NI(m.v||0,v=>{C[key][i].v=v;save();refresh();},undefined,undefined,{width:'40px'}),
+          BTN('✕',()=>{C[key].splice(i,1);save();refresh();},'ghost sm')
+        ],{marginBottom:'3px'}));
+      });
     }
-    buildDots(l,dotsDiv);
-    const lv=l;
-    const maxI=NI(sl.m,v=>{C.ss[lv]={...C.ss[lv],m:Number(v)};save();buildDots(lv,dotsDiv);},undefined,undefined,{width:'36px'});
-    slotDiv.appendChild(ROW([mk('span',{style:{color:'var(--td)',fontFamily:'var(--ft)',fontSize:'10px',width:'34px'}},['Lv '+l]),dotsDiv,maxI,mk('span',{style:{color:'var(--td)',fontSize:'10px'}},['max'])],{marginBottom:'4px'}));
+    refresh();
+    return modsDiv;
   }
-  p.appendChild(CARD([LBL('Slot Incantesimi'),slotDiv]));
+
+  const scaCard=CARD([
+    ROW([LBL('Caratteristica Incantatore'),SEL(C.sca,scaOpts,v=>{C.sca=v;save();render();},{})],{gap:'8px',marginBottom:'8px',alignItems:'center'}),
+    GRID([
+      modSection('DC Incantesimi','dcMods','dcMods',dcTotal,dcBase),
+      modSection('Bonus Attacco','attMods','attMods',attTotal,attBase),
+    ],'1fr 1fr',10)
+  ]);
+  p.appendChild(scaCard);
+
+  // Slot incantesimi
+  const slotDiv=mk('div',{style:{marginTop:'6px'}});
+
+  function buildSlotRow(lv,container){
+    container.innerHTML='';
+    const s=C.ss[lv]||{m:0,u:0};
+    const avail=Math.max(0,s.m-s.u);
+    // Dots (display only)
+    const dotsDiv=mk('div',{style:{display:'flex',gap:'3px',flex:'1'}});
+    for(let i=0;i<s.m;i++){
+      dotsDiv.appendChild(mk('div',{cls:'slotc'+(i<avail?'':' used')}));
+    }
+    const cntEl=mk('span',{style:{color:avail===0&&s.m>0?'var(--rl)':'var(--td)',fontFamily:'var(--ft)',fontSize:'11px',minWidth:'32px',textAlign:'center'}},[avail+'/'+s.m]);
+    const usaBtn=mk('button',{cls:'sm',style:{padding:'1px 6px',fontSize:'10px',opacity:avail===0?0.5:1}},['Usa']);
+    usaBtn.addEventListener('click',()=>{if(C.ss[lv].u<C.ss[lv].m){C.ss[lv].u++;save();buildSlotRow(lv,container);}});
+    const recBtn=mk('button',{cls:'sm ghost',style:{padding:'1px 5px',fontSize:'13px',opacity:s.u===0?0.4:1}},['↺']);
+    recBtn.addEventListener('click',()=>{if(C.ss[lv].u>0){C.ss[lv].u--;save();buildSlotRow(lv,container);}});
+    const maxI=mk('input',{type:'number',value:String(s.m),style:{width:'32px',fontSize:'11px',textAlign:'center',padding:'2px 4px'}});
+    maxI.addEventListener('input',ev=>{
+      const v=Math.max(0,Math.min(9,Number(ev.target.value)||0));
+      C.ss[lv]={...C.ss[lv],m:v};
+      if(C.ss[lv].u>v)C.ss[lv].u=v;
+      save();
+      // Update dots and counter WITHOUT rebuilding the row (keeps keyboard open)
+      const s2=C.ss[lv];
+      const avail2=Math.max(0,s2.m-s2.u);
+      dotsDiv.innerHTML='';
+      for(let i=0;i<s2.m;i++)dotsDiv.appendChild(mk('div',{cls:'slotc'+(i<avail2?'':' used')}));
+      cntEl.textContent=avail2+'/'+s2.m;
+      cntEl.style.color=avail2===0&&s2.m>0?'var(--rl)':'var(--td)';
+    });
+    container.appendChild(mk('span',{style:{color:'var(--td)',fontFamily:'var(--ft)',fontSize:'10px',width:'30px',flexShrink:0}},['Lv '+lv]));
+    container.appendChild(dotsDiv);
+    container.appendChild(cntEl);
+    container.appendChild(usaBtn);
+    container.appendChild(recBtn);
+    container.appendChild(mk('span',{style:{color:'var(--tk)',fontSize:'10px',flexShrink:0}},['max']));
+    container.appendChild(maxI);
+  }
+
+  for(let l=1;l<=9;l++){
+    const rowEl=mk('div',{cls:'row',style:{marginBottom:'5px'}});
+    buildSlotRow(l,rowEl);
+    slotDiv.appendChild(rowEl);
+  }
+
+  const resetBtn=mk('button',{cls:'sm',style:{width:'100%',marginTop:'8px',color:'var(--greenl)',borderColor:'var(--green)',background:'rgba(42,107,58,0.15)'}},['↺ Riposo lungo — Recupera tutti gli slot']);
+  resetBtn.addEventListener('click',()=>{
+    for(let l=1;l<=9;l++){if(C.ss[l])C.ss[l].u=0;}
+    save();
+    Array.from(slotDiv.children).forEach((rowEl,idx)=>buildSlotRow(idx+1,rowEl));
+  });
+
+  p.appendChild(CARD([LBL('Slot Incantesimi'),slotDiv,resetBtn]));
 
   // Aggiungi
   let newLv=0,newN='';
@@ -1107,7 +1240,7 @@ function pgInventory(){
     row.appendChild(nm);
     if(item.rarity)row.appendChild(mk('span',{style:{color:rarC[item.rarity]||'var(--td)',fontSize:'11px'}},['●']));
     if(item.attuned)row.appendChild(mk('span',{style:{color:'var(--gold)',fontSize:'10px'}},['✦']));
-    if(item.bagOfHolding)row.appendChild(mk('span',{style:{color:'var(--bluel)',fontSize:'9px'}},['BoH']));
+    if(item.bagOfHolding)row.appendChild(mk('span',{style:{color:'var(--bluel)',fontSize:'10px'}},['🎒']));
     row.appendChild(BTN('✕',()=>{C.mi.splice(i,1);save();render();},'ghost sm'));
     mgCard.appendChild(row);
   });
@@ -1119,9 +1252,12 @@ function pgInventory(){
     const card=CARD([ROW([LBL(title),BTN('+ Aggiungi',()=>{C[key].push({...def});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
     (C[key]||[]).forEach((item,i)=>{
       const irow=mk('div',{cls:'irow'});
+      const bcTog=mk('span',{style:{fontSize:'11px',cursor:'pointer',flexShrink:0,color:item.borsa?'var(--bluel)':'var(--tk)',border:'1px solid '+(item.borsa?'var(--bluel)':'var(--border)'),borderRadius:'10px',padding:'1px 6px',whiteSpace:'nowrap',fontFamily:'var(--fb)'}},['🎒 Borsa']);
+      bcTog.addEventListener('click',()=>{C[key][i].borsa=!item.borsa;save();render();});
       const hrow=ROW([
         TI(item.name||'',v=>{C[key][i].name=v;save();},'Nome',{flex:'1',fontSize:'12px'}),
         fields.includes('qty')&&NI(item.qty||1,v=>{C[key][i].qty=v;save();},undefined,undefined,{width:'42px'}),
+        bcTog,
         BTN(item._exp?'▲':'▼',()=>{C[key][i]._exp=!item._exp;save();render();},'ghost sm'),
         BTN('✕',()=>{C[key].splice(i,1);save();render();},'ghost sm')
       ].filter(Boolean));
@@ -1130,6 +1266,7 @@ function pgInventory(){
         const exp=mk('div',{style:{marginTop:'5px',display:'flex',flexDirection:'column',gap:'4px'}});
         if(fields.includes('weight'))exp.appendChild(DIV([LBL('Peso (kg)'),TI(item.weight||'',v=>{C[key][i].weight=v;save();},'kg',{})]));
         exp.appendChild(DIV([LBL('Note'),TA(item.desc||'',v=>{C[key][i].desc=v;save();})]));
+
         irow.appendChild(exp);
       }
       card.appendChild(irow);
@@ -1146,6 +1283,30 @@ function pgInventory(){
 
 function pgPersonality(){
   const p=mk('div',{cls:'page'});
+
+  // Character image
+  const imgCard=CARD([]);
+  const imgContainer=mk('div',{style:{textAlign:'center',marginBottom:'8px'}});
+  if(C.img){
+    const imgEl=mk('img',{src:C.img,style:{maxWidth:'100%',maxHeight:'200px',borderRadius:'8px',border:'2px solid var(--border)',objectFit:'cover'}});
+    imgContainer.appendChild(imgEl);
+    imgContainer.appendChild(mk('br'));
+    imgContainer.appendChild(BTN('🗑 Rimuovi',()=>{C.img='';save();render();},'ghost sm',{marginTop:'6px'}));
+  } else {
+    imgContainer.appendChild(mk('div',{style:{width:'100%',height:'120px',border:'2px dashed var(--border)',borderRadius:'8px',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--tk)',fontFamily:'var(--fb)',fontSize:'13px',cursor:'pointer'}},['📷 Carica immagine personaggio']));
+  }
+  const fileInp=mk('input',{type:'file',accept:'image/*',style:{display:'none',width:'auto'}});
+  fileInp.addEventListener('change',ev=>{
+    const f=ev.target.files[0];if(!f)return;
+    const reader=new FileReader();
+    reader.onload=e=>{C.img=e.target.result;save();render();};
+    reader.readAsDataURL(f);
+  });
+  imgContainer.addEventListener('click',()=>fileInp.click());
+  imgCard.appendChild(imgContainer);
+  imgCard.appendChild(fileInp);
+  p.appendChild(imgCard);
+
   const fields=[['Aspetto Fisico','app','Descrizione fisica...'],['Tratti della Personalità','pt',''],['Ideali','id',''],['Legami','bo',''],['Difetti','fl',''],['Storia & Background','bs','La storia del tuo personaggio...'],['Note Libere','nt','']];
   fields.forEach(([label,key,ph])=>{
     p.appendChild(CARD([LBL(label),TA(C[key]||'',v=>{C[key]=v;save();},ph,{width:'100%',minHeight:key==='bs'?'120px':'60px'})]));
@@ -1216,16 +1377,22 @@ function pgCombo(){
         if(available.length===0){
           stepEl.appendChild(mk('div',{style:{color:'var(--rl)',fontSize:'12px',marginTop:'6px'}},['⚠ Concentrazione già attiva — nessun altro incantesimo di concentrazione disponibile']));
         } else {
-          const opts=[['','— Scegli incantesimo —'],...available.map(s=>[s.n,s.label+(s.lv===0?' (Trucchetto)':' (Lv '+s.lv+')')+(s.conc?' [C]':'')+(s.ca?' ['+s.ca+']':'')])];
+          // ── Tipo azione (sempre visibile) ──
+          stepEl.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'10px',marginTop:'6px',marginBottom:'2px'}},['Tipo di azione:']));
+          stepEl.appendChild(SEL(st.ca||'A',[['A','⚔ Azione'],['AB','⚡ Azione Bonus'],['R','🔄 Reazione'],['special','✦ Speciale']],v=>{
+            C.combos[ci].steps[si].ca=v;save();render();
+          },{width:'100%'}));
+          // ── Incantesimo ──
+          stepEl.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'10px',marginTop:'6px',marginBottom:'2px'}},['Incantesimo:']));
+          const opts=[['','— Scegli incantesimo —'],...available.map(s=>[s.n,s.label+(s.lv===0?' (Trucchetto)':' (Lv '+s.lv+')')+(s.conc?' [C]':'')])];
           const sel=SEL(st.spell||'',opts,v=>{
             const sp=available.find(s=>s.n===v);
             C.combos[ci].steps[si].spell=v;
             C.combos[ci].steps[si].conc=sp?.conc||false;
             C.combos[ci].steps[si].label=sp?.label||v;
             save();render();
-          },{width:'100%',marginTop:'6px'});
+          },{width:'100%'});
           stepEl.appendChild(sel);
-          // Show conc warning if this spell has conc
           if(st.conc){
             stepEl.appendChild(mk('div',{style:{color:'var(--bluel)',fontSize:'11px',marginTop:'4px'}},['🔵 Questo incantesimo richiede concentrazione']));
           }
@@ -1296,6 +1463,44 @@ function pgCombo(){
     C.combos.forEach((combo,ci)=>p.appendChild(renderCombo(combo,ci)));
   }
 
+  return p;
+}
+
+function pgDiario(){
+  const p=mk('div',{cls:'page'});
+  if(!C.notes)C.notes=[];
+
+  p.appendChild(ROW([
+    mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'14px'}},['📓 Diario']),
+    BTN('+ Aggiungi Nota',()=>{C.notes.unshift({title:'Nuova nota',body:'',open:true,date:new Date().toLocaleDateString('it-IT')});save();render();},'gold sm')
+  ],{justifyContent:'space-between',alignItems:'center'}));
+
+  if(!C.notes.length){
+    p.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'13px',textAlign:'center',padding:'24px',fontFamily:'var(--fb)'}},[
+      'Nessuna nota ancora.',mk('br'),'Clicca + Aggiungi Nota per iniziare.'
+    ]));
+  }
+
+  C.notes.forEach((note,i)=>{
+    const card=CARD([]);
+
+    // Header: title (clickable to collapse) + date + delete
+    const titleI=TI(note.title||'',v=>{C.notes[i].title=v;save();},'Titolo nota...',{
+      flex:'1',fontFamily:'var(--ft)',fontSize:'13px',color:'var(--gl)',
+      background:'transparent',border:'none',borderBottom:'1px solid var(--border)',borderRadius:'0'
+    });
+    const arrow=mk('span',{style:{color:'var(--td)',fontSize:'13px',cursor:'pointer',flexShrink:0}},[ note.open!==false?'▲':'▼' ]);
+    arrow.addEventListener('click',()=>{C.notes[i].open=note.open===false;save();render();});
+    titleI.addEventListener('click',()=>{C.notes[i].open=note.open===false;save();render();});
+
+    const dateEl=mk('span',{style:{color:'var(--tk)',fontSize:'10px',flexShrink:0}},[note.date||'']);
+    card.appendChild(ROW([arrow,titleI,dateEl,BTN('✕',()=>{if(confirm('Eliminare questa nota?')){C.notes.splice(i,1);save();render();}},'ghost sm')],{gap:'6px',marginBottom:note.open!==false?'8px':'0'}));
+
+    if(note.open!==false){
+      card.appendChild(TA(note.body||'',v=>{C.notes[i].body=v;save();},'Scrivi qui i tuoi appunti...',{width:'100%',minHeight:'100px'}));
+    }
+    p.appendChild(card);
+  });
   return p;
 }
 
@@ -1403,6 +1608,7 @@ function render(){
     case 'inventory':pg=pgInventory();break;
     case 'personality':pg=pgPersonality();break;
     case 'combo':pg=pgCombo();break;
+    case 'diario':pg=pgDiario();break;
     case 'world':pg=pgWorld();break;
     case 'homebrew':pg=pgHomebrew();break;
     default:pg=pgMain();
@@ -1484,9 +1690,9 @@ const CONDITIONS={
     "2014":"• È inabile, non può muoversi e può parlare solo in modo confuso.\n• Fallisce automaticamente i TS di Forza e Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.",
     "2024":"• È inabile.\n• Non può muoversi.\n• Parla in modo confuso.\n• Fallisce automaticamente i TS di FOR e DES.\n• I tiri per colpire contro di lui hanno vantaggio."
   },
-  "Indebolimento":{
-    "2014":"N/A — non esiste come condizione separata nel 2014 (vedi esaurimento e incantesimi specifici).",
-    "2024":"• Usata per rappresentare l'esaurimento o debolezza fisica.\n• Svantaggio ai tiri per colpire basati su Forza.\n• I tiri per colpire contro di lui basati su Forza hanno vantaggio."
+  "Esaurimento":{
+    "2014":"Livello 1: Svantaggio alle prove di caratteristica.\nLivello 2: Velocità dimezzata.\nLivello 3: Svantaggio ai tiri per colpire e ai tiri salvezza.\nLivello 4: Massimo PF dimezzato.\nLivello 5: Velocità ridotta a 0.\nLivello 6: Morte.\n\nOgni livello si accumula con i precedenti. Un riposo lungo riduce l'esaurimento di 1 livello (con cibo e acqua).",
+    "2024":"Livello 1: -2 a d20 test (prove, attacchi, TS).\nLivello 2: Velocità dimezzata.\nLivello 3: -4 a d20 test.\nLivello 4: Massimo PF dimezzato.\nLivello 5: -6 a d20 test.\nLivello 6: Velocità ridotta a 0.\nLivello 7: -8 a d20 test.\nLivello 8: Massimo PF ridotto a 0 → morte.\n\nRiposo lungo: -1 livello. Con riposo breve: nessun recupero automatico."
   },
 };
 
