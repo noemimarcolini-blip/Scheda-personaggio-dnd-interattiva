@@ -1,68 +1,80 @@
-# Scheda DnD 5e Interattiva
+D&D Character Sheet Web App
 
-## Overview
+Applicazione web single-page per la gestione completa di un personaggio Dungeons & Dragons 5e, con supporto a combattimento, incantesimi, inventario, condizioni, mondo di gioco e strumenti avanzati come combo di azioni.
 
-Scheda DnD 5e Interattiva è un’app web per la creazione e gestione di schede personaggio per Dungeons & Dragons 5a Edizione.
+Funzionalità
+Combat
+Gestione iniziativa con tiro automatico
+Attacchi corpo a corpo e magici
+Calcolo automatico di tiri per colpire, danni e critici
+Supporto bonus competenza e statistiche
+Incantesimi
+Slot incantesimo da livello 1 a 9
+Trucchetti separati
+Selezione statistica per incantatore
+Calcolo DC e bonus attacco
+Gestione concentrazione integrata
+Inventario
+Gestione monete (CP, SP, GP, EP, PP)
+Oggetti magici con attunement
+Armi, armature e consumabili
+Inventario generale con quantità e peso
+Combo System
+Creazione di sequenze di azioni
+Supporto per azioni, azioni bonus e reazioni
+Integrazione con incantesimi
+Validazione dei limiti per turno
+Gestione concentrazione
+World Building
+Gestione PNG con dettagli completi
+Gestione luoghi e informazioni narrative
+Condizioni
+Supporto condizioni D&D 2014 e 2024
+Visualizzazione dettagliata per ogni condizione
+Attivazione e gestione dinamica
+Homebrew
+Sezioni personalizzate modificabili
+Tracker attività con progress bar
+Export / Import
+Esportazione personaggio in formato JSON
+Importazione completa dello stato
+Tecnologie utilizzate
+HTML5
+CSS3 (custom properties, dark/light theme)
+JavaScript vanilla (senza framework)
+LocalStorage per persistenza dati
+Installazione
+git clone https://github.com/tuo-utente/dnd-character-sheet.git
+cd dnd-character-sheet
 
-Il progetto è pensato per offrire uno strumento leggero, veloce e completamente client-side per gestire le statistiche del personaggio senza necessità di backend o database esterni.
+Aprire index.html direttamente nel browser.
 
----
+Persistenza dati
 
-## Live Demo
+I dati del personaggio vengono salvati automaticamente in localStorage.
 
-https://gdr-sys.github.io/Scheda-personaggio-dnd-interattiva/
+Backup disponibile tramite:
 
----
+Export JSON
+Import JSON
+Tema
 
-## Features
+L’app supporta modalità:
 
-### Gestione personaggio
-- Creazione e modifica scheda personaggio DnD 5e
-- Interfaccia dinamica e interattiva
-- Gestione completa delle statistiche base
+Dark mode
+Light mode
 
-### Automazioni
-- Calcolo automatico dei modificatori
-- Aggiornamento in tempo reale dei valori
-- Supporto alle regole base della 5e
+La preferenza viene salvata automaticamente.
 
-### Salvataggio dati
-- Persistenza locale tramite LocalStorage
-- Nessuna dipendenza da server esterni
+Architettura del progetto
 
-### Import / Export
-- Esportazione scheda in formato json
-- Importazione rapida dei dati salvati
+Il progetto è basato su una struttura state-driven:
 
----
+C → stato globale del personaggio
+render() → rigenera l’interfaccia
+mk() → helper per costruzione DOM
+save() → persistenza automatica
 
-## Obiettivo del progetto
+Licenza
 
-L’app è progettata per:
-
-- semplificare la gestione delle schede durante le sessioni
-- ridurre la dipendenza da strumenti cartacei o software complessi
-- fornire una soluzione accessibile direttamente da browser
-
----
-
-## Tecnologie utilizzate
-
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- LocalStorage API
-- GitHub Pages
-
----
-
-## Utilizzo
-
-### Online
-Accedere direttamente alla demo live.
-
-### Locale
-
-```bash
-git clone https://github.com/gdr-sys/Scheda-personaggio-dnd-interattiva.git
-cd Scheda-personaggio-dnd-interattiva
+MIT License (consigliata per progetti open source)
