@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>Scheda D&D 5e</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e0c09;--paper:#1a1610;--card:#221e16;--border:#5a3e1b;
+  --gold:#c9a84c;--gl:#e8c96a;--gd:#7a6030;
+  --red:#8b2020;--rl:#c94040;--green:#2a6b3a;--greenl:#4aab5a;
+  --blue:#1a3a6b;--bluel:#4a7acb;
+  --text:#e8dcc8;--td:#9a8870;--tk:#5a5040;
+  --pur:#4a2080;--purl:#8a50c0;
+  --ft:'Cinzel Decorative',serif;--fb:'Crimson Text',serif;
+}
+body.light{
+  --bg:#f5f0e8;--paper:#ede5d8;--card:#e8dfc8;--border:#b89060;
+  --gold:#8a5e1a;--gl:#6b4010;--gd:#a07030;
+  --red:#8b2020;--rl:#c94040;--green:#1a5a28;--greenl:#2a8a3a;
+  --blue:#1a3a8b;--bluel:#2a5acb;
+  --text:#2a2010;--td:#6a5030;--tk:#9a8060;
+  --pur:#4a2080;--purl:#6a40b0;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden}
+*{box-sizing:border-box}
+input,textarea,select{background:rgba(0,0,0,0.07);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--fb);font-size:14px;padding:4px 8px;outline:none;width:100%}body.light input,body.light textarea,body.light select{background:rgba(255,255,255,0.7)}
+input[type=number]{width:58px;text-align:center;padding:4px 6px}
+input[type=number]::-webkit-inner-spin-button{opacity:1}
+textarea{resize:vertical;min-height:60px;font-family:var(--fb)}
+select option{background:var(--card)}
+button{background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--fb);font-size:13px;padding:5px 12px;cursor:pointer;flex-shrink:0}body.light .irow,body.light .srow,body.light .mgrow{background:rgba(255,255,255,0.4)}
+button.gold{background:rgba(201,168,76,0.15);border-color:var(--gold);color:var(--gold)}
+button.ghost{background:transparent;border-color:transparent;color:var(--td)}
+button.sm{font-size:11px;padding:2px 8px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gd),transparent);border-radius:8px 8px 0 0}body.light .card{box-shadow:0 1px 4px rgba(0,0,0,0.08)}body.light .irow{background:rgba(255,255,255,0.5);border-color:var(--border)}
+.lbl{color:var(--td);font-family:var(--ft);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;display:block}
+.row{display:flex;align-items:center;gap:6px}
+.page{padding:12px;display:flex;flex-direction:column;gap:10px}
+#hdr{background:linear-gradient(180deg,var(--paper) 0%,rgba(26,22,16,0.97) 100%);border-bottom:1px solid var(--border);padding:8px 12px;position:sticky;top:0;z-index:100}
+#nav{position:fixed;bottom:0;left:0;right:0;background:rgba(26,22,16,0.95);backdrop-filter:blur(8px);border-top:1px solid var(--border);z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#nav-inner{display:flex;min-width:max-content;padding:4px 8px;gap:2px}
+.nb{background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 10px;border-radius:6px;flex-shrink:0}
+.nb.on{background:rgba(201,168,76,0.15)}
+.nb .ic{font-size:18px}
+.nb .tx{font-size:8px;font-family:var(--ft);letter-spacing:.5px;white-space:nowrap;color:var(--tk)}
+.nb.on .tx{color:var(--gl)}
+#content{padding-bottom:80px;max-width:600px;margin:0 auto}
+.sl{position:fixed;top:0;left:0;width:3px;height:100vh;background:linear-gradient(180deg,transparent,var(--gd),transparent);pointer-events:none;z-index:50}
+.sr{position:fixed;top:0;right:0;width:3px;height:100vh;background:linear-gradient(180deg,transparent,var(--gd),transparent);pointer-events:none;z-index:50}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px}
+.mbox{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;width:420px;max-width:95vw;max-height:88vh;overflow-y:auto;position:relative}
+.mbox::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gd),transparent);border-radius:8px 8px 0 0}
+.mpur{border-color:var(--purl)}
+.mpur::before{background:linear-gradient(90deg,transparent,var(--purl),transparent)}
+.rpop{position:fixed;bottom:80px;right:12px;background:var(--card);border:1px solid var(--gold);border-radius:8px;padding:8px 12px;z-index:999;text-align:center;min-width:110px;display:none}
+.irow{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;padding:6px}
+.srow{display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(90,62,27,.15)}
+.mgrow{display:flex;align-items:center;gap:4px;padding:4px 0;border-bottom:1px solid rgba(90,62,27,.15)}
+.chkb{width:14px;height:14px;border:1px solid var(--border);border-radius:2px;background:rgba(0,0,0,.4);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;font-size:10px;color:var(--gold)}
+.chkb.on{border-color:var(--gold);background:rgba(201,168,76,.3)}
+.dotc{width:13px;height:13px;border:2px solid var(--border);border-radius:50%;background:transparent;cursor:pointer;flex-shrink:0;display:inline-block}
+.dotc.on{border-color:var(--gold);background:rgba(201,168,76,.6)}
+.cbA{background:rgba(42,107,58,.3);border:1px solid var(--green);color:var(--greenl);border-radius:3px;padding:0 4px;font-size:10px;font-family:monospace}
+.cbAB{background:rgba(26,58,107,.3);border:1px solid var(--blue);color:var(--bluel);border-radius:3px;padding:0 4px;font-size:10px;font-family:monospace}
+.cbR{background:rgba(139,32,32,.3);border:1px solid var(--red);color:var(--rl);border-radius:3px;padding:0 4px;font-size:10px;font-family:monospace}
+.slotc{width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);background:rgba(201,168,76,.6);cursor:pointer;display:inline-block}
+.slotc.used{background:rgba(201,168,76,.15)}
+.dc{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid var(--green);display:inline-block}
+.dc.f{border-color:var(--red)}
+.dc.on{background:var(--green)}
+.dc.f.on{background:var(--red)}
+.ic2{width:20px;height:20px;border-radius:50%;border:2px solid var(--gold);background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold)}
+.ic2.on{background:rgba(201,168,76,.5)}
+.pb{height:5px;background:rgba(0,0,0,.4);border-radius:3px;margin-top:4px;overflow:hidden}
+.pbf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gl))}
+</style>
+</head>
+<body>
+<div class="sl"></div><div class="sr"></div>
+<div id="hdr">
+  <div class="row" style="justify-content:space-between">
+    <div>
+      <div id="hn" style="color:var(--gl);font-family:var(--ft);font-size:15px;line-height:1.2">Nuovo Personaggio</div>
+      <div id="hs" style="color:var(--td);font-size:11px"></div>
+    </div>
+    <div class="row" style="gap:4px">
+      <button class="sm ghost" id="theme-btn" onclick="toggleTheme()">☀</button>
+      <button class="sm ghost" onclick="doExport()">⬇ Export</button>
+      <button class="sm ghost" onclick="document.getElementById('ifile').click()">⬆ Import</button>
+      <input id="ifile" type="file" accept=".json" style="display:none;width:auto" onchange="doImport(event)"/>
+      <button class="sm ghost" onclick="if(confirm('Cancellare la scheda?')){resetChar();render()}">✦ Nuovo</button>
+    </div>
+  </div>
+  <div id="hp" style="color:var(--gold);font-family:var(--ft);font-size:10px;letter-spacing:2px;text-align:center;margin-top:2px"></div>
+</div>
+<div id="content"></div>
+<div id="nav"><div id="nav-inner"></div></div>
+<div id="modal-root"></div>
+<div id="rpop" class="rpop"></div>
+
+<script>
+// ══ DATA ══
+const PAGES=[
+  {id:'main',ic:'📜',tx:'Principale'},{id:'skills',ic:'🎯',tx:'Abilità'},
+  {id:'combat',ic:'⚔',tx:'Combattimento'},{id:'spells',ic:'✨',tx:'Incantesimi'},
+  {id:'combo',ic:'⚡',tx:'Combo'},{id:'inventory',ic:'🎒',tx:'Inventario'},{id:'personality',ic:'🎭',tx:'Personalità'},
+  {id:'world',ic:'🗺',tx:'Mondo'},{id:'homebrew',ic:'⚗',tx:'Homebrew'},
+];
+
+const SD={
+"fire bolt":{it:"Dardo di Fuoco",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"Tiro colpire distanza. 1d10 fuoco. Scala per livello."},
+"dardo di fuoco":{it:"Dardo di Fuoco",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"1d10 fuoco per colpo."},
+"eldritch blast":{it:"Deflagrazione Occulta",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"1d10 forza per fascio. Lv5(2), Lv11(3), Lv17(4)."},
+"deflagrazione occulta":{it:"Deflagrazione Occulta",lv:0,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"1d10 forza per fascio."},
+"mage hand":{it:"Mano del Mago",lv:0,sc:"Trasmutazione",ca:"A",ra:"9m",du:"1 min",co:"V,S",de:"Mano spettrale, max 5kg entro 9m."},
+"mano del mago":{it:"Mano del Mago",lv:0,sc:"Trasmutazione",ca:"A",ra:"9m",du:"1 min",co:"V,S",de:"Mano spettrale, max 5kg."},
+"prestidigitation":{it:"Prestidigitazione",lv:0,sc:"Trasmutazione",ca:"A",ra:"3m",du:"1 ora",co:"V,S",de:"Effetti magici minori."},
+"prestidigitazione":{it:"Prestidigitazione",lv:0,sc:"Trasmutazione",ca:"A",ra:"3m",du:"1 ora",co:"V,S",de:"Effetti magici minori."},
+"light":{it:"Luce",lv:0,sc:"Evocazione",ca:"A",ra:"Tocco",du:"1 ora",co:"V,M",de:"Luce brillante 6m + fioca 6m."},
+"luce":{it:"Luce",lv:0,sc:"Evocazione",ca:"A",ra:"Tocco",du:"1 ora",co:"V,M",de:"Luce brillante 6m."},
+"sacred flame":{it:"Fiamma Sacra",lv:0,sc:"Evocazione",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS DES o 1d8 radianti. Nessuna copertura."},
+"fiamma sacra":{it:"Fiamma Sacra",lv:0,sc:"Evocazione",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS DES o 1d8 radianti."},
+"toll the dead":{it:"Suono Funebre",lv:0,sc:"Necromanzia",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS SAG o 1d8 necrotici. Se ferito: 1d12."},
+"suono funebre":{it:"Suono Funebre",lv:0,sc:"Necromanzia",ca:"A",ra:"18m",du:"Istantanea",co:"V,S",de:"TS SAG o 1d8 necrotici (1d12 se ferito)."},
+"minor illusion":{it:"Illusione Minore",lv:0,sc:"Illusione",ca:"A",ra:"9m",du:"1 min",co:"S,M",de:"Suono o immagine illusoria. DC15."},
+"illusione minore":{it:"Illusione Minore",lv:0,sc:"Illusione",ca:"A",ra:"9m",du:"1 min",co:"S,M",de:"Suono o immagine illusoria. DC15."},
+"vicious mockery":{it:"Scherno Feroce",lv:0,sc:"Incantamento",ca:"A",ra:"18m",du:"Istantanea",co:"V",de:"TS SAG o 1d4 psichici + svantaggio prossimo attacco."},
+"scherno feroce":{it:"Scherno Feroce",lv:0,sc:"Incantamento",ca:"A",ra:"18m",du:"Istantanea",co:"V",de:"TS SAG o 1d4 psichici + svantaggio."},
+"magic missile":{it:"Dardi Magici",lv:1,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"3 dardi auto 1d4+1 forza. +1/slot."},
+"dardi magici":{it:"Dardi Magici",lv:1,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"3 dardi automatici 1d4+1 forza."},
+"shield":{it:"Scudo",lv:1,sc:"Abiurazione",ca:"R",ra:"Sé stesso",du:"1 round",co:"V,S",de:"+5 CA (reazione). Immune a Dardi Magici."},
+"scudo":{it:"Scudo",lv:1,sc:"Abiurazione",ca:"R",ra:"Sé stesso",du:"1 round",co:"V,S",de:"+5 CA (reazione)."},
+"cure wounds":{it:"Cura delle Ferite",lv:1,sc:"Evocazione",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S",de:"1d8+mod PF al tocco. +1d8/slot."},
+"cura delle ferite":{it:"Cura delle Ferite",lv:1,sc:"Evocazione",ca:"A",ra:"Tocco",du:"Istantanea",co:"V,S",de:"1d8+mod PF al tocco."},
+"bless":{it:"Benedizione",lv:1,sc:"Incantamento",ca:"A",ra:"9m",du:"Conc. 1min",co:"V,S,M",de:"+1d4 attacchi e TS per 3 creature."},
+"benedizione":{it:"Benedizione",lv:1,sc:"Incantamento",ca:"A",ra:"9m",du:"Conc. 1min",co:"V,S,M",de:"+1d4 attacchi e TS per 3 creature."},
+"healing word":{it:"Parola Guaritrice",lv:1,sc:"Evocazione",ca:"AB",ra:"18m",du:"Istantanea",co:"V",de:"1d4+mod PF (azione bonus). +1d4/slot."},
+"parola guaritrice":{it:"Parola Guaritrice",lv:1,sc:"Evocazione",ca:"AB",ra:"18m",du:"Istantanea",co:"V",de:"1d4+mod PF (azione bonus)."},
+"thunderwave":{it:"Onda Tonante",lv:1,sc:"Evocazione",ca:"A",ra:"Cubo 4.5m",du:"Istantanea",co:"V,S",de:"TS COS o 2d8 tuono+spinto 3m. +1d8/slot."},
+"onda tonante":{it:"Onda Tonante",lv:1,sc:"Evocazione",ca:"A",ra:"Cubo 4.5m",du:"Istantanea",co:"V,S",de:"TS COS o 2d8 tuono+spinta 3m."},
+"sleep":{it:"Sonno",lv:1,sc:"Incantamento",ca:"A",ra:"27m",du:"1 min",co:"V,S,M",de:"5d8 PF di creature addormentate. Nessun TS."},
+"sonno":{it:"Sonno",lv:1,sc:"Incantamento",ca:"A",ra:"27m",du:"1 min",co:"V,S,M",de:"5d8 PF addormentate."},
+"misty step":{it:"Passo Velato",lv:2,sc:"Trasmutazione",ca:"AB",ra:"Sé stesso",du:"Istantanea",co:"V",de:"Teletrasporti 9m (azione bonus)."},
+"passo velato":{it:"Passo Velato",lv:2,sc:"Trasmutazione",ca:"AB",ra:"Sé stesso",du:"Istantanea",co:"V",de:"Teletrasporti 9m (az. bonus)."},
+"hold person":{it:"Blocca Persone",lv:2,sc:"Incantamento",ca:"A",ra:"18m",du:"Conc. 1min",co:"V,S,M",de:"TS SAG o umanoide paralizzato. Ripete ogni turno."},
+"blocca persone":{it:"Blocca Persone",lv:2,sc:"Incantamento",ca:"A",ra:"18m",du:"Conc. 1min",co:"V,S,M",de:"TS SAG o paralisi."},
+"scorching ray":{it:"Raggio Bruciante",lv:2,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"3 raggi, tiro/colpire, 2d6 fuoco. +1/slot."},
+"raggio bruciante":{it:"Raggio Bruciante",lv:2,sc:"Evocazione",ca:"A",ra:"36m",du:"Istantanea",co:"V,S",de:"3 raggi 2d6 fuoco."},
+"invisibility":{it:"Invisibilità",lv:2,sc:"Illusione",ca:"A",ra:"Tocco",du:"Conc. 1ora",co:"V,S,M",de:"Invisibile fino ad attacco o incantesimo."},
+"invisibilità":{it:"Invisibilità",lv:2,sc:"Illusione",ca:"A",ra:"Tocco",du:"Conc. 1ora",co:"V,S,M",de:"Invisibile fino ad attacco."},
+"fireball":{it:"Palla di Fuoco",lv:3,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"TS DES o 8d6 fuoco in sfera 6m. +1d6/slot."},
+"palla di fuoco":{it:"Palla di Fuoco",lv:3,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"TS DES o 8d6 fuoco."},
+"counterspell":{it:"Controincantesimo",lv:3,sc:"Abiurazione",ca:"R",ra:"18m",du:"Istantanea",co:"S",de:"Annulla ≤3° (reazione). DC 10+liv per maggiori."},
+"controincantesimo":{it:"Controincantesimo",lv:3,sc:"Abiurazione",ca:"R",ra:"18m",du:"Istantanea",co:"S",de:"Annulla ≤3° (reazione)."},
+"haste":{it:"Accelerazione",lv:3,sc:"Trasmutazione",ca:"A",ra:"9m",du:"Conc. 1min",co:"V,S,M",de:"Velocità x2, +2 CA, vantaggio DES, azione extra."},
+"accelerazione":{it:"Accelerazione",lv:3,sc:"Trasmutazione",ca:"A",ra:"9m",du:"Conc. 1min",co:"V,S,M",de:"Velocità x2, +2 CA, vantaggio DES."},
+"fly":{it:"Volare",lv:3,sc:"Trasmutazione",ca:"A",ra:"Tocco",du:"Conc. 10min",co:"V,S,M",de:"Volo 18m per 10 min."},
+"volare":{it:"Volare",lv:3,sc:"Trasmutazione",ca:"A",ra:"Tocco",du:"Conc. 10min",co:"V,S,M",de:"Volo 18m."},
+"dimension door":{it:"Porta Dimensionale",lv:4,sc:"Trasmutazione",ca:"A",ra:"150m",du:"Istantanea",co:"V",de:"Teletrasporti 150m con un alleato."},
+"porta dimensionale":{it:"Porta Dimensionale",lv:4,sc:"Trasmutazione",ca:"A",ra:"150m",du:"Istantanea",co:"V",de:"Teletrasporti 150m."},
+"banishment":{it:"Esilio",lv:4,sc:"Abiurazione",ca:"A",ra:"18m",du:"Conc. 1min",co:"V,S,M",de:"TS CAR o banita. Permanente se extraplanare dopo 1min."},
+"esilio":{it:"Esilio",lv:4,sc:"Abiurazione",ca:"A",ra:"18m",du:"Conc. 1min",co:"V,S,M",de:"TS CAR o banita."},
+"cone of cold":{it:"Cono di Freddo",lv:5,sc:"Evocazione",ca:"A",ra:"Cono 18m",du:"Istantanea",co:"V,S,M",de:"TS COS o 8d8 freddo. +1d8/slot."},
+"cono di freddo":{it:"Cono di Freddo",lv:5,sc:"Evocazione",ca:"A",ra:"Cono 18m",du:"Istantanea",co:"V,S,M",de:"TS COS o 8d8 freddo."},
+"chain lightning":{it:"Fulmine a Catena",lv:6,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"10d8 fulmine + salta su 3 bersagli (4d8)."},
+"fulmine a catena":{it:"Fulmine a Catena",lv:6,sc:"Evocazione",ca:"A",ra:"45m",du:"Istantanea",co:"V,S,M",de:"10d8 + 3 bersagli (4d8)."},
+};
+function lkS(n){return n?SD[n.toLowerCase().trim()]||null:null;}
+
+const DEF={
+  name:"",cls:"",sub:"",lv:1,race:"",bg:"",align:"",xp:0,
+  str:10,dex:10,con:10,int:10,wis:10,cha:10,prof:2,
+  maxHp:0,hp:0,thp:0,hd:"1d8",hdr:1,
+  bac:10,acm:[],spd:30,
+  sp:{str:false,dex:false,con:false,int:false,wis:false,cha:false},
+  sk:{
+    acrobazia:{s:"dex",p:false,e:false},"addestrare animali":{s:"wis",p:false,e:false},
+    arcano:{s:"int",p:false,e:false},atletica:{s:"str",p:false,e:false},
+    intrattenere:{s:"cha",p:false,e:false},furtività:{s:"dex",p:false,e:false},
+    indagare:{s:"int",p:false,e:false},inganno:{s:"cha",p:false,e:false},
+    intimidazione:{s:"cha",p:false,e:false},intuizione:{s:"wis",p:false,e:false},
+    medicina:{s:"wis",p:false,e:false},natura:{s:"int",p:false,e:false},
+    percezione:{s:"wis",p:false,e:false},persuasione:{s:"cha",p:false,e:false},
+    "rapidità di mano":{s:"dex",p:false,e:false},religione:{s:"int",p:false,e:false},
+    sopravvivenza:{s:"wis",p:false,e:false},storia:{s:"int",p:false,e:false},
+  },
+  dkv:0,lang:"",wprof:"",aprof:"",tprof:"",
+  wa:[],ma:[],sca:"int",
+  ss:{1:{m:0,u:0},2:{m:0,u:0},3:{m:0,u:0},4:{m:0,u:0},5:{m:0,u:0},6:{m:0,u:0},7:{m:0,u:0},8:{m:0,u:0},9:{m:0,u:0}},
+  cn:[],sl:{1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[]},
+  res:[],ins:0,maxIns:1,ds:0,df:0,te:[],
+  pt:"",id:"",bo:"",fl:"",app:"",bs:"",nt:"",
+  coins:{pp:0,gp:0,ep:0,sp:0,cp:0},
+  wea:[],arm:[],mi:[],con_:[],val:[],gen:[],
+  ats:3,cs:[],ta:[],npcs:[],locs:[],
+  csp:{},
+  combos:[],
+  profManual:false,
+  conditions:[],
+  conditionEdition:'2014',
+};
+
+let C={};
+let PG='main';
+
+function reset(){C=JSON.parse(JSON.stringify(DEF));}
+function load(){try{const s=localStorage.getItem('dnd5');if(s){const d=JSON.parse(s);C={...JSON.parse(JSON.stringify(DEF)),...d};if(!C.sk||!C.sk.acrobazia){C.sk=JSON.parse(JSON.stringify(DEF.sk));}}else reset();}catch(e){reset();}}
+let _saveT;
+function save(){clearTimeout(_saveT);_saveT=setTimeout(()=>{try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}},300);}
+function saveNow(){try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}}
+
+// ── HELPERS ──
+function sm(s){return Math.floor(((s||10)-10)/2);}
+function profByLevel(lv){return lv>=17?6:lv>=13?5:lv>=9?4:lv>=5?3:2;}
+function fm(n){return n>=0?'+'+n:''+n;}
+function roll(f){
+  const m=(f||'1d6').match(/(\d+)d(\d+)([+-]\d+)?/i);
+  if(!m)return{t:0,r:[],f};
+  const n=parseInt(m[1]),s=parseInt(m[2]),b=parseInt(m[3]||'0');
+  const r=Array.from({length:n},()=>Math.floor(Math.random()*s)+1);
+  return{t:r.reduce((a,b)=>a+b,0)+b,r,f};
+}
+
+// DOM builder — NEVER causes re-render
+function mk(tag,attr,children){
+  const el=document.createElement(tag);
+  if(attr){
+    for(const[k,v] of Object.entries(attr)){
+      if(v==null)continue;
+      if(k==='style'){if(typeof v==='object')Object.assign(el.style,v);}
+      else if(k.startsWith('on')){el.addEventListener(k.slice(2).toLowerCase(),v);}
+      else if(k==='cls'){el.className=v;}
+      else{el.setAttribute(k,v);}
+    }
+  }
+  if(children){
+    for(const c of (Array.isArray(children)?children:[children])){
+      if(c==null||c===false||c===undefined)continue;
+      if(c instanceof Node)el.appendChild(c);
+      else el.appendChild(document.createTextNode(String(c)));
+    }
+  }
+  return el;
+}
+
+// ── CRITICAL: inputs NEVER trigger render ──
+// They only update state and save. render() is only called from buttons/nav.
+
+function TI(val,cb,ph,st){
+  // Text input - updates C via cb, NO render
+  const el=mk('input',{type:'text',value:val||'',placeholder:ph||'',style:st||{}});
+  el.addEventListener('input',ev=>cb(ev.target.value));
+  return el;
+}
+function TA(val,cb,ph,st){
+  // Textarea - NO render
+  const el=mk('textarea',{placeholder:ph||'',style:st||{}},[val||'']);
+  el.addEventListener('input',ev=>cb(ev.target.value));
+  return el;
+}
+function NI(val,cb,mn,mx,st){
+  // Number input - NO render
+  const el=mk('input',{type:'number',value:val??0,style:{width:'58px',textAlign:'center',...(st||{})}});
+  if(mn!=null)el.min=mn;
+  if(mx!=null)el.max=mx;
+  el.addEventListener('input',ev=>cb(Number(ev.target.value)));
+  return el;
+}
+function SEL(val,opts,cb,st){
+  // Select - triggers render after change (layout may change)
+  const el=mk('select',{style:{background:'var(--card)',border:'1px solid var(--border)',color:'var(--text)',borderRadius:'4px',padding:'4px',fontSize:'12px',...(st||{})}});
+  for(const[v,label] of opts){
+    const o=mk('option',{value:v},[label]);
+    if(v===val)o.selected=true;
+    el.appendChild(o);
+  }
+  el.addEventListener('change',ev=>{cb(ev.target.value);render();});
+  return el;
+}
+function CHK(checked,cb,label){
+  // Checkbox - triggers render (affects layout/computed values)
+  const box=mk('span',{cls:'chkb'+(checked?' on':'')},checked?['✦']:[]);
+  box.addEventListener('click',()=>{cb(!checked);render();});
+  if(!label)return box;
+  const w=mk('label',{style:{display:'flex',alignItems:'center',gap:'4px',cursor:'pointer'}});
+  w.appendChild(box);
+  w.appendChild(mk('span',{style:{color:'var(--td)',fontFamily:'var(--fb)',fontSize:'12px'}},[label]));
+  return w;
+}
+function BTN(label,cb,cls,st){
+  const el=mk('button',{cls:cls||'',style:st||{}},[label]);
+  el.addEventListener('click',cb);
+  return el;
+}
+function LBL(t,st){return mk('div',{cls:'lbl',style:st||{}},[t]);}
+function DIV(children,st){
+  const d=mk('div',{style:st||{}});
+  for(const c of (Array.isArray(children)?children:[children])){
+    if(c==null||c===false)continue;
+    d.appendChild(c instanceof Node?c:mk('span',null,[String(c)]));
+  }
+  return d;
+}
+function ROW(children,st){
+  const d=mk('div',{cls:'row',style:st||{}});
+  for(const c of (Array.isArray(children)?children:[children])){
+    if(c==null||c===false)continue;
+    d.appendChild(c instanceof Node?c:mk('span',null,[String(c)]));
+  }
+  return d;
+}
+function GRID(children,cols,gap,st){
+  const d=mk('div',{style:{display:'grid',gridTemplateColumns:cols||'1fr 1fr',gap:(gap||6)+'px',...(st||{})}});
+  for(const c of (Array.isArray(children)?children:[children])){
+    if(c==null||c===false)continue;
+    d.appendChild(c instanceof Node?c:mk('span',null,[String(c)]));
+  }
+  return d;
+}
+function CARD(children,st){
+  const d=mk('div',{cls:'card',style:st||{}});
+  for(const c of (Array.isArray(children)?children:[children])){
+    if(c==null||c===false)continue;
+    d.appendChild(c instanceof Node?c:mk('span',null,[String(c)]));
+  }
+  return d;
+}
+function STATSEL(val,cb){
+  return SEL(val,[['str','FOR'],['dex','DES'],['con','COS'],['int','INT'],['wis','SAG'],['cha','CAR']],cb,{width:'100%'});
+}
+
+// ── ROLL POPUP ──
+let rpt=null;
+function showRoll(formula,label){
+  const r=roll(formula);
+  const p=document.getElementById('rpop');
+  p.innerHTML='';
+  p.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'10px'}},[label]));
+  p.appendChild(mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'26px'}},[String(r.t)]));
+  p.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'10px'}},[r.f+' → ['+r.r.join(',')+']']));
+  p.style.display='block';
+  clearTimeout(rpt);rpt=setTimeout(()=>p.style.display='none',3000);
+}
+
+// ── MODAL ──
+function showModal(content){
+  const root=document.getElementById('modal-root');
+  root.innerHTML='';
+  const ov=mk('div',{cls:'ov'});
+  ov.addEventListener('click',ev=>{if(ev.target===ov)closeModal();});
+  ov.appendChild(content);
+  root.appendChild(ov);
+}
+function closeModal(){document.getElementById('modal-root').innerHTML='';}
+
+function showDiceModal(){
+  let f='1d20';
+  const quick=['1d4','1d6','1d8','1d10','1d12','1d20','1d100','2d6'];
+  const resDiv=mk('div',{style:{textAlign:'center',padding:'10px 0',display:'none'}});
+  const histDiv=mk('div',{style:{borderTop:'1px solid var(--border)',paddingTop:'6px',marginTop:'4px'}});
+  const hist=[];
+  const fInp=mk('input',{type:'text',value:f,style:{flex:'1'}});
+  fInp.addEventListener('input',ev=>f=ev.target.value);
+  function doRoll(){
+    const r=roll(f);
+    resDiv.style.display='block';resDiv.innerHTML='';
+    resDiv.appendChild(mk('div',{style:{fontSize:'42px',color:'var(--gl)',fontFamily:'var(--ft)',lineHeight:'1'}},[String(r.t)]));
+    resDiv.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'11px',marginTop:'3px'}},[r.f+' → ['+r.r.join(',')+']']));
+    hist.unshift(r);if(hist.length>8)hist.pop();
+    histDiv.innerHTML='';
+    hist.forEach(h=>{
+      const row=mk('div',{cls:'row',style:{justifyContent:'space-between'}});
+      row.appendChild(mk('span',{style:{color:'var(--td)',fontSize:'11px'}},[h.f]));
+      row.appendChild(mk('span',{style:{color:'var(--text)',fontSize:'11px'}},[String(h.t)]));
+      histDiv.appendChild(row);
+    });
+  }
+  const box=CARD([
+    ROW([mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px'}},['⚄ Dadi']),BTN('✕',closeModal,'ghost sm')],{justifyContent:'space-between',marginBottom:'10px'}),
+    DIV(quick.map(d=>{const b=BTN(d,()=>{f=d;fInp.value=d;},'sm');return b;})   ,{display:'flex',flexWrap:'wrap',gap:'4px',marginBottom:'8px'}),
+    ROW([fInp,BTN('Lancia',doRoll,'gold')],{gap:'6px',marginBottom:'8px'}),
+    resDiv,histDiv
+  ]);
+  showModal(box);
+}
+
+
+function showConditionModal(name){
+  const ed=C.conditionEdition||'2014';
+  const data=CONDITIONS[name];
+  if(!data)return;
+  const text=data[ed]||data['2014']||'Nessun dato disponibile.';
+  const box=CARD([
+    ROW([
+      mk('span',{style:{color:'var(--rl)',fontFamily:'var(--ft)',fontSize:'13px'}},[name]),
+      BTN('✕',closeModal,'ghost sm')
+    ],{justifyContent:'space-between',marginBottom:'10px'}),
+    mk('div',{style:{color:'var(--td)',fontSize:'11px',marginBottom:'8px'}},['Edizione '+ed]),
+    ...text.split('\n').map(line=>mk('div',{style:{color:'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',lineHeight:'1.7',paddingLeft:line.startsWith('•')?'4px':'0'}},[line]))
+  ]);
+  showModal(box);
+}
+
+function showSpellModal(name){
+  const db=lkS(name);
+  const cu=(C.csp||{})[name?.toLowerCase()]||null;
+  const data=cu||db;
+  let editing=!data;
+  let dr={...(cu||db||{it:name||'',lv:0,sc:'',ca:'A',ra:'',du:'',co:'',de:''})};
+
+  function renderSpellModal(){
+    const show=editing?dr:(cu||db||{});
+    const title=(show.it||name||'')+(show.lv===0?' (Trucchetto)':show.lv?' (Lv '+show.lv+')':'');
+    let content;
+    if(editing){
+      function mChkBox(checked,label,onChange){
+        const box=mk('span',{cls:'chkb'+(checked?' on':'')},checked?['✦']:[]);
+        box.addEventListener('click',()=>{const v=!box.classList.contains('on');box.classList.toggle('on',v);box.textContent=v?'✦':'';onChange(v);});
+        const w=mk('label',{style:{display:'flex',alignItems:'center',gap:'6px',cursor:'pointer'}});
+        w.appendChild(box);
+        w.appendChild(mk('span',{style:{color:'var(--td)',fontFamily:'var(--fb)',fontSize:'13px'}},[label]));
+        return w;
+      }
+      let compV=!!(dr.co&&dr.co.includes('V'));
+      let compS=!!(dr.co&&dr.co.includes('S'));
+      let compM=!!(dr.co&&dr.co.includes('M'));
+      function syncComponents(){dr.co=[compV?'V':'',compS?'S':'',compM?'M':''].filter(Boolean).join(',');}
+      const concChk=mChkBox(!!(dr.du&&dr.du.includes('Conc')),'Concentrazione',v=>{
+        if(v){if(!(dr.du||'').includes('Conc'))dr.du='Conc. 1 min';}
+        else{dr.du=(dr.du||'').replace(/Conc\.\s*/,'').trim()||'Istantanea';}
+      });
+      content=DIV([
+        DIV([LBL('Nome'),TI(dr.it||'',v=>{dr.it=v;})]),
+        GRID([
+          DIV([LBL('Livello'),SEL(String(dr.lv??0),[['0','Trucchetto'],['1','1°'],['2','2°'],['3','3°'],['4','4°'],['5','5°'],['6','6°'],['7','7°'],['8','8°'],['9','9°']],v=>{dr.lv=Number(v);},{width:'100%'})]),
+          DIV([LBL('Scuola'),SEL(dr.sc||'',[['','—'],['Abiurazione','Abiurazione'],['Ammaliamento','Ammaliamento'],['Divinazione','Divinazione'],['Evocazione','Evocazione'],['Illusione','Illusione'],['Incantamento','Incantamento'],['Invocazione','Invocazione'],['Necromanzia','Necromanzia'],['Trasmutazione','Trasmutazione']],v=>{dr.sc=v;},{width:'100%'})]),
+        ],'1fr 1fr',6),
+        DIV([LBL('Tipo Azione'),SEL(dr.ca||'A',[['A','Azione'],['AB','Azione Bonus'],['R','Reazione'],['special','Speciale']],v=>{dr.ca=v;},{width:'100%'})]),
+        concChk,
+        DIV([LBL('Durata'),TI(dr.du||'',v=>{dr.du=v;})]),
+        DIV([LBL('Gittata'),TI(dr.ra||'',v=>{dr.ra=v;})]),
+        DIV([LBL('Componenti'),ROW([
+          mChkBox(compV,'V',v=>{compV=v;syncComponents();}),
+          mChkBox(compS,'S',v=>{compS=v;syncComponents();}),
+          mChkBox(compM,'M',v=>{compM=v;syncComponents();}),
+        ],{gap:'16px'})]),
+        DIV([LBL('Descrizione'),TA(dr.de||'',v=>{dr.de=v;})]),
+        ROW([BTN('Salva',()=>{if(!C.csp)C.csp={};C.csp[name.toLowerCase()]={...dr};save();closeModal();},'gold'),BTN('Annulla',()=>{editing=false;renderSpellModal();},'')],{gap:'6px',marginTop:'8px'})
+      ],{display:'flex',flexDirection:'column',gap:'8px'});
+    } else {
+      const caMap={A:'Azione',AB:'Azione Bonus',R:'Reazione',special:'Speciale'};
+      const caCls={A:'cbA',AB:'cbAB',R:'cbR',special:'cbA'};
+      const isConc2=!!(show.du&&show.du.includes('Conc'));
+      // Build badge row: action + conc + components
+      const badgeRow=mk('div',{style:{display:'flex',gap:'6px',flexWrap:'wrap',marginBottom:'10px'}});
+      if(show.ca)badgeRow.appendChild(mk('span',{cls:caCls[show.ca]||'cbA'},[caMap[show.ca]||show.ca]));
+      if(isConc2)badgeRow.appendChild(mk('span',{style:{background:'rgba(26,58,107,0.3)',border:'1px solid var(--blue)',color:'var(--bluel)',borderRadius:'3px',padding:'0 5px',fontSize:'10px',fontFamily:'monospace'}},['C Concentrazione']));
+      if(show.co){show.co.split(',').map(c=>c.trim()).filter(Boolean).forEach(c=>{badgeRow.appendChild(mk('span',{style:{background:'rgba(90,62,27,0.2)',border:'1px solid var(--border)',color:'var(--td)',borderRadius:'3px',padding:'0 5px',fontSize:'10px',fontFamily:'monospace'}},[c]));});}
+      content=DIV([
+        badgeRow,
+        GRID([
+          show.sc&&DIV([LBL('Scuola'),mk('div',{style:{color:'var(--text)',fontSize:'13px'}},[show.sc])]),
+          show.ra&&DIV([LBL('Gittata'),mk('div',{style:{color:'var(--text)',fontSize:'13px'}},[show.ra])]),
+          show.du&&DIV([LBL('Durata'),mk('div',{style:{color:'var(--text)',fontSize:'13px'}},[show.du])]),
+        ].filter(Boolean),'1fr 1fr',6,{marginBottom:'10px'}),
+        mk('div',{style:{color:'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',lineHeight:'1.6'}},[show.de||'Nessuna descrizione.']),
+        BTN('✏ Modifica',()=>{dr={...show};editing=true;renderSpellModal();},'sm',{marginTop:'10px'})
+      ],{display:'flex',flexDirection:'column',gap:'6px'});
+    }
+    const box=CARD([
+      ROW([mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'12px'}},[title]),BTN('✕',closeModal,'ghost sm')],{justifyContent:'space-between',marginBottom:'10px'}),
+      content
+    ]);
+    showModal(box);
+  }
+  renderSpellModal();
+}
+
+function showMagicModal(idx){
+  const item=C.mi[idx];
+  if(!item)return;
+  // Open in edit mode if new item (no name yet)
+  let editing=!item.name;
+  let dr={...item};
+  const rarC={comune:'var(--text)',non_comune:'var(--greenl)',raro:'var(--bluel)','molto raro':'var(--purl)',leggendario:'var(--gl)'};
+
+  function renderMagicModal(){
+    const show=editing?dr:item;
+    let content;
+    if(editing){
+      // Build form fields - inputs don't cause re-render
+      const nameI=TI(dr.name||'',v=>{dr.name=v;},'Nome oggetto magico',{width:'100%'});
+      const rarS=SEL(dr.rarity||'',[['','—'],['comune','Comune'],['non_comune','Non comune'],['raro','Raro'],['molto raro','Molto raro'],['leggendario','Leggendario']],v=>{dr.rarity=v;},{width:'100%'});
+      const typeI=TI(dr.type||'',v=>{dr.type=v;},'Arma, Armatura, Oggetto meraviglioso...',{width:'100%'});
+      const descA=TA(dr.desc||'',v=>{dr.desc=v;},'Proprietà, effetti, cariche...',{width:'100%',minHeight:'80px'});
+      // Manual checkbox - does NOT call render(), just updates dr
+      const attBox=mk('span',{cls:'chkb'+(dr.requiresAttunement?' on':'')},dr.requiresAttunement?['✦']:[]);
+      attBox.addEventListener('click',()=>{
+        dr.requiresAttunement=!dr.requiresAttunement;
+        attBox.className='chkb'+(dr.requiresAttunement?' on':'');
+        attBox.textContent=dr.requiresAttunement?'✦':'';
+      });
+
+      content=DIV([
+        DIV([LBL('Nome'),nameI]),
+        DIV([LBL('Rarità'),rarS]),
+        DIV([LBL('Tipo'),typeI]),
+        ROW([attBox,mk('span',{style:{color:'var(--td)',fontSize:'12px'}},['Richiede Sintonizzazione'])],{gap:'6px',margin:'4px 0'}),
+        DIV([LBL('Descrizione / Effetti'),descA]),
+        ROW([
+          BTN('Salva',()=>{C.mi[idx]={...dr};save();closeModal();render();},'gold'),
+          BTN('Annulla',()=>{editing=false;renderMagicModal();},'')
+        ],{gap:'6px',marginTop:'8px'})
+      ],{display:'flex',flexDirection:'column',gap:'8px'});
+    } else {
+      const rarity=show.rarity||'';
+      // Manual toggle - updates C directly and re-renders modal inline
+      let attRow;
+      if(show.requiresAttunement){
+        const attBox=mk('span',{cls:'chkb'+(show.attuned?' on':'')},show.attuned?['✦']:[]);
+        const attLbl=mk('span',{style:{color:'var(--td)',fontSize:'12px'}},[show.attuned?'✦ Sintonizzato':'Non sintonizzato']);
+        attBox.addEventListener('click',()=>{
+          C.mi[idx].attuned=!C.mi[idx].attuned;save();
+          const isNowOn=C.mi[idx].attuned;
+          attBox.className='chkb'+(isNowOn?' on':'');
+          attBox.textContent=isNowOn?'✦':'';
+          attLbl.textContent=isNowOn?'✦ Sintonizzato':'Non sintonizzato';
+          // Update dot in main page without full render
+          render();
+        });
+        attRow=ROW([attBox,attLbl],{gap:'6px'});
+      } else {
+        attRow=mk('div',{style:{color:'var(--td)',fontSize:'12px'}},['Nessuna sintonizzazione richiesta']);
+      }
+
+      content=DIV([
+        rarity&&DIV([LBL('Rarità'),mk('span',{style:{color:rarC[rarity]||'var(--text)',fontSize:'13px',textTransform:'capitalize'}},[rarity.replace('_',' ')])]),
+        show.type&&DIV([LBL('Tipo'),mk('span',{style:{color:'var(--text)',fontSize:'13px'}},[show.type])]),
+        DIV([LBL('Sintonizzazione'),attRow]),
+        show.desc&&DIV([LBL('Descrizione'),mk('div',{style:{color:'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',lineHeight:'1.6'}},[show.desc])]),
+        ROW([
+          BTN('✏ Modifica',()=>{dr={...show};editing=true;renderMagicModal();},'sm'),
+          CHK(!!show.bagOfHolding,v=>{C.mi[idx].bagOfHolding=v;save();closeModal();render();}),
+          mk('span',{style:{color:'var(--td)',fontSize:'12px'}},['Bag of Holding'])
+        ],{gap:'8px',marginTop:'10px',flexWrap:'wrap'})
+      ].filter(Boolean),{display:'flex',flexDirection:'column',gap:'8px'});
+    }
+    const box=CARD([
+      ROW([mk('span',{style:{color:'var(--purl)',fontFamily:'var(--ft)',fontSize:'12px'}},['✨ '+(show.name||'Oggetto Magico')]),BTN('✕',closeModal,'ghost sm')],{justifyContent:'space-between',marginBottom:'10px'}),
+      content
+    ]);
+    box.classList.add('mpur');
+    showModal(box);
+  }
+  renderMagicModal();
+}
+
+// ══ PAGES ══
+
+function pgMain(){
+  const pb=C.prof||2;
+  const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
+  const SK=['str','dex','con','int','wis','cha'];
+  const SN={str:'For',dex:'Des',con:'Cos',int:'Int',wis:'Sag',cha:'Car'};
+  function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
+  const acT=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
+
+  const p=mk('div',{cls:'page'});
+
+  // Intestazione personaggio
+  const hCard=CARD([
+    TI(C.name||'',v=>{C.name=v;save();document.getElementById('hn').textContent=v||'Nuovo Personaggio';},'Nome Personaggio',{fontSize:'16px',fontFamily:'var(--ft)',color:'var(--gl)',background:'transparent',border:'none',borderBottom:'1px solid var(--border)',borderRadius:'0',marginBottom:'8px',width:'100%'}),
+    GRID([
+      DIV([LBL('Classe'),TI(C.cls||'',v=>{C.cls=v;save();},'',{fontSize:'12px'})]),
+      DIV([LBL('Livello'),NI(C.lv,v=>{C.lv=v;if(!C.profManual)C.prof=profByLevel(v);save();document.getElementById('hs').textContent=[C.cls,C.sub,v&&'Lv '+v].filter(Boolean).join(' · ');},1,20,{width:'100%'})]),
+      DIV([LBL('Sottoclasse'),TI(C.sub||'',v=>{C.sub=v;save();},'',{fontSize:'12px'})]),
+      DIV([LBL('Razza'),TI(C.race||'',v=>{C.race=v;save();},'',{fontSize:'12px'})]),
+      DIV([LBL('Background'),TI(C.bg||'',v=>{C.bg=v;save();},'',{fontSize:'12px'})]),
+      DIV([LBL('Allineamento'),TI(C.align||'',v=>{C.align=v;save();},'',{fontSize:'12px'})]),
+    ],'1fr 1fr 1fr',4),
+    ROW([
+      DIV([LBL('XP'),NI(C.xp,v=>{C.xp=v;save();},undefined,undefined,{width:'100%'})],{style:{flex:'1'}}),
+      DIV([LBL('Comp.'),(()=>{let t;const n=NI(C.prof,v=>{C.prof=v;save();clearTimeout(t);t=setTimeout(render,800);},undefined,undefined,{width:'100%'});return n;})()],{style:{flex:'1'}}),
+      DIV([LBL('Vel.'),NI(C.spd,v=>{C.spd=v;save();},undefined,undefined,{width:'100%'})],{style:{flex:'1'}}),
+      BTN('⚄',showDiceModal,'gold',{padding:'5px 10px'})
+    ],{marginTop:'6px',alignItems:'flex-end'})
+  ]);
+  p.appendChild(hCard);
+
+  // Caratteristiche
+  const statsGrid=GRID(SK.map(k=>{
+    const modDiv=mk('div',{style:{fontSize:'24px',color:'var(--gl)',fontFamily:'var(--ft)',cursor:'pointer',lineHeight:'1',textAlign:'center'}},[fm(S[k])]);
+    const numI=NI(C[k],v=>{C[k]=v;save();modDiv.textContent=fm(sm(v));},1,30,{width:'100%',fontSize:'12px',marginTop:'2px'});
+    modDiv.addEventListener('click',()=>showRoll('1d20'+fm(sm(C[k])),SN[k]));
+    const card=CARD([LBL(SN[k]),modDiv,numI],{textAlign:'center',padding:'8px'});
+    return card;
+  }),'repeat(3,1fr)',6);
+  p.appendChild(statsGrid);
+
+  // PF
+  const hpGrid=GRID([
+    CARD([LBL('PF Max'),NI(C.maxHp,v=>{C.maxHp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px'})],{textAlign:'center',padding:'8px'}),
+    CARD([LBL('PF Attuali'),(()=>{const ni=NI(C.hp,v=>{C.hp=v;save();ni.style.color=v<=0?'var(--rl)':v<(C.maxHp*.5)?'#e8a030':'var(--greenl)';},undefined,undefined,{width:'100%',fontSize:'18px',color:C.hp<=0?'var(--rl)':C.hp<C.maxHp*.5?'#e8a030':'var(--greenl)'});return ni;})()],{textAlign:'center',padding:'8px'}),
+    CARD([LBL('PF Temp.'),NI(C.thp,v=>{C.thp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px',color:'var(--bluel)'})],{textAlign:'center',padding:'8px'}),
+  ],'1fr 1fr 1fr',6);
+  p.appendChild(hpGrid);
+
+  // CA
+  const caCard=CARD([ROW([
+    DIV([LBL('CA'),mk('div',{id:'ac-total',style:{fontSize:'26px',color:'var(--gl)',fontFamily:'var(--ft)',textAlign:'center'}},[String(acT)]),LBL('Base',{marginTop:'2px'}),NI(C.bac,v=>{C.bac=v;save();const t=(v||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);const el=document.getElementById('ac-total');if(el)el.textContent=String(t);},undefined,undefined,{width:'100%'})],{style:{textAlign:'center',minWidth:'65px'}}),
+    DIV([
+      ROW([LBL('Mod CA'),BTN('+',()=>{C.acm.push({n:'Scudo',v:2,on:false});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'}),
+      ...(C.acm||[]).map((m,i)=>ROW([
+        CHK(!!m.on,v=>{C.acm[i].on=v;save();render();}),
+        TI(m.n||'',v=>{C.acm[i].n=v;save();},'',{flex:'1',fontSize:'12px'}),
+        NI(m.v||0,v=>{C.acm[i].v=v;save();const t=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);const el=document.getElementById('ac-total');if(el)el.textContent=String(t);},undefined,undefined,{width:'44px'}),
+        BTN('✕',()=>{C.acm.splice(i,1);save();render();},'ghost sm')
+      ],{marginTop:'4px'}))
+    ],{style:{flex:'1',marginLeft:'10px'}})
+  ],{alignItems:'flex-start'})]);
+  p.appendChild(caCard);
+
+  // Init / Passiva / Darkvision
+  const initGrid=GRID([
+    CARD([LBL('Iniziativa'),DIV([fm(S.dex)],{style:{fontSize:'20px',color:'var(--gold)',fontFamily:'var(--ft)',cursor:'pointer',textAlign:'center'}})],{textAlign:'center',padding:'8px'}),
+    CARD([LBL('Perc. Passiva'),DIV([String(10+skB('percezione'))],{style:{fontSize:'20px',color:'var(--gold)',fontFamily:'var(--ft)',textAlign:'center'}})],{textAlign:'center',padding:'8px'}),
+    CARD([LBL('Scurovisione'),NI(C.dkv,v=>{C.dkv=v;save();},undefined,undefined,{width:'100%'})],{textAlign:'center',padding:'8px'}),
+  ],'1fr 1fr 1fr',6);
+  initGrid.children[0].querySelector('div div').addEventListener('click',()=>showRoll('1d20'+fm(S.dex),'Iniziativa'));
+  p.appendChild(initGrid);
+
+  // Ispirazione
+  const insRow=ROW([LBL('Ispirazione',{marginBottom:'0'}),
+    DIV(Array.from({length:C.maxIns||1}).map((_,i)=>{
+      const d=mk('div',{cls:'ic2'+(i<(C.ins||0)?' on':'')});
+      if(i<(C.ins||0))d.textContent='✦';
+      d.addEventListener('click',()=>{C.ins=(C.ins||0)>i?i:i+1;save();render();});
+      return d;
+    }),{display:'flex',gap:'4px'}),
+    mk('span',{style:{color:'var(--td)',fontSize:'10px'}},['max']),
+    NI(C.maxIns||1,v=>{C.maxIns=v;save();},undefined,undefined,{width:'36px'})
+  ]);
+  p.appendChild(CARD([insRow]));
+
+  // Tiri morte
+  const dmCard=CARD([LBL('Tiri Salvezza Morte'),
+    ROW([
+      DIV([LBL('Successi',{color:'var(--greenl)'}),DIV([0,1,2].map(i=>{const d=mk('div',{cls:'dc'+(i<(C.ds||0)?' on':'')});d.addEventListener('click',()=>{C.ds=(C.ds||0)>i?i:i+1;save();render();});return d;}),{display:'flex',gap:'4px'})]),
+      DIV([LBL('Fallimenti',{color:'var(--rl)'}),DIV([0,1,2].map(i=>{const d=mk('div',{cls:'dc f'+(i<(C.df||0)?' on':'')});d.addEventListener('click',()=>{C.df=(C.df||0)>i?i:i+1;save();render();});return d;}),{display:'flex',gap:'4px'})])
+    ],{gap:'12px',marginTop:'4px'})
+  ]);
+  p.appendChild(dmCard);
+
+  // Dado vita
+  const hdCard=CARD([ROW([
+    DIV([LBL('Dadi Vita'),TI(C.hd||'',v=>{C.hd=v;save();},'1d8',{width:'60px'})]),
+    DIV([LBL('Rimanenti'),NI(C.hdr,v=>{C.hdr=v;save();},undefined,undefined,{width:'44px'})]),
+    BTN('Usa Dado',()=>{
+      const cm=sm(C.con);const r=roll((C.hd||'1d8')+(cm>=0?'+'+cm:String(cm)));
+      C.hp=Math.min(C.maxHp||0,(C.hp||0)+Math.max(1,r.t));
+      C.hdr=Math.max(0,(C.hdr||0)-1);save();render();
+    },'gold sm')
+  ])]);
+  p.appendChild(hdCard);
+
+  // Risorse
+  const resCard=CARD([
+    ROW([LBL('Risorse'),BTN('+ Risorsa',()=>{C.res.push({n:'',max:1,cur:1});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'}),
+    ...(C.res||[]).map((r,i)=>ROW([
+      TI(r.n||'',v=>{C.res[i].n=v;save();},'Channel Divinity...',{flex:'1',fontSize:'12px'}),
+      BTN('▼',()=>{C.res[i].cur=Math.max(0,(r.cur||0)-1);save();render();},'ghost sm'),
+      mk('span',{style:{color:'var(--text)',fontFamily:'var(--ft)',fontSize:'14px',minWidth:'16px',textAlign:'center'}},[String(r.cur||0)]),
+      mk('span',{style:{color:'var(--td)',fontSize:'11px'}},['/']),
+      NI(r.max||1,v=>{C.res[i].max=v;save();},undefined,undefined,{width:'36px'}),
+      BTN('▲',()=>{C.res[i].cur=Math.min(r.max||1,(r.cur||0)+1);save();render();},'ghost sm'),
+      BTN('✕',()=>{C.res.splice(i,1);save();render();},'ghost sm')
+    ],{marginTop:'6px'}))
+  ]);
+  p.appendChild(resCard);
+
+  // Effetti temporanei
+  const teCard=CARD([
+    ROW([LBL('Effetti Temporanei'),BTN('+ Effetto',()=>{C.te.push({n:'',d:'',dur:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'}),
+    ...(C.te||[]).map((ef,i)=>mk('div',{style:{marginTop:'6px',background:'rgba(74,32,128,.15)',border:'1px solid var(--pur)',borderRadius:'4px',padding:'6px'}},[
+      ROW([TI(ef.n||'',v=>{C.te[i].n=v;save();},'Scudo, Bless...',{flex:'1',fontSize:'12px'}),TI(ef.dur||'',v=>{C.te[i].dur=v;save();},'Durata',{width:'68px',fontSize:'11px'}),BTN('✕',()=>{C.te.splice(i,1);save();render();},'ghost sm')]),
+      TI(ef.d||'',v=>{C.te[i].d=v;save();},'Descrizione',{marginTop:'4px',fontSize:'11px',width:'100%'})
+    ]))
+  ]);
+  p.appendChild(teCard);
+
+  return p;
+}
+
+function pgSkills(){
+  const pb=C.prof||2;
+  const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
+  const SL={str:'FOR',dex:'DES',con:'COS',int:'INT',wis:'SAG',cha:'CAR'};
+  function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
+  const p=mk('div',{cls:'page'});
+
+  // Tiri salvezza
+  const svCard=CARD([LBL('Tiri Salvezza'),
+    GRID(['str','dex','con','int','wis','cha'].map(s=>ROW([
+      CHK(!!(C.sp||{})[s],v=>{C.sp[s]=v;save();render();}),
+      mk('span',{style:{color:'var(--td)',fontFamily:'var(--fb)',fontSize:'12px',flex:'1'}},[SL[s]]),
+      mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px',minWidth:'26px',textAlign:'right'}},[fm(S[s]+((C.sp||{})[s]?pb:0))])
+    ])),'1fr 1fr',4,{marginTop:'6px'})
+  ]);
+  p.appendChild(svCard);
+
+  // Abilità
+  const skList=mk('div',{style:{marginTop:'6px'}});
+  Object.entries(C.sk||{}).forEach(([name,s])=>{
+    const row=mk('div',{style:{display:'flex',alignItems:'center',gap:'4px',padding:'3px 0',borderBottom:'1px solid rgba(90,62,27,.2)'}});
+    row.appendChild(CHK(!!s.p,v=>{C.sk[name].p=v;save();render();}));
+    row.appendChild(CHK(!!s.e,v=>{C.sk[name].e=v;save();render();}));
+    const nm=mk('span',{style:{color:s.e?'var(--gl)':s.p?'var(--text)':'var(--td)',fontFamily:'var(--fb)',fontSize:'13px',flex:'1',textTransform:'capitalize'}});
+    nm.textContent=name+' ('+SL[s.s]+')';
+    row.appendChild(nm);
+    row.appendChild(mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px',minWidth:'26px',textAlign:'right'}},[fm(skB(name))]));
+    skList.appendChild(row);
+  });
+  p.appendChild(CARD([LBL('Abilità (1°✦=competenza, 2°✦=maestria)'),skList]));
+
+  // Competenze
+  p.appendChild(CARD([LBL('Lingue & Competenze'),
+    DIV([DIV([LBL('Lingue'),TA(C.lang||'',v=>{C.lang=v;save();})]),DIV([LBL('Armi'),TA(C.wprof||'',v=>{C.wprof=v;save();})]),DIV([LBL('Armature'),TA(C.aprof||'',v=>{C.aprof=v;save();})]),DIV([LBL('Strumenti'),TA(C.tprof||'',v=>{C.tprof=v;save();})])],{display:'flex',flexDirection:'column',gap:'6px',marginTop:'6px'})
+  ]));
+  return p;
+}
+
+function pgCombat(){
+  const pb=C.prof||2;
+  const S={str:sm(C.str),dex:sm(C.dex),con:sm(C.con),int:sm(C.int),wis:sm(C.wis),cha:sm(C.cha)};
+  const p=mk('div',{cls:'page'});
+  const rp=document.getElementById('rpop');
+
+  // ── Pannello difensivo (completamente modificabile, collegato alla pagina principale) ──
+  function skB(k){const s=C.sk[k];return(S[s.s]||0)+(s.e?pb*2:s.p?pb:0);}
+
+  function makeCombatPanel(){
+    const acT=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
+    const hpCol=C.hp<=0?'var(--rl)':C.hp<(C.maxHp||0)*.5?'#e8a030':'var(--greenl)';
+
+    // PF row
+    const hpRow=GRID([
+      mk('div',{style:{textAlign:'center',padding:'6px'}},[
+        LBL('PF Attuali'),
+        (()=>{const ni=NI(C.hp,v=>{C.hp=v;save();ni.style.color=v<=0?'var(--rl)':v<(C.maxHp||0)*.5?'#e8a030':'var(--greenl)';},undefined,undefined,{width:'100%',fontSize:'18px',color:hpCol});return ni;})()
+      ]),
+      mk('div',{style:{textAlign:'center',padding:'6px'}},[
+        LBL('PF Max'),
+        NI(C.maxHp||0,v=>{C.maxHp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px'})
+      ]),
+      mk('div',{style:{textAlign:'center',padding:'6px'}},[
+        LBL('PF Temp.'),
+        NI(C.thp||0,v=>{C.thp=v;save();},undefined,undefined,{width:'100%',fontSize:'18px',color:'var(--bluel)'})
+      ]),
+    ],'1fr 1fr 1fr',6);
+
+    // CA + init + speed row
+    const acModsDiv=mk('div',{style:{flex:'1',marginLeft:'10px'}});
+    function refreshAcMods(){
+      acModsDiv.innerHTML='';
+      acModsDiv.appendChild(ROW([LBL('Modificatori CA'),BTN('+',()=>{C.acm.push({n:'Scudo',v:2,on:false});save();refreshAcPanel();refreshAcMods();},'sm')],{justifyContent:'space-between',alignItems:'center'}));
+      (C.acm||[]).forEach((m,i)=>{
+        acModsDiv.appendChild(ROW([
+          CHK(!!m.on,v=>{C.acm[i].on=v;save();refreshAcPanel();}),
+          TI(m.n||'',v=>{C.acm[i].n=v;save();},'',{flex:'1',fontSize:'12px'}),
+          NI(m.v||0,v=>{C.acm[i].v=v;save();refreshAcPanel();},undefined,undefined,{width:'44px'}),
+          BTN('✕',()=>{C.acm.splice(i,1);save();refreshAcPanel();refreshAcMods();},'ghost sm')
+        ],{marginTop:'4px'}));
+      });
+    }
+
+    const acTotalEl=mk('div',{id:'cbt-ac',style:{fontSize:'28px',color:'var(--gl)',fontFamily:'var(--ft)',textAlign:'center'}},[String(acT)]);
+    function refreshAcPanel(){
+      const t=(C.bac||10)+(C.acm||[]).filter(m=>m.on).reduce((a,m)=>a+(Number(m.v)||0),0);
+      acTotalEl.textContent=String(t);
+    }
+
+    const caCol=mk('div',{style:{textAlign:'center',minWidth:'70px'}},[ LBL('CA Totale'), acTotalEl, LBL('Base',{marginTop:'2px'}), NI(C.bac||10,v=>{C.bac=v;save();refreshAcPanel();},undefined,undefined,{width:'100%'}) ]);
+
+    refreshAcMods();
+    const caRow=CARD([ROW([caCol, acModsDiv],{alignItems:'flex-start'})]);
+
+    // Iniziativa + velocità + passiva
+    const infoRow=GRID([
+      (()=>{
+        const initEl=mk('div',{style:{fontSize:'20px',color:'var(--gold)',fontFamily:'var(--ft)',cursor:'pointer',lineHeight:'1.2'}},[fm(S.dex)]);
+        initEl.addEventListener('click',()=>showRoll('1d20'+fm(S.dex),'Iniziativa'));
+        return mk('div',{style:{textAlign:'center',padding:'6px'}},[LBL('Iniziativa'),initEl]);
+      })(),
+      mk('div',{style:{textAlign:'center',padding:'6px'}},[
+        LBL('Velocità (m)'),
+        NI(C.spd||30,v=>{C.spd=v;save();},undefined,undefined,{width:'100%',fontSize:'18px'})
+      ]),
+      mk('div',{style:{textAlign:'center',padding:'6px'}},[
+        LBL('Perc. Passiva'),
+        mk('div',{style:{fontSize:'20px',color:'var(--td)',fontFamily:'var(--ft)',lineHeight:'1.2'}},[String(10+skB('percezione'))])
+      ]),
+    ],'1fr 1fr 1fr',6);
+    return [hpRow, caRow, CARD([infoRow])];
+  }
+
+  makeCombatPanel().forEach(el=>p.appendChild(el));
+  p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'4px 0 8px'}}));
+
+  function atkSection(list,key,title,isM){
+    const sec=mk('div');
+    const hdr=ROW([LBL(title,{color:isM?'var(--purl)':'var(--gold)'}),BTN('+ Aggiungi',()=>{C[key].push({n:'',stat:isM?'int':'str',pr:true,dmg:'1d6',dt:'',ex:0,cd:'',nt:''});save();render();},isM?'sm gold':'sm')],{justifyContent:'space-between',marginBottom:'4px'});
+    sec.appendChild(hdr);
+    (list||[]).forEach((a,i)=>{
+      const bon=(S[a.stat]||0)+(a.pr?pb:0)+(Number(a.ex)||0);
+      const card=CARD([
+        ROW([
+          TI(a.n||'',v=>{C[key][i].n=v;save();},'Nome attacco',{flex:'1',fontFamily:'var(--ft)',fontSize:'12px'}),
+          BTN('⚄',()=>{
+            const hit=roll('1d20'+fm(bon));const dmg=roll(a.dmg||'1d6');const cr=roll(a.cd||a.dmg||'1d6');
+            const isCrit=hit.r[0]===20;rp.innerHTML='';
+            rp.appendChild(mk('div',{style:{color:isCrit?'var(--gl)':'var(--td)',fontFamily:'var(--ft)',fontSize:'11px'}},[a.n+(isCrit?' ⭐ CRITICO!':'')]));
+            const rr=mk('div',{style:{display:'flex',gap:'10px',marginTop:'4px'}});
+            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},['Colpire']),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(hit.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+hit.r.join(',')+']'])],{style:{}}));
+            rr.appendChild(DIV([mk('div',{style:{color:'var(--td)',fontSize:'10px'}},[isCrit?'Crit':'Danni']),mk('div',{style:{color:'var(--rl)',fontFamily:'var(--ft)',fontSize:'20px'}},[String(isCrit?cr.t:dmg.t)]),mk('div',{style:{color:'var(--td)',fontSize:'9px'}},['['+dmg.r.join(',')+']'])],{style:{}}));
+            rp.appendChild(rr);rp.style.display='block';clearTimeout(rpt);rpt=setTimeout(()=>rp.style.display='none',5000);
+          },'gold sm'),
+          BTN('✕',()=>{C[key].splice(i,1);save();render();},'ghost sm')
+        ],{marginBottom:'4px'}),
+        GRID([
+          DIV([LBL('Scala'),STATSEL(a.stat||'str',v=>{C[key][i].stat=v;save();render();})]),
+          DIV([LBL('Extra'),(()=>{let t;const n=NI(a.ex||0,v=>{C[key][i].ex=v;save();clearTimeout(t);t=setTimeout(render,700);},undefined,undefined,{width:'100%'});return n;})()]),
+          DIV([LBL('Colpire'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'17px',paddingTop:'3px'}},[fm(bon)])]),
+          DIV([LBL('Danni'),TI(a.dmg||'',v=>{C[key][i].dmg=v;save();},'1d8',{})]),
+          DIV([LBL('Tipo'),TI(a.dt||'',v=>{C[key][i].dt=v;save();},'Perforanti',{})]),
+          DIV([LBL('Critico'),TI(a.cd||'',v=>{C[key][i].cd=v;save();},'2d8',{})])
+        ],'1fr 1fr 1fr',4),
+        ROW([CHK(!!a.pr,v=>{C[key][i].pr=v;save();render();},'Competenza'),TI(a.nt||'',v=>{C[key][i].nt=v;save();},'Note',{flex:'1',fontSize:'11px'})],{marginTop:'4px'})
+      ],{marginTop:'6px',padding:'8px'});
+      sec.appendChild(card);
+    });
+    return sec;
+  }
+  p.appendChild(atkSection(C.wa,'wa','⚔ Attacchi con Armi',false));
+  p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'4px 0'}}));
+  p.appendChild(atkSection(C.ma,'ma','⚡ Attacchi Magici',true));
+
+  // ── Condizioni ──
+  p.appendChild(mk('div',{style:{height:'1px',background:'linear-gradient(90deg,transparent,var(--border),transparent)',margin:'8px 0'}}));
+
+  function showConditionModal(name){
+    const ed=C.conditionEdition||'2014';
+    const data=CONDITIONS[name];
+    if(!data)return;
+    const text=data[ed]||'Nessuna informazione disponibile.';
+    const lines=text.split('\n');
+
+    const edBadge=mk('span',{style:{
+      background:ed==='2024'?'rgba(74,32,128,0.3)':'rgba(42,107,58,0.3)',
+      border:'1px solid '+(ed==='2024'?'var(--purl)':'var(--green)'),
+      color:ed==='2024'?'var(--purl)':'var(--greenl)',
+      borderRadius:'3px',padding:'0 6px',fontSize:'10px',fontFamily:'monospace'
+    }},[ed]);
+
+    const listEl=mk('ul',{style:{listStyle:'none',padding:'0',margin:'10px 0 0',display:'flex',flexDirection:'column',gap:'5px'}});
+    lines.forEach(line=>{
+      const clean=line.replace(/^[•\-]\s*/,'').trim();
+      if(!clean)return;
+      const li=mk('li',{style:{
+        display:'flex',gap:'6px',alignItems:'flex-start',
+        color:'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',lineHeight:'1.5'
+      }});
+      li.appendChild(mk('span',{style:{color:'var(--gold)',flexShrink:'0',marginTop:'1px'}},['•']));
+      li.appendChild(mk('span',null,[clean]));
+      listEl.appendChild(li);
+    });
+
+    const box=CARD([
+      ROW([
+        ROW([
+          mk('span',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'13px'}},[name]),
+          edBadge
+        ],{gap:'6px'}),
+        BTN('✕',closeModal,'ghost sm')
+      ],{justifyContent:'space-between',marginBottom:'8px'}),
+      listEl
+    ]);
+    showModal(box);
+  }
+
+  function buildConditionsCard(){
+    const condCard=CARD([]);
+    condCard.innerHTML='';
+
+    // Header row: titolo + toggle edizione
+    const ed=C.conditionEdition||'2014';
+    const hdrRow=ROW([
+      LBL('⚠ Condizioni Attive',{marginBottom:'0',color:'var(--rl)'}),
+      ROW([
+        mk('span',{style:{color:'var(--td)',fontSize:'11px'}},['Edizione:']),
+        (()=>{
+          const btn14=mk('button',{cls:'sm'+(ed==='2014'?' gold':''),style:{padding:'2px 8px',fontSize:'11px'}},[' 2014 ']);
+          const btn24=mk('button',{cls:'sm'+(ed==='2024'?' gold':''),style:{padding:'2px 8px',fontSize:'11px'}},[' 2024 ']);
+          btn14.addEventListener('click',()=>{C.conditionEdition='2014';save();const nc=buildConditionsCard();condCard.parentNode.replaceChild(nc,condCard);});
+          btn24.addEventListener('click',()=>{C.conditionEdition='2024';save();const nc=buildConditionsCard();condCard.parentNode.replaceChild(nc,condCard);});
+          return ROW([btn14,btn24],{gap:'4px'});
+        })()
+      ],{gap:'6px'})
+    ],{justifyContent:'space-between',alignItems:'center',marginBottom:'8px'});
+    condCard.appendChild(hdrRow);
+
+    // Grid di tutte le condizioni
+    const allConds=Object.keys(CONDITIONS);
+    const active=C.conditions||[];
+
+    const grid=mk('div',{style:{display:'flex',flexWrap:'wrap',gap:'5px',marginBottom:'8px'}});
+    allConds.forEach(name=>{
+      const isActive=active.includes(name);
+      const chip=mk('div',{style:{
+        display:'inline-flex',alignItems:'center',gap:'4px',
+        border:'1px solid '+(isActive?'var(--rl)':'var(--border)'),
+        borderRadius:'5px',padding:'3px 8px',cursor:'pointer',
+        background:isActive?'rgba(139,32,32,0.25)':'rgba(0,0,0,0.2)',
+        fontSize:'12px',fontFamily:'var(--fb)',
+        color:isActive?'var(--rl)':'var(--td)',
+        transition:'all 0.15s',userSelect:'none'
+      }});
+      if(isActive)chip.appendChild(mk('span',{style:{fontSize:'10px'}},['✦']));
+      chip.appendChild(mk('span',null,[name]));
+      chip.addEventListener('click',()=>{
+        const idx=(C.conditions||[]).indexOf(name);
+        if(idx>=0)C.conditions.splice(idx,1);
+        else{if(!C.conditions)C.conditions=[];C.conditions.push(name);}
+        save();
+        const nc=buildConditionsCard();
+        condCard.parentNode.replaceChild(nc,condCard);
+      });
+      grid.appendChild(chip);
+    });
+    condCard.appendChild(grid);
+
+    // Lista condizioni attive con click per dettagli
+    if(active.length>0){
+      const activeHdr=mk('div',{style:{color:'var(--td)',fontSize:'10px',fontFamily:'var(--ft)',letterSpacing:'1.5px',textTransform:'uppercase',marginBottom:'5px'}},['Attive — clicca per effetti']);
+      condCard.appendChild(activeHdr);
+      const activeList=mk('div',{style:{display:'flex',flexDirection:'column',gap:'4px'}});
+      active.forEach(name=>{
+        const row=mk('div',{style:{
+          display:'flex',alignItems:'center',gap:'6px',
+          background:'rgba(139,32,32,0.15)',border:'1px solid var(--rl)',
+          borderRadius:'5px',padding:'5px 8px',cursor:'pointer'
+        }});
+        row.appendChild(mk('span',{style:{color:'var(--rl)',fontSize:'14px'}},['⚠']));
+        row.appendChild(mk('span',{style:{color:'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',flex:'1'}},[name]));
+        row.appendChild(mk('span',{style:{color:'var(--td)',fontSize:'11px'}},['ℹ']));
+        row.addEventListener('click',()=>showConditionModal(name));
+        activeList.appendChild(row);
+      });
+      condCard.appendChild(activeList);
+    } else {
+      condCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',fontFamily:'var(--fb)',textAlign:'center',padding:'4px 0'}},['Nessuna condizione attiva']));
+    }
+
+    return condCard;
+  }
+
+  p.appendChild(buildConditionsCard());
+
+  return p;
+}
+
+function pgSpells(){
+  const spMod=sm(C[C.sca]||10);
+  const p=mk('div',{cls:'page'});
+  const caMap={A:'A',AB:'AB',R:'R'};
+  const caCls={A:'cbA',AB:'cbAB',R:'cbR'};
+
+  // Incantatore
+  const scaOpts=[['str','FOR'],['dex','DES'],['con','COS'],['int','INT'],['wis','SAG'],['cha','CAR']];
+  p.appendChild(CARD([
+    LBL('Incantatore'),
+    GRID([
+      SEL(C.sca,scaOpts,v=>{C.sca=v;save();render();},{width:'100%'}),
+      DIV([LBL('DC'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'19px',textAlign:'center'}},[String(8+(C.prof||2)+spMod)])]),
+      DIV([LBL('Att.'),mk('div',{style:{color:'var(--gl)',fontFamily:'var(--ft)',fontSize:'19px',textAlign:'center'}},[fm((C.prof||2)+spMod)])])
+    ],'1fr 1fr 1fr',6,{marginTop:'6px'})
+  ]));
+
+  // Slot
+  const slotDiv=mk('div',{style:{marginTop:'6px'}});
+  for(let l=1;l<=9;l++){
+    const sl=C.ss[l]||{m:0,u:0};
+    const dotsDiv=mk('div',{style:{display:'flex',gap:'3px'}});
+    // Build dots without render()
+    function buildDots(lv,el){
+      el.innerHTML='';
+      const s=C.ss[lv]||{m:0,u:0};
+      for(let i=0;i<s.m;i++){
+        const d=mk('div',{cls:'slotc'+(i<s.u?' used':'')});
+        const ii=i;
+        d.addEventListener('click',()=>{C.ss[lv].u=ii<C.ss[lv].u?ii:ii+1;save();buildDots(lv,el);});
+        el.appendChild(d);
+      }
+    }
+    buildDots(l,dotsDiv);
+    const lv=l;
+    const maxI=NI(sl.m,v=>{C.ss[lv]={...C.ss[lv],m:Number(v)};save();buildDots(lv,dotsDiv);},undefined,undefined,{width:'36px'});
+    slotDiv.appendChild(ROW([mk('span',{style:{color:'var(--td)',fontFamily:'var(--ft)',fontSize:'10px',width:'34px'}},['Lv '+l]),dotsDiv,maxI,mk('span',{style:{color:'var(--td)',fontSize:'10px'}},['max'])],{marginBottom:'4px'}));
+  }
+  p.appendChild(CARD([LBL('Slot Incantesimi'),slotDiv]));
+
+  // Aggiungi
+  let newLv=0,newN='';
+  const nInp=TI('',v=>{newN=v;},'Nome (IT o EN)',{flex:'1'});
+  const lvSel=mk('select',{style:{background:'var(--card)',border:'1px solid var(--border)',color:'var(--text)',borderRadius:'4px',padding:'4px',fontSize:'12px',width:'80px'}});
+  lvSel.appendChild(mk('option',{value:'0'},['Trucchetto']));
+  for(let l=1;l<=9;l++)lvSel.appendChild(mk('option',{value:String(l)},['Lv '+l]));
+  lvSel.addEventListener('change',ev=>newLv=Number(ev.target.value));
+  p.appendChild(CARD([
+    LBL('Aggiungi Incantesimo'),
+    ROW([lvSel,nInp,BTN('+',()=>{const n=nInp.value.trim();if(!n)return;if(newLv===0)C.cn.push({n});else C.sl[newLv].push({n,pr:false});nInp.value='';save();render();},'gold')],{marginTop:'4px'})
+  ]));
+
+  // Trucchetti
+  if((C.cn||[]).length>0){
+    const tCard=CARD([LBL('Trucchetti')]);
+    C.cn.forEach((s,i)=>{
+      const db=lkS(s.n);const cu=(C.csp||{})[(s.n||'').toLowerCase()]||null;const d=cu||db;
+      const row=mk('div',{cls:'srow'});
+      const nm=mk('span',{style:{flex:'1',color:d?'var(--gl)':'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',cursor:'pointer',textDecoration:d?'underline':'none',textDecorationStyle:'dotted'}});
+      nm.textContent=d?.it||s.n;
+      nm.addEventListener('click',()=>showSpellModal(s.n));
+      row.appendChild(nm);
+      if(d?.ca)row.appendChild(mk('span',{cls:caCls[d.ca]||'cbA'},[d.ca]));
+      if(d?.du&&d.du.includes('Conc'))row.appendChild(mk('span',{style:{background:'rgba(26,58,107,0.3)',border:'1px solid var(--blue)',color:'var(--bluel)',borderRadius:'3px',padding:'0 3px',fontSize:'9px',fontFamily:'monospace'}},['C']));
+      if(d?.co){d.co.split(',').map(c=>c.trim()).filter(Boolean).forEach(c=>{row.appendChild(mk('span',{style:{background:'rgba(90,62,27,0.2)',border:'1px solid var(--border)',color:'var(--td)',borderRadius:'3px',padding:'0 3px',fontSize:'9px',fontFamily:'monospace'}},[c]));});};
+      row.appendChild(BTN('✕',()=>{C.cn.splice(i,1);save();render();},'ghost sm'));
+      tCard.appendChild(row);
+    });
+    p.appendChild(tCard);
+  }
+
+  // Livelli
+  for(let l=1;l<=9;l++){
+    const list=C.sl[l]||[];
+    if(!list.length&&!(C.ss[l]?.m))continue;
+    const lCard=CARD([LBL('Livello '+l)]);
+    list.forEach((s,i)=>{
+      const db=lkS(s.n);const cu=(C.csp||{})[(s.n||'').toLowerCase()]||null;const d=cu||db;
+      const row=mk('div',{cls:'srow'});
+      const chkEl=CHK(!!s.pr,v=>{C.sl[l][i].pr=v;save();render();});
+      row.appendChild(chkEl);
+      const nm=mk('span',{style:{flex:'1',color:d?'var(--gl)':'var(--text)',fontFamily:'var(--fb)',fontSize:'13px',cursor:'pointer',textDecoration:d?'underline':'none',textDecorationStyle:'dotted'}});
+      nm.textContent=d?.it||s.n;
+      nm.addEventListener('click',()=>showSpellModal(s.n));
+      row.appendChild(nm);
+      if(d?.ca)row.appendChild(mk('span',{cls:caCls[d.ca]||'cbA'},[d.ca]));
+      if(d?.du&&d.du.includes('Conc'))row.appendChild(mk('span',{style:{background:'rgba(26,58,107,0.3)',border:'1px solid var(--blue)',color:'var(--bluel)',borderRadius:'3px',padding:'0 3px',fontSize:'9px',fontFamily:'monospace'}},['C']));
+      if(d?.co){d.co.split(',').map(c=>c.trim()).filter(Boolean).forEach(c=>{row.appendChild(mk('span',{style:{background:'rgba(90,62,27,0.2)',border:'1px solid var(--border)',color:'var(--td)',borderRadius:'3px',padding:'0 3px',fontSize:'9px',fontFamily:'monospace'}},[c]));});};
+      row.appendChild(BTN('✕',()=>{C.sl[l].splice(i,1);save();render();},'ghost sm'));
+      lCard.appendChild(row);
+    });
+    p.appendChild(lCard);
+  }
+  return p;
+}
+
+function pgInventory(){
+  const attCnt=(C.mi||[]).filter(i=>i.attuned===true).length;
+  const slots=C.ats||3;
+  const p=mk('div',{cls:'page'});
+
+  // Monete
+  const coinsCard=CARD([LBL('Monete'),
+    GRID([['pp','#a8a8d8'],['gp','var(--gold)'],['ep','#90a8b0'],['sp','#b8b8b8'],['cp','#c87040']].map(([k,col])=>
+      DIV([mk('div',{style:{color:col,fontFamily:'var(--ft)',fontSize:'11px',textAlign:'center'}},[{pp:'MP',gp:'MO',ep:'ME',sp:'MA',cp:'MR'}[k]||k.toUpperCase()]),NI((C.coins||{})[k]||0,v=>{C.coins[k]=v;save();},undefined,undefined,{width:'100%',color:col})])
+    ),'repeat(5,1fr)',4,{marginTop:'6px'})
+  ]);
+  p.appendChild(coinsCard);
+
+  // Sintonizzazione
+  const dotsDiv=mk('div',{style:{display:'flex',gap:'3px'}});
+  for(let i=0;i<slots;i++){
+    dotsDiv.appendChild(mk('div',{style:{width:'12px',height:'12px',borderRadius:'50%',border:'2px solid var(--gold)',background:i<attCnt?'rgba(201,168,76,.7)':'transparent'}}));
+  }
+  p.appendChild(CARD([ROW([LBL('Sintonizzazione',{marginBottom:'0'}),NI(slots,v=>{C.ats=v;save();},undefined,undefined,{width:'36px'}),dotsDiv,mk('span',{style:{color:attCnt>slots?'var(--rl)':'var(--greenl)',fontFamily:'var(--ft)',fontSize:'13px'}},[attCnt+'/'+slots])],{flexWrap:'wrap',gap:'8px'})]));
+
+  // Oggetti magici
+  const mgCard=mk('div',{cls:'card',style:{border:'1px solid var(--purl)'}});
+  mgCard.appendChild(mk('div',{style:{position:'absolute',top:'0',left:'0',right:'0',height:'2px',background:'linear-gradient(90deg,transparent,var(--purl),transparent)',borderRadius:'8px 8px 0 0'}}));
+  mgCard.appendChild(ROW([LBL('✨ Oggetti Magici',{color:'var(--purl)'}),BTN('+ Aggiungi',()=>{C.mi.push({name:'',desc:'',rarity:'',type:'',requiresAttunement:false,attuned:false,bagOfHolding:false});save();render();showMagicModal(C.mi.length-1);},'sm')],{justifyContent:'space-between',alignItems:'center'}));
+  (C.mi||[]).forEach((item,i)=>{
+    const rarC={comune:'var(--td)',non_comune:'var(--greenl)',raro:'var(--bluel)','molto raro':'var(--purl)',leggendario:'var(--gl)'};
+    const row=mk('div',{cls:'mgrow'});
+    if(item.requiresAttunement){
+      const d=mk('div',{cls:'dotc'+(item.attuned?' on':'')});
+      d.addEventListener('click',()=>{C.mi[i].attuned=!item.attuned;save();render();});
+      row.appendChild(d);
+    }else{row.appendChild(mk('div',{style:{width:'13px'}}));}
+    const nm=mk('span',{style:{flex:'1',color:'var(--purl)',fontFamily:'var(--fb)',fontSize:'13px',cursor:'pointer',textDecoration:'underline',textDecorationStyle:'dotted'}});
+    nm.textContent=item.name||'(senza nome)';
+    nm.addEventListener('click',()=>showMagicModal(i));
+    row.appendChild(nm);
+    if(item.rarity)row.appendChild(mk('span',{style:{color:rarC[item.rarity]||'var(--td)',fontSize:'11px'}},['●']));
+    if(item.attuned)row.appendChild(mk('span',{style:{color:'var(--gold)',fontSize:'10px'}},['✦']));
+    if(item.bagOfHolding)row.appendChild(mk('span',{style:{color:'var(--bluel)',fontSize:'9px'}},['BoH']));
+    row.appendChild(BTN('✕',()=>{C.mi.splice(i,1);save();render();},'ghost sm'));
+    mgCard.appendChild(row);
+  });
+  if(!(C.mi||[]).length)mgCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',textAlign:'center',padding:'8px'}},['Nessun oggetto — clicca + per aggiungere']));
+  p.appendChild(mgCard);
+
+  // Sezioni generali
+  function genSec(title,key,fields,def){
+    const card=CARD([ROW([LBL(title),BTN('+ Aggiungi',()=>{C[key].push({...def});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
+    (C[key]||[]).forEach((item,i)=>{
+      const irow=mk('div',{cls:'irow'});
+      const hrow=ROW([
+        TI(item.name||'',v=>{C[key][i].name=v;save();},'Nome',{flex:'1',fontSize:'12px'}),
+        fields.includes('qty')&&NI(item.qty||1,v=>{C[key][i].qty=v;save();},undefined,undefined,{width:'42px'}),
+        BTN(item._exp?'▲':'▼',()=>{C[key][i]._exp=!item._exp;save();render();},'ghost sm'),
+        BTN('✕',()=>{C[key].splice(i,1);save();render();},'ghost sm')
+      ].filter(Boolean));
+      irow.appendChild(hrow);
+      if(item._exp){
+        const exp=mk('div',{style:{marginTop:'5px',display:'flex',flexDirection:'column',gap:'4px'}});
+        if(fields.includes('weight'))exp.appendChild(DIV([LBL('Peso (kg)'),TI(item.weight||'',v=>{C[key][i].weight=v;save();},'kg',{})]));
+        exp.appendChild(DIV([LBL('Note'),TA(item.desc||'',v=>{C[key][i].desc=v;save();})]));
+        irow.appendChild(exp);
+      }
+      card.appendChild(irow);
+    });
+    return card;
+  }
+  p.appendChild(genSec('⚔ Armi','wea',['qty','weight'],{name:'',qty:1,weight:'',desc:''}));
+  p.appendChild(genSec('🛡 Armature','arm',['weight'],{name:'',weight:'',desc:''}));
+  p.appendChild(genSec('🧪 Consumabili','con_',['qty'],{name:'',qty:1,desc:''}));
+  p.appendChild(genSec('💎 Oggetti di Valore','val',['qty'],{name:'',qty:1,desc:''}));
+  p.appendChild(genSec('🎒 Inventario','gen',['qty','weight'],{name:'',qty:1,weight:'',desc:''}));
+  return p;
+}
+
+function pgPersonality(){
+  const p=mk('div',{cls:'page'});
+  const fields=[['Aspetto Fisico','app','Descrizione fisica...'],['Tratti della Personalità','pt',''],['Ideali','id',''],['Legami','bo',''],['Difetti','fl',''],['Storia & Background','bs','La storia del tuo personaggio...'],['Note Libere','nt','']];
+  fields.forEach(([label,key,ph])=>{
+    p.appendChild(CARD([LBL(label),TA(C[key]||'',v=>{C[key]=v;save();},ph,{width:'100%',minHeight:key==='bs'?'120px':'60px'})]));
+  });
+  return p;
+}
+
+function pgCombo(){
+  const p=mk('div',{cls:'page'});
+  if(!C.combos)C.combos=[];
+
+  // Collect all spells from spell page
+  function getAllSpells(){
+    const all=[];
+    (C.cn||[]).forEach(s=>{
+      const db=lkS(s.n);const cu=(C.csp||{})[s.n?.toLowerCase()]||null;const d=cu||db;
+      all.push({n:s.n,label:d?.it||s.n,lv:0,conc:!!(d?.du&&d.du.includes('Conc')),ca:d?.ca||''});
+    });
+    for(let l=1;l<=9;l++){
+      (C.sl[l]||[]).forEach(s=>{
+        const db=lkS(s.n);const cu=(C.csp||{})[s.n?.toLowerCase()]||null;const d=cu||db;
+        all.push({n:s.n,label:d?.it||s.n,lv:l,conc:!!(d?.du&&d.du.includes('Conc')),ca:d?.ca||''});
+      });
+    }
+    return all;
+  }
+
+  function hasConcentration(steps){
+    return steps.some(st=>st.type==='spell'&&st.conc);
+  }
+
+  function renderCombo(combo,ci){
+    const card=CARD([]);
+    // Header: nome combo + pulsanti
+    const isOpen=combo._open!==false; // default open
+    const toggleBtn=mk('span',{style:{color:'var(--td)',fontSize:'12px',cursor:'pointer',userSelect:'none',flexShrink:0}},[ isOpen?'▲':'▼' ]);
+    const nameI=TI(combo.name||'',v=>{C.combos[ci].name=v;save();},'Nome combo...',{flex:'1',fontFamily:'var(--ft)',fontSize:'14px',color:'var(--gl)',background:'transparent',border:'none',borderBottom:'1px solid var(--border)',borderRadius:'0'});
+    // Click on name or arrow to toggle
+    function toggleCombo(){C.combos[ci]._open=!isOpen;save();render();}
+    toggleBtn.addEventListener('click',toggleCombo);
+    card.appendChild(ROW([toggleBtn,nameI,BTN('✕',()=>{C.combos.splice(ci,1);save();render();},'ghost sm')],{marginBottom:'10px',gap:'6px'}));
+
+    // Steps
+    const stepsDiv=mk('div');
+    (combo.steps||[]).forEach((st,si)=>{
+      const stepEl=mk('div',{style:{background:'rgba(0,0,0,0.3)',border:'1px solid var(--border)',borderRadius:'6px',padding:'8px',marginBottom:'6px'}});
+
+      // Step header: numero + tipo + costo azione + riordina + elimina
+      const actCost=st.type==='spell'?(st.ca||'A'):st.actCost||'A';
+      const actColor={'A':'var(--greenl)','AB':'var(--bluel)','R':'var(--rl)','—':'var(--td)'}[actCost]||'var(--td)';
+      const actLabel={'A':'Azione','AB':'Az. Bonus','R':'Reazione','—':'—'}[actCost]||actCost;
+      const moveRow=ROW([
+        mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'11px',minWidth:'18px'}},[(si+1)+'.']),
+        mk('span',{style:{color:'var(--td)',fontSize:'11px',flex:'1'}},[st.type==='spell'?'🔮 Incantesimo':st.type==='action'?'⚔ Azione':'📝 Altro']),
+        mk('span',{style:{background:actColor==='var(--td)'?'transparent':'rgba(0,0,0,0.3)',border:'1px solid '+actColor,borderRadius:'3px',padding:'0 5px',fontSize:'10px',color:actColor,fontFamily:'monospace',flexShrink:0}},[actLabel]),
+        si>0&&BTN('↑',()=>{const tmp=combo.steps[si-1];C.combos[ci].steps[si-1]=st;C.combos[ci].steps[si]=tmp;save();render();},'ghost sm'),
+        si<combo.steps.length-1&&BTN('↓',()=>{const tmp=combo.steps[si+1];C.combos[ci].steps[si+1]=st;C.combos[ci].steps[si]=tmp;save();render();},'ghost sm'),
+        BTN('✕',()=>{C.combos[ci].steps.splice(si,1);save();render();},'ghost sm'),
+      ].filter(Boolean));
+      stepEl.appendChild(moveRow);
+
+      if(st.type==='spell'){
+        // Spell selector
+        const allSpells=getAllSpells();
+        const concAlready=combo.steps.slice(0,si).some(s=>s.type==='spell'&&s.conc);
+        const available=concAlready?allSpells.filter(s=>!s.conc):allSpells;
+
+        if(available.length===0){
+          stepEl.appendChild(mk('div',{style:{color:'var(--rl)',fontSize:'12px',marginTop:'6px'}},['⚠ Concentrazione già attiva — nessun altro incantesimo di concentrazione disponibile']));
+        } else {
+          const opts=[['','— Scegli incantesimo —'],...available.map(s=>[s.n,s.label+(s.lv===0?' (Trucchetto)':' (Lv '+s.lv+')')+(s.conc?' [C]':'')+(s.ca?' ['+s.ca+']':'')])];
+          const sel=SEL(st.spell||'',opts,v=>{
+            const sp=available.find(s=>s.n===v);
+            C.combos[ci].steps[si].spell=v;
+            C.combos[ci].steps[si].conc=sp?.conc||false;
+            C.combos[ci].steps[si].label=sp?.label||v;
+            save();render();
+          },{width:'100%',marginTop:'6px'});
+          stepEl.appendChild(sel);
+          // Show conc warning if this spell has conc
+          if(st.conc){
+            stepEl.appendChild(mk('div',{style:{color:'var(--bluel)',fontSize:'11px',marginTop:'4px'}},['🔵 Questo incantesimo richiede concentrazione']));
+          }
+        }
+      } else {
+        // Action cost selector for non-spell steps
+        const costSel=SEL(st.actCost||'A',[['A','Azione'],['AB','Azione Bonus'],['R','Reazione'],['—','Nessuna']],v=>{C.combos[ci].steps[si].actCost=v;save();render();},{width:'100%',marginTop:'6px'});
+        stepEl.appendChild(costSel);
+        const descI=TI(st.desc||'',v=>{C.combos[ci].steps[si].desc=v;save();},'Descrivi l\'azione...',{width:'100%',marginTop:'4px'});
+        stepEl.appendChild(descI);
+      }
+
+      // Note per lo step
+      const noteI=TI(st.note||'',v=>{C.combos[ci].steps[si].note=v;save();},'Note (opzionale)...',{width:'100%',marginTop:'4px',fontSize:'11px',color:'var(--td)'});
+      stepEl.appendChild(noteI);
+
+      stepsDiv.appendChild(stepEl);
+    });
+    if(isOpen){
+      card.appendChild(stepsDiv);
+
+      // Action summary warning
+      const steps=combo.steps||[];
+      const aCount=steps.filter(s=>(s.type==='spell'?(s.ca||'A'):s.actCost||'A')==='A').length;
+      const abCount=steps.filter(s=>(s.type==='spell'?(s.ca||'A'):s.actCost||'A')==='AB').length;
+      const rCount=steps.filter(s=>(s.type==='spell'?(s.ca||'A'):s.actCost||'A')==='R').length;
+      if(steps.length>0){
+        const warns=[];
+        if(aCount>1)warns.push('⚠ '+aCount+' Azioni (hai solo 1 per turno)');
+        if(abCount>1)warns.push('⚠ '+abCount+' Azioni Bonus (hai solo 1 per turno)');
+        if(rCount>1)warns.push('⚠ '+rCount+' Reazioni (hai solo 1 per round)');
+        const summary=[];
+        if(aCount)summary.push(aCount+'× Azione');
+        if(abCount)summary.push(abCount+'× Az. Bonus');
+        if(rCount)summary.push(rCount+'× Reazione');
+        const sumDiv=mk('div',{style:{marginTop:'8px',marginBottom:'4px',padding:'6px 8px',background:'rgba(0,0,0,0.3)',borderRadius:'4px'}});
+        sumDiv.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'11px'}},[summary.join(' · ')||'Nessuna azione']));
+        warns.forEach(w=>sumDiv.appendChild(mk('div',{style:{color:'var(--rl)',fontSize:'11px',marginTop:'2px'}},[w])));
+        card.appendChild(sumDiv);
+      }
+
+      // Add step buttons
+      card.appendChild(ROW([
+        BTN('+ Incantesimo',()=>{if(!C.combos[ci].steps)C.combos[ci].steps=[];C.combos[ci].steps.push({type:'spell',spell:'',label:'',conc:false,note:''});save();render();},'sm gold'),
+        BTN('+ Azione',()=>{if(!C.combos[ci].steps)C.combos[ci].steps=[];C.combos[ci].steps.push({type:'action',desc:'',note:''});save();render();},'sm'),
+        BTN('+ Altro',()=>{if(!C.combos[ci].steps)C.combos[ci].steps=[];C.combos[ci].steps.push({type:'other',desc:'',note:''});save();render();},'sm ghost'),
+      ],{gap:'6px',marginTop:'8px',flexWrap:'wrap'}));
+    } else {
+      // Collapsed: show step count summary
+      const cnt=(combo.steps||[]).length;
+      if(cnt>0)card.appendChild(mk('div',{style:{color:'var(--td)',fontSize:'11px',marginTop:'-4px'}},[cnt+' step'+(cnt!==1?'s':'')]));
+    }
+
+    return card;
+  }
+
+  // Header pagina
+  p.appendChild(ROW([
+    mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'14px'}},['⚡ Combo']),
+    BTN('+ Nuova Combo',()=>{C.combos.push({name:'',steps:[]});save();render();},'gold sm')
+  ],{justifyContent:'space-between',alignItems:'center',marginBottom:'4px'}));
+
+  if(!C.combos||C.combos.length===0){
+    p.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'13px',textAlign:'center',padding:'24px',fontFamily:'var(--fb)'}},[
+      'Nessuna combo — clicca + per crearne una.',mk('br'),'Una combo è una sequenza di azioni/incantesimi da eseguire in ordine.'
+    ]));
+  } else {
+    C.combos.forEach((combo,ci)=>p.appendChild(renderCombo(combo,ci)));
+  }
+
+  return p;
+}
+
+function pgWorld(){
+  const p=mk('div',{cls:'page'});
+
+  // NPC
+  const npcCard=CARD([ROW([LBL('👤 PNG Incontrati'),BTN('+ NPC',()=>{C.npcs.push({n:'',race:'',app:'',city:'',info:'',rel:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
+  (C.npcs||[]).forEach((npc,i)=>{
+    const irow=mk('div',{cls:'irow',style:{marginTop:'6px'}});
+    irow.appendChild(ROW([TI(npc.n||'',v=>{C.npcs[i].n=v;save();},'Nome NPC',{flex:'1',fontFamily:'var(--ft)',fontSize:'12px'}),BTN(npc._exp?'▲':'▼',()=>{C.npcs[i]._exp=!npc._exp;save();render();},'ghost sm'),BTN('✕',()=>{C.npcs.splice(i,1);save();render();},'ghost sm')]));
+    if(npc._exp){
+      const exp=mk('div',{style:{marginTop:'5px',display:'flex',flexDirection:'column',gap:'4px'}});
+      exp.appendChild(GRID([DIV([LBL('Razza'),TI(npc.race||'',v=>{C.npcs[i].race=v;save();})]),DIV([LBL('Città'),TI(npc.city||'',v=>{C.npcs[i].city=v;save();})])],'1fr 1fr',4));
+      exp.appendChild(DIV([LBL('Relazione'),TI(npc.rel||'',v=>{C.npcs[i].rel=v;save();},'Alleato, nemico...',{})]));
+      exp.appendChild(DIV([LBL('Aspetto'),TA(npc.app||'',v=>{C.npcs[i].app=v;save();})]));
+      exp.appendChild(DIV([LBL('Info'),TA(npc.info||'',v=>{C.npcs[i].info=v;save();})]));
+      irow.appendChild(exp);
+    }
+    npcCard.appendChild(irow);
+  });
+  if(!(C.npcs||[]).length)npcCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',textAlign:'center',padding:'8px'}},['Nessun PNG ancora']));
+  p.appendChild(npcCard);
+
+  // Luoghi
+  const locCard=CARD([ROW([LBL('🗺 Luoghi'),BTN('+ Luogo',()=>{C.locs.push({n:'',type:'',info:'',not:''});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
+  (C.locs||[]).forEach((loc,i)=>{
+    const irow=mk('div',{cls:'irow',style:{marginTop:'6px'}});
+    irow.appendChild(ROW([TI(loc.n||'',v=>{C.locs[i].n=v;save();},'Nome luogo',{flex:'1',fontFamily:'var(--ft)',fontSize:'12px'}),BTN(loc._exp?'▲':'▼',()=>{C.locs[i]._exp=!loc._exp;save();render();},'ghost sm'),BTN('✕',()=>{C.locs.splice(i,1);save();render();},'ghost sm')]));
+    if(loc._exp){
+      const exp=mk('div',{style:{marginTop:'5px',display:'flex',flexDirection:'column',gap:'4px'}});
+      exp.appendChild(DIV([LBL('Tipo'),TI(loc.type||'',v=>{C.locs[i].type=v;save();},'Città, dungeon...',{})]));
+      exp.appendChild(DIV([LBL('Persone di Rilievo'),TA(loc.not||'',v=>{C.locs[i].not=v;save();})]));
+      exp.appendChild(DIV([LBL('Info'),TA(loc.info||'',v=>{C.locs[i].info=v;save();})]));
+      irow.appendChild(exp);
+    }
+    locCard.appendChild(irow);
+  });
+  if(!(C.locs||[]).length)locCard.appendChild(mk('div',{style:{color:'var(--tk)',fontSize:'12px',textAlign:'center',padding:'8px'}},['Nessun luogo ancora']));
+  p.appendChild(locCard);
+  return p;
+}
+
+function pgHomebrew(){
+  const p=mk('div',{cls:'page'});
+  const hdr=ROW([mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px'}},['⚗ Sezioni Personalizzate']),BTN('+ Sezione',()=>{C.cs.push({t:'Nuova Sezione',c:''});save();render();},'gold sm')],{justifyContent:'space-between',alignItems:'center'});
+  p.appendChild(hdr);
+  (C.cs||[]).forEach((s,i)=>{
+    p.appendChild(CARD([
+      ROW([TI(s.t||'',v=>{C.cs[i].t=v;save();},'',{flex:'1',fontFamily:'var(--ft)',fontSize:'13px'}),BTN('✕',()=>{C.cs.splice(i,1);save();render();},'ghost sm')],{marginBottom:'6px'}),
+      TA(s.c||'',v=>{C.cs[i].c=v;save();},'Contenuto libero...',{width:'100%',minHeight:'70px'})
+    ]));
+  });
+
+  const trkCard=CARD([ROW([LBL('⏱ Tracker Attività'),BTN('+ Attività',()=>{C.ta.push({n:'',cur:0,goal:10});save();render();},'sm')],{justifyContent:'space-between',alignItems:'center'})]);
+  (C.ta||[]).forEach((a,i)=>{
+    const pct=Math.min(100,Math.round(((a.cur||0)/(a.goal||1))*100));
+    const trow=mk('div',{style:{marginTop:'8px'}});
+    trow.appendChild(ROW([TI(a.n||'',v=>{C.ta[i].n=v;save();},'Nome attività',{flex:'1',fontSize:'12px'}),BTN('✕',()=>{C.ta.splice(i,1);save();render();},'ghost sm')]));
+    const pbFill=mk('div',{cls:'pbf',style:{width:pct+'%'}});
+    const pctLbl=mk('div',{style:{textAlign:'right',color:'var(--td)',fontSize:'10px'}},[pct+'%']);
+    function updateBar(){const p2=Math.min(100,Math.round(((C.ta[i].cur||0)/(C.ta[i].goal||1))*100));pbFill.style.width=p2+'%';pctLbl.textContent=p2+'%';}
+    trow.appendChild(ROW([
+      BTN('−',()=>{C.ta[i].cur=Math.max(0,(C.ta[i].cur||0)-1);save();updateBar();},'sm'),
+      NI(a.cur||0,v=>{C.ta[i].cur=v;save();updateBar();},undefined,undefined,{width:'46px'}),
+      mk('span',{style:{color:'var(--td)',fontSize:'12px'}},['/']),
+      NI(a.goal||10,v=>{C.ta[i].goal=v;save();updateBar();},undefined,undefined,{width:'46px'}),
+      BTN('+',()=>{C.ta[i].cur=Math.min(C.ta[i].goal||10,(C.ta[i].cur||0)+1);save();updateBar();},'sm'),
+    ],{marginTop:'4px'}));
+    trow.appendChild(mk('div',{cls:'pb'},[pbFill]));
+    trow.appendChild(pctLbl);
+    trkCard.appendChild(trow);
+  });
+  p.appendChild(trkCard);
+  return p;
+}
+
+// ══ RENDER ══
+function updateHdr(){
+  document.getElementById('hn').textContent=C.name||'Nuovo Personaggio';
+  document.getElementById('hs').textContent=[C.cls,C.sub,C.lv&&'Lv '+C.lv].filter(Boolean).join(' · ');
+  const cur=PAGES.find(pg=>pg.id===PG);
+  document.getElementById('hp').textContent=cur?.tx||'';
+}
+function renderNav(){
+  const nav=document.getElementById('nav-inner');
+  nav.innerHTML='';
+  PAGES.forEach(pg=>{
+    const b=mk('button',{cls:'nb'+(PG===pg.id?' on':'')});
+    b.appendChild(mk('span',{cls:'ic'},[pg.ic]));
+    b.appendChild(mk('span',{cls:'tx'},[pg.tx]));
+    b.addEventListener('click',()=>{PG=pg.id;render();});
+    nav.appendChild(b);
+  });
+}
+function render(){
+  const ct=document.getElementById('content');
+  ct.innerHTML='';
+  let pg;
+  switch(PG){
+    case 'main':pg=pgMain();break;
+    case 'skills':pg=pgSkills();break;
+    case 'combat':pg=pgCombat();break;
+    case 'spells':pg=pgSpells();break;
+    case 'inventory':pg=pgInventory();break;
+    case 'personality':pg=pgPersonality();break;
+    case 'combo':pg=pgCombo();break;
+    case 'world':pg=pgWorld();break;
+    case 'homebrew':pg=pgHomebrew();break;
+    default:pg=pgMain();
+  }
+  ct.appendChild(pg);
+  updateHdr();
+  renderNav();
+}
+
+// ── EXPORT / IMPORT ──
+function doExport(){
+  saveNow();
+  const b=new Blob([JSON.stringify(C,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download=(C.name||'personaggio')+'_dnd.json';a.click();URL.revokeObjectURL(u);
+}
+function doImport(ev){
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{try{const d=JSON.parse(e.target.result);C={...JSON.parse(JSON.stringify(DEF)),...d};save();render();}catch{alert('File non valido');}};
+  r.readAsText(f);ev.target.value='';
+}
+
+
+const CONDITIONS={
+  "Accecato":{
+    "2014":"• Non può vedere, fallisce automaticamente le prove che richiedono la vista.\n• I tiri per colpire contro di lui hanno vantaggio.\n• I suoi tiri per colpire hanno svantaggio.",
+    "2024":"• Perde la condizione Vedente.\n• I tiri per colpire contro di lui hanno vantaggio.\n• I suoi tiri per colpire hanno svantaggio."
+  },
+  "Affascinato":{
+    "2014":"• Non può attaccare chi l'ha affascinato né prendere di mira intenzionalmente con incantesimi o effetti dannosi.\n• Chi l'ha affascinato ha vantaggio alle prove di caratteristica per interagire socialmente con lui.",
+    "2024":"• La creatura affascinante ha vantaggio alle prove di caratteristica per interagire socialmente.\n• Non può attaccare o bersagliare con incantesimi la creatura affascinante."
+  },
+  "Afferrato":{
+    "2014":"• La velocità diventa 0 e non può beneficiare di bonus alla velocità.\n• La condizione termina se chi afferra è incapacitato o se la creatura viene spostata fuori dalla portata.",
+    "2024":"• La velocità diventa 0.\n• Svantaggio ai tiri per colpire contro creature che non stanno afferrando.\n• La condizione termina se chi afferra è incapacitato."
+  },
+  "Assordato":{
+    "2014":"• Non può udire, fallisce automaticamente le prove che richiedono l'udito.",
+    "2024":"• Perde la condizione Udente.\n• Fallisce automaticamente le prove che richiedono l'udito."
+  },
+  "Avvelenato":{
+    "2014":"• Ha svantaggio ai tiri per colpire e alle prove di caratteristica.",
+    "2024":"• Ha svantaggio ai tiri per colpire e alle prove di caratteristica."
+  },
+  "Inabile":{
+    "2014":"• Non può compiere azioni né reazioni.",
+    "2024":"• Non può compiere azioni né reazioni."
+  },
+  "Intralciato":{
+    "2014":"• La velocità è dimezzata.\n• Ha svantaggio ai tiri per colpire e alle prove di Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.",
+    "2024":"• La velocità è dimezzata.\n• Ha svantaggio ai tiri per colpire e alle prove di Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio."
+  },
+  "Invisibile":{
+    "2014":"• Non può essere visto senza magia o sensi speciali.\n• Ai fini del nascondersi è considerato in zona fortemente oscurata.\n• I suoi tiri per colpire hanno vantaggio.\n• I tiri per colpire contro di lui hanno svantaggio.",
+    "2024":"• Non può essere visto senza magia o sensi speciali.\n• I suoi tiri per colpire hanno vantaggio.\n• I tiri per colpire contro di lui hanno svantaggio."
+  },
+  "Paralizzato":{
+    "2014":"• È inabile (no azioni né reazioni).\n• Non può muoversi né parlare.\n• Fallisce automaticamente i tiri salvezza di Forza e Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.\n• Qualsiasi colpo da entro 1,5m è un colpo critico.",
+    "2024":"• È inabile.\n• Non può muoversi né parlare.\n• Fallisce automaticamente i TS di Forza e Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.\n• Qualsiasi colpo da entro 1,5m è un colpo critico."
+  },
+  "Pietrificato":{
+    "2014":"• È trasformato in sostanza solida inanimata.\n• Il peso aumenta x10, cessa di invecchiare.\n• È inabile, non può muoversi né parlare.\n• Ignora le condizioni acquisite in questo stato.\n• Immunità ai danni da veleno e malattia.\n• Vantaggio ai TS di Forza e Destrezza; fallisce automaticamente TS di FOR/DES se già pietrificato.\n• I tiri per colpire contro di lui hanno vantaggio.",
+    "2024":"• Trasformato in materia solida inanimata.\n• È inabile.\n• Immunità ai danni da veleno e alla condizione Avvelenato.\n• I tiri per colpire contro di lui hanno vantaggio.\n• Fallisce automaticamente i TS di FOR e DES."
+  },
+  "Privo di sensi":{
+    "2014":"• È inabile, non può muoversi né parlare.\n• Lascia cadere ciò che tiene.\n• Fallisce automaticamente i TS di Forza e Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.\n• Qualsiasi colpo da entro 1,5m è un colpo critico.\n• Cade prono.",
+    "2024":"• È inabile.\n• Cade prono se in piedi.\n• Lascia cadere ciò che tiene.\n• Fallisce automaticamente i TS di FOR e DES.\n• I tiri per colpire contro di lui hanno vantaggio.\n• Colpo critico da entro 1,5m."
+  },
+  "Prono":{
+    "2014":"• Può muoversi solo strisciando, a meno che non si alzi (costa metà movimento).\n• Svantaggio ai tiri per colpire.\n• I tiri per colpire contro di lui hanno vantaggio se l'attaccante è entro 1,5m, altrimenti svantaggio.",
+    "2024":"• Può strisciare o alzarsi (costa metà movimento).\n• Svantaggio ai tiri per colpire.\n• Vantaggio ai tiri per colpire contro di lui da entro 1,5m; svantaggio da distanza maggiore."
+  },
+  "Spaventato":{
+    "2014":"• Svantaggio alle prove di caratteristica e ai tiri per colpire mentre la fonte della paura è nel suo campo visivo.\n• Non può avvicinarsi volontariamente alla fonte della sua paura.",
+    "2024":"• Svantaggio alle prove di caratteristica e ai tiri per colpire mentre vede la fonte.\n• Non può avvicinarsi volontariamente alla fonte."
+  },
+  "Stordito":{
+    "2014":"• È inabile, non può muoversi e può parlare solo in modo confuso.\n• Fallisce automaticamente i TS di Forza e Destrezza.\n• I tiri per colpire contro di lui hanno vantaggio.",
+    "2024":"• È inabile.\n• Non può muoversi.\n• Parla in modo confuso.\n• Fallisce automaticamente i TS di FOR e DES.\n• I tiri per colpire contro di lui hanno vantaggio."
+  },
+  "Indebolimento":{
+    "2014":"N/A — non esiste come condizione separata nel 2014 (vedi esaurimento e incantesimi specifici).",
+    "2024":"• Usata per rappresentare l'esaurimento o debolezza fisica.\n• Svantaggio ai tiri per colpire basati su Forza.\n• I tiri per colpire contro di lui basati su Forza hanno vantaggio."
+  },
+};
+
+// ── THEME ──
+function applyTheme(){
+  const light=localStorage.getItem('dnd-theme')==='light';
+  document.body.classList.toggle('light',light);
+  const btn=document.getElementById('theme-btn');
+  if(btn)btn.textContent=light?'🌙':'☀';
+}
+function toggleTheme(){
+  const light=localStorage.getItem('dnd-theme')==='light';
+  localStorage.setItem('dnd-theme',light?'dark':'light');
+  applyTheme();
+}
+
+// ── INIT ──
+load();applyTheme();render();
+</script>
+</body>
+</html>
