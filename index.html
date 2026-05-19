@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>Scheda D&D 2014</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -115,12 +116,20 @@ button.sm{font-size:11px;padding:2px 8px}
       <div id="hn" style="color:var(--gl);font-family:var(--ft);font-size:15px;line-height:1.2">Nuovo Personaggio</div>
       <div id="hs" style="color:var(--td);font-size:11px"></div>
     </div>
-    <div class="row" style="gap:4px">
+    <div class="row" style="gap:4px;align-items:center;flex-wrap:wrap">
+      <span id="sync-status" style="font-size:10px;display:none"></span>
       <button class="sm ghost" id="theme-btn" onclick="toggleTheme()">☀</button>
       <button class="sm ghost" onclick="doExport()">⬇ Export</button>
       <button class="sm ghost" onclick="document.getElementById('ifile').click()">⬆ Import</button>
       <input id="ifile" type="file" accept=".json" style="display:none;width:auto" onchange="doImport(event)"/>
-      <button class="sm ghost" onclick="if(confirm('Cancellare la scheda?')){resetChar();render()}">✦ Nuovo</button>
+      <!-- Mostrato se NON loggato -->
+      <button class="sm gold" id="login-btn" onclick="sbSignIn()">☁ Login</button>
+      <!-- Mostrato se LOGGATO (nascosto di default) -->
+      <div id="user-info" style="display:none;align-items:center;gap:4px" class="row">
+        <button class="sm gold" onclick="sbSwitchScheda()">⚔ Schede</button>
+        <span id="user-name" style="font-size:10px;color:var(--td);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+        <button class="sm ghost" onclick="sbSignOut()" style="font-size:10px;color:var(--td)">Esci</button>
+      </div>
     </div>
   </div>
   <div id="hp" style="color:var(--gold);font-family:var(--ft);font-size:10px;letter-spacing:2px;text-align:center;margin-top:2px"></div>
@@ -1715,6 +1724,8 @@ function render(){
   ct.appendChild(pg);
   updateHdr();
   renderNav();
+  // Notifica Supabase del cambiamento dati
+  if(typeof sbOnCharChange==='function') sbOnCharChange();
 }
 
 // ── EXPORT / IMPORT ──
@@ -1809,9 +1820,323 @@ function toggleTheme(){
 }
 
 // ── INIT ──
-load();applyTheme();render();
+load();applyTheme();
+// render() verrà chiamato da Supabase dopo il controllo auth
+// Se Supabase non è configurato, renderizza normalmente
+if(typeof sb === 'undefined') render();
 </script>
  
+
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              SUPABASE — CONFIGURAZIONE                       ║
+// ║  ⚠️  SOSTITUISCI I VALORI QUI SOTTO CON I TUOI!             ║
+// ╚══════════════════════════════════════════════════════════════╝
+const SUPABASE_URL = 'https://cxxxiobqgfjpiitqelzf.supabase.co';   // es: https://abc123xyz.supabase.co
+const SUPABASE_KEY = 'sb_publishable_pTbauTK629bSw9FG2qZJuw_dD_OUxt-';      // la chiave lunga che inizia con eyJ...
+
+// ── Variabili di stato ──
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let sbUser        = null;
+let sbSchedaId    = null;
+let sbSaveTimer   = null;
+const SB_MAX_SCHEDE = 10;
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              STATO SYNC NELL'HEADER                          ║
+// ╚══════════════════════════════════════════════════════════════╝
+function sbUpdateSync(status) {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  const map = {
+    saving:  { text: '⟳ Salvataggio...', color: 'var(--td)'    },
+    saved:   { text: '✓ Salvato',         color: 'var(--greenl)' },
+    error:   { text: '✗ Errore sync',     color: 'var(--rl)'    },
+    offline: { text: '⚡ Offline',         color: 'var(--gold)'  },
+  };
+  const s = map[status];
+  if (!s) { el.textContent = ''; return; }
+  el.textContent   = s.text;
+  el.style.color   = s.color;
+  el.style.display = 'inline';
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              SALVATAGGIO CLOUD                               ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbSaveToCloud() {
+  if (!sbUser || !sbSchedaId) return;
+  sbUpdateSync('saving');
+  const { error } = await sb.from('schede')
+    .update({
+      data:        C,
+      nome_scheda: C.name || 'Senza Nome',
+      updated_at:  new Date().toISOString(),
+    })
+    .eq('id',      sbSchedaId)
+    .eq('user_id', sbUser.id);
+  if (error) {
+    console.error('Errore salvataggio:', error);
+    sbUpdateSync('error');
+  } else {
+    sbUpdateSync('saved');
+    try { localStorage.setItem('dnd5_cloud_backup', JSON.stringify(C)); } catch(e) {}
+  }
+}
+
+// Chiamata da render() ad ogni aggiornamento dati
+function sbOnCharChange() {
+  // localStorage già gestito da save() dell'app originale
+  if (!sbUser || !sbSchedaId) return;
+  sbUpdateSync('saving');
+  clearTimeout(sbSaveTimer);
+  sbSaveTimer = setTimeout(() => sbSaveToCloud(), 1500);
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              SCHERMATA SELEZIONE PERSONAGGIO                 ║
+// ╚══════════════════════════════════════════════════════════════╝
+function sbShowCharSelect(schede) {
+  document.getElementById('nav').style.display = 'none';
+  const ct = document.getElementById('content');
+  ct.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'min-height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;padding:32px 16px 100px;';
+
+  wrap.innerHTML = `
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-family:var(--ft);font-size:20px;color:var(--gl);letter-spacing:2px">⚔ I Tuoi Personaggi</div>
+      <div style="color:var(--td);font-size:11px;margin-top:6px">${sbUser.email}</div>
+    </div>
+
+    <div id="sb-schede-list" style="width:100%;max-width:480px;display:flex;flex-direction:column;gap:10px">
+      ${schede.length === 0 ? `
+        <div style="text-align:center;color:var(--td);font-size:13px;padding:40px 0;line-height:1.8">
+          Nessun personaggio ancora.<br>Creane uno nuovo!
+        </div>
+      ` : schede.map(s => `
+        <div class="card" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;gap:12px;cursor:pointer;transition:border-color 0.2s"
+          onclick="sbOpenScheda('${s.id}')"
+          onmouseover="this.style.borderColor='var(--gl)'"
+          onmouseout="this.style.borderColor='var(--border)'">
+          <div style="flex:1;min-width:0">
+            <div style="font-family:var(--ft);color:var(--gl);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+              ${sbEsc(s.data?.name) || '— Senza Nome —'}
+            </div>
+            <div style="color:var(--td);font-size:11px;margin-top:3px">
+              ${sbEsc(s.data?.race)||''} ${sbEsc(s.data?.cls)||''}${s.data?.lv ? ' · Liv. '+s.data.lv : ''}
+            </div>
+            <div style="color:var(--tk);font-size:10px;margin-top:2px">
+              Modificato: ${new Date(s.updated_at).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+            <button class="sm gold" onclick="event.stopPropagation();sbOpenScheda('${s.id}')">Apri</button>
+            <button class="sm ghost" style="color:var(--rl);border-color:var(--red)"
+              onclick="event.stopPropagation();sbDeleteScheda('${s.id}',this)">Elimina</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${schede.length < SB_MAX_SCHEDE ? `
+      <button class="gold" style="margin-top:24px;padding:11px 32px;font-family:var(--ft);font-size:13px;letter-spacing:1.5px"
+        onclick="sbCreateScheda()">+ Nuovo Personaggio</button>
+      <div style="color:var(--tk);font-size:10px;margin-top:8px">${schede.length} / ${SB_MAX_SCHEDE} personaggi</div>
+    ` : `
+      <div style="color:var(--td);font-size:12px;margin-top:24px;text-align:center;max-width:280px;line-height:1.6">
+        Hai raggiunto il limite di <strong style="color:var(--gl)">${SB_MAX_SCHEDE}</strong> personaggi.<br>
+        Elimina una scheda per crearne una nuova.
+      </div>
+    `}
+
+    <button class="ghost" style="margin-top:20px;font-size:11px;color:var(--td)" onclick="sbSignOut()">
+      Esci dall'account
+    </button>
+  `;
+
+  ct.appendChild(wrap);
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              APRI UNA SCHEDA                                 ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbOpenScheda(schedaId) {
+  const ct = document.getElementById('content');
+  ct.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--td);font-family:var(--ft);font-size:13px;letter-spacing:1px">⟳ Caricamento...</div>`;
+
+  const { data, error } = await sb.from('schede').select('*').eq('id', schedaId).single();
+
+  if (error || !data) {
+    alert('Errore nel caricare la scheda. Riprova.');
+    sbLoadSchedeList();
+    return;
+  }
+
+  sbSchedaId = schedaId;
+
+  // Carica i dati nella variabile globale C dell'app
+  const savedData = data.data || {};
+  C = { ...JSON.parse(JSON.stringify(DEF)), ...savedData };
+
+  // Ripristina interfaccia normale
+  document.getElementById('nav').style.display = '';
+  ct.innerHTML = '';
+
+  render();
+  sbUpdateSync('saved');
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              CREA NUOVA SCHEDA                               ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbCreateScheda() {
+  reset(); // funzione originale dell'app
+
+  const { data, error } = await sb.from('schede')
+    .insert({ user_id: sbUser.id, nome_scheda: 'Nuovo Personaggio', data: C })
+    .select()
+    .single();
+
+  if (error) {
+    alert('Errore nella creazione: ' + error.message);
+    return;
+  }
+
+  sbSchedaId = data.id;
+  document.getElementById('nav').style.display = '';
+  document.getElementById('content').innerHTML = '';
+  render();
+  sbUpdateSync('saved');
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              ELIMINA SCHEDA                                  ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbDeleteScheda(schedaId, btn) {
+  if (!confirm('Eliminare questo personaggio?\nQuesta azione è irreversibile.')) return;
+  const orig = btn.textContent;
+  btn.textContent = '...';
+  btn.disabled = true;
+
+  const { error } = await sb.from('schede').delete().eq('id', schedaId);
+
+  if (error) {
+    alert('Errore nell\'eliminazione: ' + error.message);
+    btn.textContent = orig;
+    btn.disabled = false;
+    return;
+  }
+  sbLoadSchedeList();
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              CARICA LISTA SCHEDE                             ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbLoadSchedeList() {
+  sbSchedaId = null;
+  document.getElementById('nav').style.display = 'none';
+  document.getElementById('content').innerHTML = `
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--td);font-family:var(--ft);font-size:13px;letter-spacing:1px">
+      ⟳ Caricamento schede...
+    </div>`;
+
+  const { data, error } = await sb.from('schede')
+    .select('*')
+    .eq('user_id', sbUser.id)
+    .order('updated_at', { ascending: false });
+
+  if (error) { alert('Errore nel caricare le schede: ' + error.message); return; }
+  sbShowCharSelect(data || []);
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              CAMBIO SCHEDA DALL'HEADER                       ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbSwitchScheda() {
+  if (sbSchedaId) await sbSaveToCloud();
+  sbLoadSchedeList();
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              SCHERMATA LOGIN                                 ║
+// ╚══════════════════════════════════════════════════════════════╝
+function sbShowLogin() {
+  document.getElementById('nav').style.display = 'none';
+  document.getElementById('content').innerHTML = `
+    <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:32px 24px;text-align:center">
+      <div style="font-family:var(--ft);font-size:26px;color:var(--gl);letter-spacing:3px;line-height:1.4">⚔<br>D&amp;D Scheda</div>
+      <div style="color:var(--td);font-size:13px;max-width:280px;line-height:1.7">
+        Accedi per salvare i tuoi personaggi nel cloud e accedervi da qualsiasi dispositivo.
+      </div>
+      <button class="gold" style="padding:13px 36px;font-family:var(--ft);font-size:13px;letter-spacing:1.5px;margin-top:8px"
+        onclick="sbSignIn()">☁ Accedi con Google</button>
+      <div style="color:var(--tk);font-size:11px">I tuoi dati sono privati e accessibili solo da te.</div>
+    </div>`;
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              AUTH                                            ║
+// ╚══════════════════════════════════════════════════════════════╝
+async function sbSignIn() {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if (error) alert('Errore nel login: ' + error.message);
+}
+
+async function sbSignOut() {
+  if (sbSchedaId) await sbSaveToCloud();
+  await sb.auth.signOut();
+  sbUser     = null;
+  sbSchedaId = null;
+  location.reload();
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              UTILITY                                         ║
+// ╚══════════════════════════════════════════════════════════════╝
+function sbEsc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║              AVVIO — GESTISCE LA SESSIONE                    ║
+// ╚══════════════════════════════════════════════════════════════╝
+sb.auth.onAuthStateChange(async (event, session) => {
+  const loginBtn = document.getElementById('login-btn');
+  const userInfo = document.getElementById('user-info');
+  const userName = document.getElementById('user-name');
+  const syncEl   = document.getElementById('sync-status');
+
+  if (session?.user) {
+    // ── LOGGATO ──
+    sbUser = session.user;
+    if (loginBtn) loginBtn.style.display  = 'none';
+    if (userInfo) userInfo.style.display  = 'flex';
+    if (userName) userName.textContent    = sbUser.email.split('@')[0];
+    if (syncEl)   syncEl.style.display    = 'inline';
+    sbLoadSchedeList();
+  } else {
+    // ── NON LOGGATO ──
+    sbUser     = null;
+    sbSchedaId = null;
+    if (loginBtn) loginBtn.style.display  = 'inline-block';
+    if (userInfo) userInfo.style.display  = 'none';
+    if (syncEl)   syncEl.style.display    = 'none';
+    sbShowLogin();
+  }
+});
+
+// Salvataggio prima di chiudere la pagina
+window.addEventListener('beforeunload', () => {
+  if (sbUser && sbSchedaId) sbSaveToCloud();
+});
+</script>
+
     <!-- INSERISCI QUI IL FOOTER -->
     <footer class="footer-noemi">
         <p>
