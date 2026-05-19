@@ -146,6 +146,7 @@ const PAGES=[
   {id:'combat',ic:'⚔',tx:'Combattimento'},{id:'spells',ic:'✨',tx:'Incantesimi'},
   {id:'combo',ic:'⚡',tx:'Combo'},{id:'inventory',ic:'🎒',tx:'Inventario'},{id:'personality',ic:'🎭',tx:'Personalità'},
   {id:'diario',ic:'📓',tx:'Diario'},{id:'world',ic:'🗺',tx:'Mondo'},{id:'homebrew',ic:'⚗',tx:'Homebrew'},
+  {id:'settings',ic:'⚙',tx:'Impostazioni'},
 ];
 
 // ── SPELL DATABASES (SRD 2014 & 2024) ──
@@ -305,7 +306,9 @@ let C={};
 let PG='main';
 
 function reset(){C=JSON.parse(JSON.stringify(DEF));}
-function load(){try{const s=localStorage.getItem('dnd5');if(s){const d=JSON.parse(s);C={...JSON.parse(JSON.stringify(DEF)),...d};if(!C.sk||!C.sk.acrobazia){C.sk=JSON.parse(JSON.stringify(DEF.sk));}}else reset();}catch(e){reset();}}
+function load(){try{const s=localStorage.getItem('dnd5');if(s){const d=JSON.parse(s);C={...JSON.parse(JSON.stringify(DEF)),...d};if(!C.sk||!C.sk.acrobazia){C.sk=JSON.parse(JSON.stringify(DEF.sk));}}else reset();}catch(e){reset();}
+  if(C._lastPage&&PAGES.find(p=>p.id===C._lastPage))PG=C._lastPage;
+}
 let _saveT;
 function save(){clearTimeout(_saveT);_saveT=setTimeout(()=>{try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}},300);}
 function saveNow(){try{localStorage.setItem('dnd5',JSON.stringify(C));}catch(e){}}
@@ -812,18 +815,20 @@ function pgSkills(){
   const p=mk('div',{cls:'page'});
 
   // Tiri salvezza
+  if(!C.spBonus)C.spBonus={str:0,dex:0,con:0,int:0,wis:0,cha:0};
   const svCard=CARD([LBL('Tiri Salvezza'),
     GRID(['str','dex','con','int','wis','cha'].map(s=>ROW([
       CHK(!!(C.sp||{})[s],v=>{C.sp[s]=v;save();render();}),
       mk('span',{style:{color:'var(--td)',fontFamily:'var(--fb)',fontSize:'12px',flex:'1'}},[SL[s]]),
-      mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px',minWidth:'26px',textAlign:'right'}},[fm(S[s]+((C.sp||{})[s]?pb:0))])
+      NI((C.spBonus||{})[s]||0,v=>{if(!C.spBonus)C.spBonus={};C.spBonus[s]=v;save();render();},undefined,undefined,{width:'38px',fontSize:'11px',textAlign:'center',padding:'2px 2px',color:'var(--bluel)'}),
+      mk('span',{style:{color:'var(--gold)',fontFamily:'var(--ft)',fontSize:'13px',minWidth:'26px',textAlign:'right'}},[fm(S[s]+((C.sp||{})[s]?pb:0)+((C.spBonus||{})[s]||0))])
     ])),'1fr 1fr',4,{marginTop:'6px'})
   ]);
   p.appendChild(svCard);
 
   // Abilità
   const skList=mk('div',{style:{marginTop:'6px'}});
-  Object.entries(C.sk||{}).forEach(([name,s])=>{
+  Object.entries(C.sk||{}).sort(([a],[b])=>a.localeCompare(b,'it')).forEach(([name,s])=>{
     const row=mk('div',{style:{display:'flex',alignItems:'center',gap:'4px',padding:'3px 0',borderBottom:'1px solid rgba(90,62,27,.2)'}});
     row.appendChild(CHK(!!s.p,v=>{C.sk[name].p=v;save();render();}));
     row.appendChild(CHK(!!s.e,v=>{C.sk[name].e=v;save();render();}));
@@ -1348,7 +1353,8 @@ function pgInventory(){
     row.appendChild(nm);
     if(item.rarity)row.appendChild(mk('span',{style:{color:rarC[item.rarity]||'var(--td)',fontSize:'11px'}},['●']));
     if(item.attuned)row.appendChild(mk('span',{style:{color:'var(--gold)',fontSize:'10px'}},['✦']));
-    if(item.bagOfHolding)row.appendChild(mk('span',{style:{color:'var(--bluel)',fontSize:'10px'}},['🎒']));
+    if(item.bagOfHolding){const bagBtn=mk('span',{style:{color:'var(--bluel)',fontSize:'10px',cursor:'pointer',border:'1px solid var(--bluel)',borderRadius:'8px',padding:'0 4px'}},['🎒 Borsa']);bagBtn.title='Rimuovi da Borsa Conservante';bagBtn.addEventListener('click',()=>{C.mi[i].bagOfHolding=false;save();render();});row.appendChild(bagBtn);}
+    else{const bagBtn=mk('span',{style:{color:'var(--tk)',fontSize:'10px',cursor:'pointer',border:'1px solid var(--border)',borderRadius:'8px',padding:'0 4px'}},['🎒']);bagBtn.title='Metti nella Borsa Conservante';bagBtn.addEventListener('click',()=>{C.mi[i].bagOfHolding=true;save();render();});row.appendChild(bagBtn);}
     row.appendChild(BTN('✕',()=>{C.mi.splice(i,1);save();render();},'ghost sm'));
     mgCard.appendChild(row);
   });
@@ -1687,6 +1693,33 @@ function pgHomebrew(){
 }
 
 // ══ RENDER ══
+function pgSettings(){
+  const p=mk('div',{cls:'page'});
+  if(!C.hiddenPages)C.hiddenPages=[];
+  const optionalPages=['combo','diario','world','personality'];
+  const labels={combo:'⚡ Combo',diario:'📓 Diario',world:'🗺 Mondo',personality:'🎭 Personalità'};
+  const card=CARD([LBL('Pagine Visibili')]);
+  const desc=mk('div',{style:{color:'var(--td)',fontSize:'12px',marginBottom:'10px',lineHeight:'1.6'}});
+  desc.textContent='Attiva o disattiva le pagine opzionali. Le pagine disattivate non appariranno nella barra di navigazione.';
+  card.appendChild(desc);
+  optionalPages.forEach(id=>{
+    const isHidden=(C.hiddenPages||[]).includes(id);
+    const row=mk('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid rgba(90,62,27,.2)'}});
+    row.appendChild(mk('span',{style:{fontFamily:'var(--fb)',fontSize:'14px',color:'var(--text)'}},[labels[id]]));
+    const tog=mk('button',{cls:'sm '+(isHidden?'ghost':'gold'),style:{minWidth:'64px'}},[ isHidden?'Disattiva... no, Attiva':'Attiva']);
+    tog.textContent=isHidden?'Attiva':'Disattiva';
+    tog.addEventListener('click',()=>{
+      if(!C.hiddenPages)C.hiddenPages=[];
+      if(isHidden){C.hiddenPages=C.hiddenPages.filter(x=>x!==id);}
+      else{C.hiddenPages.push(id);if(PG===id){PG='main';C._lastPage='main';}}
+      save();render();
+    });
+    row.appendChild(tog);
+    card.appendChild(row);
+  });
+  p.appendChild(card);
+  return p;
+}
 function updateHdr(){
   document.getElementById('hn').textContent=C.name||'Nuovo Personaggio';
   document.getElementById('hs').textContent=[C.cls,C.sub,C.lv&&'Lv '+C.lv].filter(Boolean).join(' · ');
@@ -1696,11 +1729,12 @@ function updateHdr(){
 function renderNav(){
   const nav=document.getElementById('nav-inner');
   nav.innerHTML='';
-  PAGES.forEach(pg=>{
+  const hiddenPages=C.hiddenPages||[];
+  PAGES.filter(pg=>pg.id==='settings'||!hiddenPages.includes(pg.id)).forEach(pg=>{
     const b=mk('button',{cls:'nb'+(PG===pg.id?' on':'')});
     b.appendChild(mk('span',{cls:'ic'},[pg.ic]));
     b.appendChild(mk('span',{cls:'tx'},[pg.tx]));
-    b.addEventListener('click',()=>{PG=pg.id;render();});
+    b.addEventListener('click',()=>{PG=pg.id;C._lastPage=pg.id;save();render();});
     nav.appendChild(b);
   });
 }
@@ -1719,6 +1753,7 @@ function render(){
     case 'diario':pg=pgDiario();break;
     case 'world':pg=pgWorld();break;
     case 'homebrew':pg=pgHomebrew();break;
+    case 'settings':pg=pgSettings();break;
     default:pg=pgMain();
   }
   ct.appendChild(pg);
